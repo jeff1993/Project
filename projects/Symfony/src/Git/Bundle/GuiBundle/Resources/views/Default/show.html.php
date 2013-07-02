@@ -69,6 +69,9 @@ $con = mysql_connect("localhost", "root", "tucker24") or die("<p>Error connectin
 
 mysql_select_db("Test") or die("<p>Error selecting the database your-database-name: " . mysql_error() . "</p>");
 
+
+
+//shows each of the users that are assigned to the groups
 if ($_POST['step'] == 1)
 {
     $event = $_POST["mydropdown"];
@@ -87,9 +90,7 @@ if ($_POST['step'] == 1)
     
     $result = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "';");
          
-    echo" <form action='add' method='POST'> 
-      <input type='hidden' name='step' value='1' /> 
-      <input type ='hidden' name ='groupID'  id ='groupID' value ='".$event."'/>";
+ 
     echo "<table border='1'>
 <tr>
 <th>First Name</th>
@@ -105,21 +106,27 @@ if ($_POST['step'] == 1)
         $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "';");
         while ($row = mysql_fetch_array($username))
         {
+           echo" <form action='add' method='POST'> 
+      <input type='hidden' name='step' value='1' /> 
+      <input type ='hidden' name ='groupID'  id ='groupID' value ='".$group_id."'/>";
             echo "<tr>";
             echo "<td> {$row['first_name']} </td>";
             echo "<td> {$row['last_name']} </td>";
             echo "<td> {$row['username']} </td>";
             echo "<td> {$row['email']} </td>";
             echo "<td><input type='submit' name='delete' value='delete'/></td>";
+            echo " <input type ='hidden' name ='username'  id ='username' value ='{$row['username']}'/>";
             echo "</tr>";
-           
+             echo "</form>";
         }
     }
     
     echo "</table> </div>";
-    echo "</form>";
+  
 }
 
+
+//shows each of the groups that are assigned to each reposistory 
 if ($_POST['step'] == 2)
 {
   	$name      = $_REQUEST['groupdropdown'];

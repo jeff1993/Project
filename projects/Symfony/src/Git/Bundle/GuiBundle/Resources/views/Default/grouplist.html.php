@@ -145,7 +145,7 @@ Group Name: <input type="text" name="groupname"><br>
      <form action="show" method="POST"> 
       <input type='hidden' name='step' value='2' />    
     <div class="btn-group">
-  <button class="btn btn-primary" data-label-placement>Checked option</button>
+  <button class="btn btn-primary" data-label-placement>Check Users</button>
   <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
     <ul class="dropdown-menu text-center">
     <?php

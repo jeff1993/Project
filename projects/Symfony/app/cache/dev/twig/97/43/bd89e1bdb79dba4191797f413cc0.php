@@ -29,7 +29,7 @@ class __TwigTemplate_9743bd89e1bdb79dba4191797f413cc0 extends Twig_Template
     {
         // line 4
         echo "
-<h3> Successfully Added to Database</h3>
+<h3> Successfully Altered Database</h3>
 
 
 
