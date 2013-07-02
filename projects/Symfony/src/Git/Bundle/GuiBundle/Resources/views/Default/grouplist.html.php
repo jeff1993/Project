@@ -153,6 +153,7 @@ Group Name: <input type="text" name="groupname"><br>
 $user = "Select username from user";
 
 
+
 $query_resource = mysql_query($user);
 //Iterate over the results that you've gotten from the database
 while ($username = mysql_fetch_assoc($query_resource)) {

@@ -198,7 +198,95 @@ if(confirm("This Username already exists")) {
 }
 
 
+if ($_POST['step'] == 3) {
 
+
+  	$reponame     = $_REQUEST['submitted'];
+    $reposlash = str_replace('/', ' ', $reponame);
+    $reponame      = trim($reposlash);
+     
+    $groupname = $_REQUEST['groupName'];
+    $groupslash = str_replace('/', ' ', $groupname);
+    $groupname = trim($groupslash);
+   
+    
+    $num2= mysql_query("Select repo_id from repo WHERE name ='".$reponame."';");
+     while ($row1 = mysql_fetch_row($num2)) {
+   		$repo_id=$row1[0];
+    }
+	
+	
+	//$check =mysql_query("Select repoID from repo_management WHERE groupID ='".$group_id."';");
+			$read =0;
+   			$write=0;
+   			$manage=0;
+    foreach ($_POST['checkbox'] as $checkbox) {
+  
+
+    	 echo $checkbox;
+    	 echo $groupname;
+    	 
+        $sql = "Select group_id from groups WHERE name ='" . $groupname . "';";
+        $check  = mysql_query($sql);
+    	
+        while ($row1 = mysql_fetch_row($check)) {
+   		$group_id=$row1[0];
+   		echo $group_id;
+   		}
+   			
+   		
+   		 if ($checkbox === "read") {
+            $read = 1;
+            
+        }
+        if ($checkbox === "write") {
+            $write = 1;
+            
+        }
+        if ($checkbox === "manage") {
+            $manage = 1;
+            
+        }
+        
+   		
+
+   		
+   		$exists =mysql_query("Select * from repo_management where groupID='".$group_id."' and repoID='".$repo_id."';");
+   		
+   		if($row =mysql_fetch_array($exists)){
+
+
+   		 $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
+perm_write ='" . $write . "',
+perm_manage ='" . $manage . "'
+ WHERE groupID='" . $group_id . "' AND repoID ='".$repo_id."';";
+            $check = mysql_query($sql) or die(mysql_error());
+   		
+
+   		}
+   		
+   		else {
+   		echo $repo_id;
+   		
+   		$insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
+        
+        mysql_query($insert_sql) or die(mysql_error());
+   		
+   		
+   		echo "success";
+   		
+
+		}
+   			
+   		
+   		//Thinking about deleting from here down, because it doesn't make sense to alter, we just need to add if present and delete if not
+   		
+   		}
+   		
+   		echo " Alter success";  
+
+
+}
 
 
 ?>

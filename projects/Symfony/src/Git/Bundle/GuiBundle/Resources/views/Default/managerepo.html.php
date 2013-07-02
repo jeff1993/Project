@@ -93,8 +93,8 @@ if ($_POST['step'] == 2) {
    		echo $group_name;
     }
     	
-        echo "<form action='groupadd' method='POST'>
-	<input type='hidden' name='step' value='1' />
+        echo "<form action='add' method='POST'>
+	<input type='hidden' name='step' value='3' />
 	 <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
 	 <input type= 'hidden' name ='groupName' id =groupName' value=". $group_name."/>";
 	 
@@ -125,14 +125,14 @@ if ($_POST['step'] == 2) {
         {
             echo "	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage";
         }
-        echo "	<input type='checkbox' class='form' value='delete' name='checkbox[]' /> Delete";
+       
         echo "<input type='submit' name='Submit' value='Submit' /> </form>";
+        	echo "<input type='submit' name='Delete' value='Delete' /> </form> <br/>";
         
     }
    		
    
    		
-   		echo "success";
    		
 
    		}
