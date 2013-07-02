@@ -1,0 +1,29 @@
+Git\Bundle\GuiBundle\Entity\Groups:
+    type: entity
+    table: null
+    repositoryClass: Git\Bundle\GuiBundle\Entity\GroupsRepository
+    fields:
+        group_id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: '25'
+        permRead:
+            type: boolean
+            column: perm_read
+        permWrite:
+            type: boolean
+            column: perm_write
+        permManage:
+            type: boolean
+            column: perm_manage
+        permDelete:
+            type: boolean
+            column: perm_delete
+        ref_id:
+            type: integer
+            column: ref_id
+    lifecycleCallbacks: {  }

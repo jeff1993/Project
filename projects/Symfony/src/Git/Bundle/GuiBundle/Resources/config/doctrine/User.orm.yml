@@ -1,0 +1,28 @@
+Git\Bundle\GuiBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: Git\Bundle\GuiBundle\Entity\UserRepository
+    fields:
+        user_id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        username:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        firstName:
+            type: string
+            length: 255
+            column: first_name
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

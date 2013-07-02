@@ -1,0 +1,61 @@
+
+add:
+    pattern: /add
+    defaults: { _controller: GitGuiBundle:Default:add }
+    
+authorize:
+    pattern: /authorize
+    defaults: { _controller: GitGuiBundle:Default:authorize }
+    
+
+create:
+    pattern: /create
+    defaults: { _controller: GitGuiBundle:Default:create } 
+    
+group:
+    pattern: /group
+    defaults: { _controller: GitGuiBundle:Default:group }
+
+groupadd:
+    pattern: /groupadd
+    defaults: { _controller: GitGuiBundle:Default:groupadd }  
+    
+login:
+    pattern: /login
+    defaults:  { _controller: GitGuiBundle:Default:login }
+    
+login_check:
+    pattern: /login_check
+
+managerepo:
+    pattern: /managerepo
+    defaults: { _controller: GitGuiBundle:Default:managerepo }
+    
+repo:
+    pattern: /repo
+    defaults: { _controller: GitGuiBundle:Default:repo }
+     
+show:
+    pattern: /show
+    defaults: { _controller: GitGuiBundle:Default:show }
+
+submitted:
+    pattern: /submitted
+    defaults: { _controller: GitGuiBundle:Default:submitted }
+    
+user:
+    pattern: /user
+    defaults: { _controller: GitGuiBundle:Default:user }
+    
+_user_bundle:
+    resource: "@GitGuiBundle/Resources/config/routing.yml"
+
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
+    
+    
+    
+    
