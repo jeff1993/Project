@@ -201,6 +201,8 @@ if(confirm("This Username already exists")) {
 if ($_POST['step'] == 3) {
 
 
+
+
   	$reponame     = $_REQUEST['submitted'];
     $reposlash = str_replace('/', ' ', $reponame);
     $reponame      = trim($reposlash);
@@ -215,24 +217,35 @@ if ($_POST['step'] == 3) {
    		$repo_id=$row1[0];
     }
 	
-	
-	//$check =mysql_query("Select repoID from repo_management WHERE groupID ='".$group_id."';");
-			$read =0;
-   			$write=0;
-   			$manage=0;
-    foreach ($_POST['checkbox'] as $checkbox) {
-  
-
-    	 echo $checkbox;
-    	 echo $groupname;
-    	 
-        $sql = "Select group_id from groups WHERE name ='" . $groupname . "';";
+	 $sql = "Select group_id from groups WHERE name ='" . $groupname . "';";
         $check  = mysql_query($sql);
     	
         while ($row1 = mysql_fetch_row($check)) {
    		$group_id=$row1[0];
    		echo $group_id;
    		}
+	
+	//$check =mysql_query("Select repoID from repo_management WHERE groupID ='".$group_id."';");
+			$read =0;
+   			$write=0;
+   			$manage=0;
+   			
+   			
+   			if (isset($_POST['Delete'])) {
+  $delete_sql = "DELETE FROM repo_management WHERE groupID ='".$group_id."' and repoID ='".$repo_id."';";
+        mysql_query($delete_sql) or die(mysql_error());
+        
+        header("Location: submitted");
+        exit(); 
+}
+else {
+    foreach ($_POST['checkbox'] as $checkbox) {
+  
+
+    	 echo $checkbox;
+    	 echo $groupname;
+    	 
+       
    			
    		
    		 if ($checkbox === "read") {
@@ -285,8 +298,10 @@ perm_manage ='" . $manage . "'
    		
    		echo " Alter success";  
 
-
 }
+}
+
+
 
 
 ?>

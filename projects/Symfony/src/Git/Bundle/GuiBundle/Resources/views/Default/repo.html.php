@@ -141,10 +141,10 @@ while ($reponame = mysql_fetch_assoc($query_resource)) {
       
       </form>
       
-       <form action="managerepo" method="POST">
+       <form action="show" method="POST">
             <fieldset >
                <legend>Manage Repo</legend>  
-               <input type='hidden' name='step' value='2' /> 
+               <input type='hidden' name='step' value='3' /> 
                <select name="groupdropdown">
                
                <?php
