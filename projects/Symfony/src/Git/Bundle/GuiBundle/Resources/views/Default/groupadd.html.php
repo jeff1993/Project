@@ -82,9 +82,6 @@ if ($_POST['step'] == 2) {
         
         mysql_query($insert_sql) or die(mysql_error());
    		
-   		
-  
-   		
 
 		}
    			

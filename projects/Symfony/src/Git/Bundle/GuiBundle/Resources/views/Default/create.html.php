@@ -9,6 +9,7 @@
    $basedn = "DC=CORP,DC=AD,DC=TIMEINC,DC=com";
    
    $dsb = ldap_bind($ds, $newuser, $newpass);
+
    ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,11 @@
    </head>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
    <script src="js/bootstrap.js"></script>
+   <?php foreach ($view['assetic']->javascripts(
+    array('@GitGuiBundle/Resources/public/js/*')
+) as $url): ?>
+    <script type="text/javascript" src="<?php echo $view->escape($url) ?>"></script>
+<?php endforeach; ?>
    </head>
    <body>
       <div class="navbar">
@@ -71,6 +77,7 @@
                <br/> 
                <select name="mydropdown">
                <?php
+          
                   mysql_connect("localhost", 
                                 "root", "tucker24")
                     or die("<p>Error connecting to database: " . 

@@ -15,17 +15,17 @@ mysql_select_db("Test") or die("<p>Error selecting the database your-database-na
 
 //removes user from group
 if ($_POST['step'] == 1) {
-	
+
 	//gets the groupID, removes the slash, replaces it with a space, then removes the space.
 	$groupID      = $_POST['groupID'];
     $groupslash = str_replace('/', ' ', $groupID);
     $groupID      = trim($groupslash);
-	
-	
+
+
 	//recieves the username that you want to delete.
 	$username =$_REQUEST['username'];
 	echo $username;
-	
+
 	$userQuery= mysql_query("Select user_id from user where username ='".$username."';");
 	 while ($row = mysql_fetch_row($userQuery)) {
             $userID = $row[0];
@@ -37,7 +37,7 @@ if ($_POST['step'] == 1) {
         header("Location: submitted");
         exit(); 
         
-	
+
 }
 
 
@@ -216,7 +216,7 @@ if ($_POST['step'] == 3) {
      while ($row1 = mysql_fetch_row($num2)) {
    		$repo_id=$row1[0];
     }
-	
+
 	 $sql = "Select group_id from groups WHERE name ='" . $groupname . "';";
         $check  = mysql_query($sql);
     	
@@ -224,7 +224,7 @@ if ($_POST['step'] == 3) {
    		$group_id=$row1[0];
    		echo $group_id;
    		}
-	
+
 	//$check =mysql_query("Select repoID from repo_management WHERE groupID ='".$group_id."';");
 			$read =0;
    			$write=0;
@@ -305,4 +305,3 @@ perm_manage ='" . $manage . "'
 
 
 ?>
-  

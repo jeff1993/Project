@@ -31,8 +31,6 @@ $ds = ldap_connect("ldaps://corp.ad.timeinc.com:3269")
 
 		}
 
-
-//echo "hello";
 	 
 	if(isset($_POST['username']))//If a username has been submitted
 	{

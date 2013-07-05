@@ -29,8 +29,6 @@
 								<ul class="dropdown-menu">
 									<li><a href="user">Show All Users</a></li>
 									<li><a href="create">Create Users</a></li>
-									<li><a href="#">Link 3</a></li>
-									<li><a href="#">Link 4</a></li>
 								</ul>
 								
 							</li>
@@ -81,28 +79,16 @@ Group Name: <input type="text" name="groupname"><br>
 <select name="mydropdown">
 
 <?php
-
-  mysql_connect("localhost", 
-                "root", "tucker24")
-    or die("<p>Error connecting to database: " . 
-           mysql_error() . "</p>");
-
-  
-  mysql_select_db("Test")
-    or die("<p>Error selecting the database your-database-name: " .
-           mysql_error() . "</p>");
-  
-  $result = mysql_query("Select name from groups");
-
-  if (!$result) {
+mysql_connect("localhost", "root", "tucker24") or die("<p>Error connecting to database: " . mysql_error() . "</p>");
+mysql_select_db("Test") or die("<p>Error selecting the database your-database-name: " . mysql_error() . "</p>");
+$result = mysql_query("Select name from groups");
+if (!$result) {
     die("<p>Error in listing tables: " . mysql_error() . "</p>");
-  }
-
-  echo "<p>Tables in database:</p>";
-  while ($row = mysql_fetch_row($result)) {
-    echo "<option value ={$row[0]}>".$row[0]." </option>";
-  }
-
+}
+echo "<p>Tables in database:</p>";
+while ($row = mysql_fetch_row($result)) {
+    echo "<option value ={$row[0]}>" . $row[0] . " </option>";
+}
 ?>
 
 </select>
@@ -121,19 +107,15 @@ Group Name: <input type="text" name="groupname"><br>
                <select name="groupdropdown">
                
                <?php
-
-					$result = mysql_query("Select name from groups");
-
-					if (!$result) {
-   					 die("<p>Error in listing tables: " . mysql_error() . "</p>");
-						}
-
-						echo "<p>Tables in database:</p>";
-						while ($row = mysql_fetch_row($result)) {
-   							 echo "<option value ={$row[0]}>" . $row[0] . " </option>";
-								}
-
-									?>
+$result = mysql_query("Select name from groups");
+if (!$result) {
+    die("<p>Error in listing tables: " . mysql_error() . "</p>");
+}
+echo "<p>Tables in database:</p>";
+while ($row = mysql_fetch_row($result)) {
+    echo "<option value ={$row[0]}>" . $row[0] . " </option>";
+}
+?>
                 
               
                <br/>
@@ -149,19 +131,12 @@ Group Name: <input type="text" name="groupname"><br>
   <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
     <ul class="dropdown-menu text-center">
     <?php
-
-$user = "Select username from user";
-
-
-
+$user           = "Select username from user";
 $query_resource = mysql_query($user);
 //Iterate over the results that you've gotten from the database
 while ($username = mysql_fetch_assoc($query_resource)) {
-    
     echo " <li><input type='checkbox' id=" . $username['username'] . " name='user[]' value=" . $username['username'] . "><label for=" . $username['username'] . ">" . $username['username'] . "</label></li>";
-    
 }
-
 ?>
 
     </ul>
@@ -176,5 +151,4 @@ while ($username = mysql_fetch_assoc($query_resource)) {
 
 </body>
 </html>
-
 

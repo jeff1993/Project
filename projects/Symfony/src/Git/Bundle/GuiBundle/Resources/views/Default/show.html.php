@@ -239,8 +239,8 @@ if ($_POST['step'] == 3) {
 <th>Read</th>
 <th>Write</th>
 <th>Manage</th>
-<th> Remove?</th>
 <th> Update</th>
+<th> Remove?</th>
 </tr>";
    		    
    		    
@@ -298,6 +298,74 @@ if ($_POST['step'] == 3) {
    		
    		
 
+   		}
+   		if ($_POST['step'] == 4) {
+   		
+   			$name  = $_POST["username"];
+   			echo "<h1>".$name."</h1>";
+   		
+   		
+   		if (isset($_POST['delete'])){
+   		
+ 		 $delete_sql = "DELETE FROM user WHERE username='".$name."';";
+        mysql_query($delete_sql) or die(mysql_error());
+        
+        header("Location: submitted");
+        exit(); 
+   		
+   		
+   		
+   		}
+   		else {
+
+
+	$getUserID = mysql_query("SELECT user_id FROM user where username ='".$name."';");
+	while($row1 = mysql_fetch_row($getUserID)){
+		$userID = $row1[0];
+		echo $userID;
+	}
+	
+  $result = mysql_query("SELECT groupID FROM group_management where userID ='".$userID."';");
+  
+ 
+  
+  
+  if (!$result) {
+    die("<p>Error in listing users " . mysql_error() . "</p>");
+  }
+
+$size="span12 pagination-centered";
+
+echo"<div class='".$size."'>";
+
+  
+  echo "<table border='1'>
+<tr>
+<th>Group Name</th>
+</tr>";
+
+while($row = mysql_fetch_array($result))
+  {
+	
+	 $groupIDQuery = mysql_query("Select name from groups where group_id ='".$row['groupID']."';");
+	 
+	 while ($row2 =mysql_fetch_row($groupIDQuery)){
+	 		$groupName = $row2[0];
+	   echo "<tr>";
+  echo "<td>".$groupName." </td>" ;
+
+  echo "</tr>";
+	 }
+
+
+  }
+echo "</table> </div>";
+   		
+   		
+   		}
+   		
+   		
+   		
    		}
 
 
