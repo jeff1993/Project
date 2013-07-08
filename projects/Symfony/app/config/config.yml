@@ -61,8 +61,8 @@ assetic:
             output: js/jquery.js
     filters:
       less:
-            node:       /usr/local/bin/node
-            node_paths: [/usr/local/lib/node_modules]
+            node:       /Applications/apache2/htdocs
+            node_paths: [/Applications/apache2/htdocs]
             apply_to:   "\.less$"
     
       cssrewrite: ~

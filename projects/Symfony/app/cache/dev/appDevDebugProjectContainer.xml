@@ -398,9 +398,9 @@
     <parameter key="assetic.ruby.bin">/Users/jsimpson1271/Applications/ruby/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/Users/jsimpson1271/Applications/ruby/bin/sass</parameter>
     <parameter key="assetic.filter.less.class">Assetic\Filter\LessFilter</parameter>
-    <parameter key="assetic.filter.less.node">/usr/local/bin/node</parameter>
+    <parameter key="assetic.filter.less.node">/Applications/apache2/htdocs</parameter>
     <parameter key="assetic.filter.less.node_paths" type="collection">
-      <parameter>/usr/local/lib/node_modules</parameter>
+      <parameter>/Applications/apache2/htdocs</parameter>
     </parameter>
     <parameter key="assetic.filter.less.timeout">null</parameter>
     <parameter key="assetic.filter.less.compress">null</parameter>
@@ -1623,7 +1623,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>51d72e821d13e</argument>
+            <argument>51db028890fc9</argument>
           </service>
         </argument>
       </argument>
@@ -1884,7 +1884,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>51d72e821d13e</argument>
+            <argument>51db028890fc9</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -2327,9 +2327,9 @@
     </service>
     <service id="assetic.filter.less" class="Assetic\Filter\LessFilter">
       <tag name="assetic.filter" alias="less"/>
-      <argument>/usr/local/bin/node</argument>
+      <argument>/Applications/apache2/htdocs</argument>
       <argument type="collection">
-        <argument>/usr/local/lib/node_modules</argument>
+        <argument>/Applications/apache2/htdocs</argument>
       </argument>
       <call method="setTimeout">
         <argument>null</argument>

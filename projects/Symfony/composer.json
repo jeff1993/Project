@@ -21,6 +21,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "braincrafted/bootstrap-bundle": "1.4.2",
         "twitter/bootstrap": "2.3.*",
+        "leafo/lessphp": "*",
         "incenteev/composer-parameter-handler": "~2.0"
     },
     "scripts": {

@@ -20,11 +20,16 @@
    </head>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
    <script src="js/bootstrap.js"></script>
-   <?php foreach ($view['assetic']->javascripts(
-    array('@GitGuiBundle/Resources/public/js/*')
-) as $url): ?>
-    <script type="text/javascript" src="<?php echo $view->escape($url) ?>"></script>
-<?php endforeach; ?>
+<script src="<?php echo $view['assets']->getUrl('js/jQuery.dualListBox-1.3.js') ?>" type="text/javascript" ></script>
+<script language="javascript" type="text/javascript">
+
+        $(function() {
+
+            $.configureBoxes();
+
+        });
+
+    </script>
    </head>
    <body>
       <div class="navbar">
@@ -106,5 +111,130 @@
             </fieldset>
          </form>
       </div>
+      
+      
+       <form name="form1" method="post" action="DLBPlugin.aspx" id="form1">
+
+<div>
+
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTk5MjI0ODUwOWRkJySmk0TGHOhSY+d9BU9NHeCKW6o=" />
+
+</div>
+
+
+
+    <div>
+
+    <table>
+
+            <tr>
+
+                <td>
+
+                        Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
+
+                        <select id="box1View" multiple="multiple" style="height:500px;width:300px;">
+                        
+                        
+                        <?php
+                        $result = mysql_query("SELECT * FROM user;");
+                        while($row = mysql_fetch_array($result)){
+                        echo "<option value=".$row['username']."> ".$row['username']."</option>";
+                        
+                        }
+                        
+                        
+                        ?>
+
+
+
+                        </select><br/>
+
+                         <span id="box1Counter" class="countLabel"></span>
+
+                       <select id="box1Storage">
+
+                        </select>
+
+                </td>
+
+                <td>
+
+                    <button id="to2" type="button">&nbsp;>&nbsp;</button>
+
+                    <button id="allTo2" type="button">&nbsp;>>&nbsp;</button>
+
+                    <button id="allTo1" type="button">&nbsp;<<&nbsp;</button>
+
+                    <button id="to1" type="button">&nbsp;<&nbsp;</button>
+
+                </td>
+
+                <td>
+
+                    Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
+
+                    <select id="box2View" multiple="multiple" style="height:500px;width:300px;">
+
+                    </select><br/>
+
+                    <span id="box2Counter" class="countLabel"></span>
+
+                    <select id="box2Storage">
+
+                    </select>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+    
+    <input type="submit" value="Submit" />
+
+    </form>
+    <?php
+  $result = mysql_query("SELECT * FROM user;");
+  
+  $show =  "show";
+
+  if (!$result) {
+    die("<p>Error in listing users " . mysql_error() . "</p>");
+  }
+
+$size="span12 pagination-centered";
+
+echo"<div class='".$size."'>";
+
+  
+  echo "<table border='1'>
+<tr>
+<th>First Name</th>
+<th>Last Name</th>
+<th>User Name</th>
+<th>Email </th>
+<th>View </th>
+<th>Delete?</th>
+</tr>";
+
+while($row = mysql_fetch_array($result))
+  {
+  echo" <form action='show' method='POST'> 
+      <input type='hidden' name='step' value='4' /> 
+      <input type ='hidden' name ='username'  id ='username' value ='".$row['username']."'/>";
+  echo "<tr>";
+  echo "<td> {$row['first_name']} </td>" ;
+  echo "<td> {$row['last_name']} </td>";
+  echo "<td> {$row['username']} </a> </td>";
+  echo "<td> {$row['email']} </td>";
+  echo "<td><input type='submit' name='view' value='view'/></td>";
+  echo "<td><input type='submit' name='delete' value='delete'/></td>";
+  echo "</tr>";
+  echo "</form>";
+  }
+echo "</table> </div>";
+?>
    </body>
 </html>
