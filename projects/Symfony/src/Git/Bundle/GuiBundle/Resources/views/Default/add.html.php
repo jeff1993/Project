@@ -17,31 +17,31 @@ mysql_select_db("Test") or die("<p>Error selecting the database your-database-na
 if ($_POST['step'] == 1) {
 
 	//gets the groupID, removes the slash, replaces it with a space, then removes the space.
-	$groupID      = $_POST['groupID'];
+	$groupID      = $_POST['groupname'];
     $groupslash = str_replace('/', ' ', $groupID);
     $groupID      = trim($groupslash);
-
+		
+		echo $groupID;
 
 	//recieves the username that you want to delete.
-	$username =$_REQUEST['username'];
-	echo $username;
+	
+       
+       
+       
+       
+       
+   foreach ($_POST['box2View'] as $checkbox) {
+  
+        $reposlash  = $checkbox;
+   		$groupname = str_replace('/', ' ', $reposlash);
+    	$checkbox = trim($groupname);
+    	 echo $checkbox;
 
-	$userQuery= mysql_query("Select user_id from user where username ='".$username."';");
-	 while ($row = mysql_fetch_row($userQuery)) {
-            $userID = $row[0];
-        }
-        
-        $delete_sql = "DELETE FROM group_management WHERE groupID ='".$groupID."' and userID ='".$userID."';";
-        mysql_query($delete_sql) or die(mysql_error());
-        
-        header("Location: submitted");
-        exit(); 
-        
 
 }
 
 
-
+}
 
 
 //creates a new user

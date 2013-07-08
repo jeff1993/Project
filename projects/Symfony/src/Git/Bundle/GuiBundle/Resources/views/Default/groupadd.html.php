@@ -9,29 +9,12 @@ mysql_select_db("Test") or die("<p>Error selecting the database your-database-na
 
 
 if ($_POST['step'] == 1) {
-    $name      = $_REQUEST['groupname'];
+    $name      = $_REQUEST['groupdropdown'];
     $groupname = str_replace('/', ' ', $name);
     $name      = trim($groupname);
 
-        
- 	$search =mysql_query("Select group_id from groups where name ='".$name."';");
- 	 if ( mysql_fetch_row($search)) {
-      	$groupID=$row[0];
-      }
-      
-      else {
-      
-      $insert_sql = "INSERT INTO groups (name) " . "VALUES ('{$name}');";
-        
-        mysql_query($insert_sql) or die(mysql_error());
-      	
-      
-      
-      
-      }
-
-        echo "success";     
-    }
+  	echo $name;      
+ }
  
 
 

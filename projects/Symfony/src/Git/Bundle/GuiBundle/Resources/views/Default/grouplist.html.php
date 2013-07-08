@@ -100,7 +100,7 @@ while ($row = mysql_fetch_row($result)) {
 </fieldset>
 </form>
 
-  <form action="groupadd" method="POST">
+  <form action="show" method="POST">
             <fieldset >
                <legend>Assign Users</legend>  
                <input type='hidden' name='step' value='1' /> 
@@ -124,21 +124,6 @@ while ($row = mysql_fetch_row($result)) {
       
          </form>
          
-     <form action="show" method="POST"> 
-      <input type='hidden' name='step' value='2' />    
-    <div class="btn-group">
-  <button class="btn btn-primary" data-label-placement>Check Users</button>
-  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
-    <ul class="dropdown-menu text-center">
-    <?php
-$user           = "Select username from user";
-$query_resource = mysql_query($user);
-//Iterate over the results that you've gotten from the database
-while ($username = mysql_fetch_assoc($query_resource)) {
-    echo " <li><input type='checkbox' id=" . $username['username'] . " name='user[]' value=" . $username['username'] . "><label for=" . $username['username'] . ">" . $username['username'] . "</label></li>";
-}
-?>
-
     </ul>
 </div>
         

@@ -10,6 +10,16 @@
 		
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="<?php echo $view['assets']->getUrl('js/jQuery.dualListBox-1.3.js') ?>" type="text/javascript" ></script>
+<script language="javascript" type="text/javascript">
+
+        $(function() {
+
+            $.configureBoxes();
+
+        });
+
+    </script>
 </head>
 <body>
 				
@@ -74,54 +84,117 @@ mysql_select_db("Test") or die("<p>Error selecting the database your-database-na
 //shows each of the users that are assigned to the groups
 if ($_POST['step'] == 1)
 {
-    $event = $_POST["mydropdown"];
+    $event = $_POST["groupdropdown"];
+    echo "<h1>" . $event . "</h1>";
     
-    $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
+
+  ?>
+  
+    <form  method="post" action="add" >
+
+<div>
+
+<input type='hidden' name='step' id='step' value='1'/>
+<?php echo "<input type='hidden' name='groupname' id='groupname' value=' ".$event." '/>";?>
+
+</div>
+
+
+
+    <div>
+
+    <table>
+
+            <tr>
+
+                <td>
+						<h3>All Users </h3><br/>
+                        Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
+						
+                        <select id="box1View" name="box1View" multiple="multiple" style="height:500px;width:300px;">
+    				<?php
+    				
+                        $result = mysql_query("SELECT * FROM user;");
+                        while($row = mysql_fetch_array($result)){
+                        echo "<option id='" . $row['username'] . "' name='box1View[]'  value='".$row['username']."'> ".$row['username']."</option>";
+            
+                        }
+                        
+                        
+                        ?>
+
+                        </select><br/>
+                         <span id="box1Counter" class="countLabel"></span>
+                       <select id="box1Storage">
+                        </select>
+
+                </td>
+
+                <td>
+
+                    <button id="to2" type="button"> > </button>
+					<button id="allTo2" type="button"> >> </button>
+					<button id="allTo1" type="button"> << </button>
+					<button id="to1" type="button"> < </button>
+
+                </td>
+
+                <td>
+					<h3>Users Currently in <?php echo  $event ?> </h3><br/>
+                    Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
+
+             <select id="box2View" name="box2View" multiple="multiple" style="height:500px;width:300px;">
+                    
+                       
+                        <?php
+                        $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
     while ($row1 = mysql_fetch_row($num2))
     {
         $group_id = $row1[0];
     }
     
-    
-    
-    
-    echo "<h1>" . $event . "</h1>";
     $perm = mysql_query("Select * from groups WHERE name ='" . $event . "';");
     
     $result = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "';");
-         
- 
-    echo "<table border='1'>
-<tr>
-<th>First Name</th>
-<th>Last Name</th>
-<th>User Name</th>
-<th>Email </th>
-<th> Delete?</th>
-</tr>";
-    while ($row1 = mysql_fetch_row($result))
-    {
-        $name = $row1[0];
-        
-        $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "';");
-        while ($row = mysql_fetch_array($username))
-        {
-           echo" <form action='add' method='POST'> 
-      <input type='hidden' name='step' value='1' /> 
-      <input type ='hidden' name ='groupID'  id ='groupID' value ='".$group_id."'/>";
-            echo "<tr>";
-            echo "<td> {$row['first_name']} </td>";
-            echo "<td> {$row['last_name']} </td>";
-            echo "<td> {$row['username']} </td>";
-            echo "<td> {$row['email']} </td>";
-            echo "<td><input type='submit' name='delete' value='delete'/></td>";
-            echo " <input type ='hidden' name ='username'  id ='username' value ='{$row['username']}'/>";
-            echo "</tr>";
-             echo "</form>";
-        }
-    }
     
-    echo "</table> </div>";
+                          while ($row1 = mysql_fetch_row($result))
+								   {
+     									   $name = $row1[0];
+        
+       							 $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "';");
+      							  while ($row = mysql_fetch_array($username))
+    								    {
+  										  echo "<option id='" . $row['username'] . "' name='box2View[]'  value='".$row['username']."'> ".$row['username']."</option>";
+       									 }
+   									 }
+    
+
+                        ?>
+
+
+                    </select><br/>
+
+                    <span id="box2Counter" class="countLabel"></span>
+
+                    <select id="box2Storage">
+
+                    </select>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+    
+    <input type="submit" value="Submit" />
+
+    </form>
+  
+  
+  
+  <?php
   
 }
 
