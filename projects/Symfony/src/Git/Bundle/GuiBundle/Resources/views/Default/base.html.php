@@ -38,7 +38,6 @@
 								</a>
 								
 								<ul class="dropdown-menu">
-								<li><a href="user">Show All Users</a></li>
 									<li><a href="create">Create Users</a></li>
 									<li><a href="#">link</a></li>
 									<li><a href="#">link</a></li>
