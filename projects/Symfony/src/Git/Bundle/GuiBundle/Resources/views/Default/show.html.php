@@ -260,7 +260,7 @@
                                  }
                                  }
                                  
-                                 }
+                                 
                                  ?>
                               </select><br/>
                               <span id="box2Counter" class="countLabel"></span>
@@ -290,10 +290,7 @@
                while ($row = mysql_fetch_row($check)) {
                	$group_id=$row[0];
                }
-               	
-               	
-               
-               	    
+               	               	    
                	    
                	      echo "<table class='table table-bordered'>
                <tr>
@@ -362,6 +359,7 @@
       </div>
    </div>
 </div>
+}
 <?php 
    $view['slots']->stop()
    

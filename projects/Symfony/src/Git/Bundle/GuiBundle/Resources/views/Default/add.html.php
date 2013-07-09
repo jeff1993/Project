@@ -43,15 +43,22 @@
                $user_id = $row[0];
           
            }
-   		
-   		
+   		   	$check = mysql_query("SELECT  * FROM group_management WHERE groupID ='".$group_id."' and userID='".$user_id."';");       
+   			if (mysql_fetch_row($check)){
+   			
+   			$timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
+    WHERE groupID='" . $group_id . "' AND repoID ='".$repo_id."';";
+            mysql_query($timeUpdate) or die(mysql_error());
+   			
+   			}
+   			
+   			else {
    	
-   		
       		$insert_sql = "INSERT INTO group_management (groupID, userID) " . "VALUES ('{$group_id}', '{$user_id}');";
            
            mysql_query($insert_sql) or die(mysql_error());
       		
-   
+   }
    		}
    	}
    }
@@ -69,8 +76,8 @@
    
    $basedn = "DC=CORP,DC=AD,DC=TIMEINC,DC=com";
    
-   $logged_user     = $_COOKIE["TestUser"];
-   $logged_password = $_COOKIE["TestPass"];
+   $logged_user     = $_COOKIE["LoggedUser"];
+   $logged_password = $_COOKIE["LoggedPass"];
    
    $dsb = ldap_bind($ds, $logged_user, $logged_password);
    
@@ -304,25 +311,53 @@
        	$groupName = trim($group);
        	 echo $groupName;
    		
-   		$usercheck = mysql_query("SELECT group_id FROM groups WHERE name ='".$groupName."';");       
-           while ($row = mysql_fetch_row($usercheck)) {
+   		$getGroupID = mysql_query("SELECT group_id FROM groups WHERE name ='".$groupName."';");       
+           while ($row = mysql_fetch_row($getGroupID)) {
                $group_id = $row[0];
           
            }
    		
-   		
-   	
+   			
+   			
+           while ($row = mysql_fetch_row($getGroupID)) {
+               $group_id = $row[0];
+          
+           }
+   	$check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='".$group_id."' and repoID='".$repo_id."';");       
+   			if (mysql_fetch_row($check)){
+   			
+   			$timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
+    WHERE groupID='" . $group_id . "' AND repoID ='".$repo_id."';";
+            mysql_query($timeUpdate) or die(mysql_error());
+   			
+   			}
+   			
+   			else {
    		
       		$insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
            
            mysql_query($insert_sql) or die(mysql_error());
       		
-   
+   }
    		}
    	}
    }
    
+     if ($_POST['step'] == 5) {
+     
+      echo '<script type="text/javascript"> 
+   
+   if(confirm("You Have Entered an Incorrect UserName")) {
+       window.location.href = "create"
+   }
+   </script>';
+     
+     
+     
+ 
    
    
+   
+   }
    
    ?>

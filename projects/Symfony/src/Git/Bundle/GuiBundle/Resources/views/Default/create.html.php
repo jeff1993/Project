@@ -32,27 +32,24 @@
    <th>Last Name</th>
    <th>User Name</th>
    <th>Email </th>
-   <th>View </th>
    <th>Delete?</th>
    </tr>";
    
    while($row = mysql_fetch_array($result))
    {
-   echo" <form action='show' method='POST'> 
-       <input type='hidden' name='step' value='4' /> 
+   echo" <form action='add' method='POST'> 
+       <input type='hidden' name='step' value='5' /> 
        <input type ='hidden' name ='username'  id ='username' value ='".$row['username']."'/>";
    echo "<tr>";
    echo "<td> {$row['first_name']} </td>" ;
    echo "<td> {$row['last_name']} </td>";
    echo "<td> {$row['username']} </a> </td>";
    echo "<td> {$row['email']} </td>";
-   echo "<td><input type='submit' name='view' value='view'/></td>";
    echo "<td><input type='submit' name='delete' value='delete'/></td>";
+   echo "<td> <button class='btn btn-danger' type='button'>Delete</td> ";
    echo "</tr>";
    echo "</form>";
    }
    echo "</table> </div></div>";
    $view['slots']->stop();
    ?>
-</body>
-</html>
