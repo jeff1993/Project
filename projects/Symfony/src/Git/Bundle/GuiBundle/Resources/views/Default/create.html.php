@@ -6,27 +6,26 @@
     
      ?>
 <div class='row-fluid'>
-   <div class="span12 pagination-centered">
+<div class='span8 offset2'>
       <form action="add" method="POST">
          <fieldset >
             <legend>Create User</legend>
             <input type='hidden' name='submitted' id='submitted' value='1'/>
             <input type='hidden' name='step' value='2' />
             <label for='username' >UserName*:</label>
-            <input type='text' name='username' id='username'  maxlength="50" />
+            <input type='text' name='username' id='username' required  maxlength="50" />
             <br/> 
             <input type='submit' name='Submit' value='Submit' />
          </fieldset>
       </form>
-   </div>
-</div>
+
 <?php
    $result = mysql_query("SELECT * FROM user;");
    if (!$result) {
      die("<p>Error in listing users " . mysql_error() . "</p>");
    }
    
-   echo "<div class='row-fluid'><div class='span8 offset2'>";
+
    echo "<table class='table table-hover'>
    <tr>
    <th>First Name</th>

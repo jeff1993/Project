@@ -272,6 +272,56 @@
    }
    }
    
+    if ($_POST['step'] == 4) {
+   
+   	//gets the groupID, removes the slash, replaces it with a space, then removes the space.
+   		$repoName      = $_POST['repoName'];
+       $reposlash = str_replace('/', ' ', $repoName);
+       $repoName      = trim($reposlash);
+   
+   	echo $repoName;
+   	$repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='".$repoName."';");       
+           while ($row = mysql_fetch_row($repocheck)) {
+               $repo_id = $row[0];
+          
+           }
+          
+   	$clear = "DELETE FROM repo_management WHERE repoID ='".$repo_id."';";
+   	if (empty($_POST['box2View'])){
+   	
+   
+   	mysql_query($clear) or die(mysql_error());
+   	
+   	}
+   	
+   	else 
+   	{
+   	mysql_query($clear) or die(mysql_error());
+      foreach ($_POST['box2View'] as $selected) {
+   
+           $groupName  = $selected;
+      		$group = str_replace('/', ' ', $groupName);
+       	$groupName = trim($group);
+       	 echo $groupName;
+   		
+   		$usercheck = mysql_query("SELECT group_id FROM groups WHERE name ='".$groupName."';");       
+           while ($row = mysql_fetch_row($usercheck)) {
+               $group_id = $row[0];
+          
+           }
+   		
+   		
+   	
+   		
+      		$insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
+           
+           mysql_query($insert_sql) or die(mysql_error());
+      		
+   
+   		}
+   	}
+   }
+   
    
    
    
