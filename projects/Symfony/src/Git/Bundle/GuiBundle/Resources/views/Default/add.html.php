@@ -47,7 +47,7 @@
    			if (mysql_fetch_row($check)){
    			
    			$timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-    WHERE groupID='" . $group_id . "' AND repoID ='".$repo_id."';";
+    WHERE groupID='" . $group_id . "' AND userID ='".$user_id."';";
             mysql_query($timeUpdate) or die(mysql_error());
    			
    			}

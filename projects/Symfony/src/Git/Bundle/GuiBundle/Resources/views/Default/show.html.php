@@ -351,15 +351,15 @@
                    echo "<td><input type='submit' name='Submit' value='Submit' /> </td>";
                    	echo "<td><input type='submit' name='Delete' value='Delete' /> </form> <br/></td>";
                    
-               }    echo "</table> </div>";
-               	
-               
-               	?>
-         </div>
+               }    echo "</table> </div> </div>
       </div>
    </div>
-</div>
-}
+</div> ";
+               	}
+               
+               	?>
+   
+
 <?php 
    $view['slots']->stop()
    

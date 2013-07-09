@@ -45,8 +45,7 @@
    echo "<td> {$row['last_name']} </td>";
    echo "<td> {$row['username']} </a> </td>";
    echo "<td> {$row['email']} </td>";
-   echo "<td><input type='submit' name='delete' value='delete'/></td>";
-   echo "<td> <button class='btn btn-danger' type='button'>Delete</td> ";
+   echo "<td> <button class='btn btn-danger' type='submit'>Delete</td> ";
    echo "</tr>";
    echo "</form>";
    }
