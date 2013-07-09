@@ -6,42 +6,60 @@ alert("I am an alert box!"); // this is the message in ""
 </script>
 
 <?php
-
-
-mysql_connect("localhost", "root", "tucker24") or die("<p>Error connecting to database: " . mysql_error() . "</p>");
-
-mysql_select_db("Test") or die("<p>Error selecting the database your-database-name: " . mysql_error() . "</p>");
-
-
+require_once('scripts/database.php');
 //removes user from group
 if ($_POST['step'] == 1) {
 
 	//gets the groupID, removes the slash, replaces it with a space, then removes the space.
-	$groupID      = $_POST['groupname'];
-    $groupslash = str_replace('/', ' ', $groupID);
-    $groupID      = trim($groupslash);
-		
-		echo $groupID;
+	$groupname      = $_POST['groupname'];
+    $groupslash = str_replace('/', ' ', $groupname);
+    $groupname      = trim($groupslash);
 
-	//recieves the username that you want to delete.
+	echo $groupname;
+	$groupcheck = mysql_query("SELECT group_id FROM groups WHERE NAME ='".$groupname."';");       
+        while ($row = mysql_fetch_row($groupcheck)) {
+            $group_id = $row[0];
+       
+        }
+       
+
+	if (empty($_POST['box2View'])){
 	
-       
-       
-       
-       
-       
-   foreach ($_POST['box2View'] as $checkbox) {
-  
-        $reposlash  = $checkbox;
-   		$groupname = str_replace('/', ' ', $reposlash);
-    	$checkbox = trim($groupname);
-    	 echo $checkbox;
+	$clear = mysql_query("DELETE FROM group_management WHERE groupID ='".$group_id."';");
+	
+	}
+	
+	else 
+	{
+	
+   foreach ($_POST['box2View'] as $selected) {
 
+        $username  = $selected;
+   		$user = str_replace('/', ' ', $username);
+    	$username = trim($user);
+    	 echo $username;
+		
+		$usercheck = mysql_query("SELECT user_id FROM user WHERE username ='".$username."';");       
+        while ($row = mysql_fetch_row($usercheck)) {
+            $user_id = $row[0];
+       
+        }
+		
+		
+		$clear = mysql_query("DELETE FROM group_management WHERE groupID ='".$group_id."';");
+		
+   		$insert_sql = "INSERT INTO group_management (groupID, userID) " . "VALUES ('{$group_id}', '{$user_id}');";
+        
+        mysql_query($insert_sql) or die(mysql_error());
+   		
 
+		}
+	}
 }
 
 
-}
+
+
 
 
 //creates a new user
@@ -128,18 +146,6 @@ else {
         echo $user_id;
         
         
-        $event = $_POST["mydropdown"];
-        
-        $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
-        while ($row1 = mysql_fetch_row($num2)) {
-            $group_id = $row1[0];
-        }
-        
-        
-        $insert_sql = "INSERT INTO group_management (groupID, userID) " . "VALUES ('{$group_id}', '{$user_id}');";
-        
-        mysql_query($insert_sql) or die(mysql_error());
-        
         header("Location: submitted");
         exit();
         
@@ -148,30 +154,7 @@ else {
     
     
     else {
-        $num = mysql_query("Select user_id from user WHERE username ='" . $uname . "';");
-        while ($row = mysql_fetch_row($num)) {
-            $user_id = $row[0];
-        }
-        
-        
-        
-        
-        $event = $_POST["mydropdown"];
-        echo $event;
-        $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
-        while ($row1 = mysql_fetch_row($num2)) {
-            $group_id = $row1[0];
-            
-        }
-        
-        $sql = "SELECT * FROM group_management WHERE groupID=" . $group_id . " AND userID=" . $user_id . " LIMIT 0, 30 ;";
-        
-        $check = mysql_query($sql);
-        
-        $row         = mysql_fetch_array($check);
-        $num_results = mysql_num_rows($check);
-        
-        if ($num_results > 0) {
+  
             
             echo '<script type="text/javascript"> 
 
@@ -183,19 +166,11 @@ if(confirm("This Username already exists")) {
             
         }
         
-        else {
-            
-            $insert_sql = "INSERT INTO group_management (groupID, userID) " . "VALUES ('{$group_id}', '{$user_id}');";
-            
-            mysql_query($insert_sql) or die(mysql_error());
-            header("Location: submitted");
-            exit();
-        }
-        
+
     }
 }
 
-}
+
 
 
 if ($_POST['step'] == 3) {

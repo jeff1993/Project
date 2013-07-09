@@ -1,14 +1,27 @@
+<?php 
+	require_once('scripts/ldap.php');
+	require_once('scripts/database.php');
+   ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Git Gui</title>
-    <!-- Bootstrap -->
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{{ asset('bootstrap/js/jquery.js') }}"><\/script>')</script>
-    <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+   <head>
+      <title>Git Gui</title>
+      <!-- Bootstrap -->
+      <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+   </head>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+   <script src="js/bootstrap.js"></script>
+<script src="<?php echo $view['assets']->getUrl('js/jQuery.dualListBox-1.3.js') ?>" type="text/javascript" ></script>
+<script language="javascript" type="text/javascript">
 
-  </head>
+        $(function() {
+
+            $.configureBoxes();
+
+        });
+
+    </script>
+    </head>
   <body>
 
     
@@ -56,9 +69,8 @@
 						
 					</div>
 				</div>
-	
-		
-
+	<?php
+$view['slots']->output('title', 'Hello Application') ?>
 </body>
 </html>
 

@@ -111,7 +111,7 @@ if ($_POST['step'] == 1)
 						<h3>All Users </h3><br/>
                         Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
 						
-                        <select id="box1View" name="box1View" multiple="multiple" style="height:500px;width:300px;">
+                        <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
     				<?php
     				
                         $result = mysql_query("SELECT * FROM user;");
@@ -143,7 +143,7 @@ if ($_POST['step'] == 1)
 					<h3>Users Currently in <?php echo  $event ?> </h3><br/>
                     Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
 
-             <select id="box2View" name="box2View" multiple="multiple" style="height:500px;width:300px;">
+             <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
                     
                        
                         <?php
@@ -168,9 +168,8 @@ if ($_POST['step'] == 1)
        									 }
    									 }
     
-
+							
                         ?>
-
 
                     </select><br/>
 

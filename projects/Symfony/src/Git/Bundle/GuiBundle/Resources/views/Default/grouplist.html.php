@@ -1,3 +1,7 @@
+<?php
+
+	require_once('scripts/database.php');
+	?>
 <!DOCTYPE html>  
 	<html lang="en">  
 		<head>
@@ -65,39 +69,6 @@
 Group Name: <input type="text" name="groupname"><br>	
 
 <input type='submit' name='Submit' value='Submit' />
-</form>
-	
-
-
-<form action="show" method="POST">
-<fieldset >
-<legend>View Users in Groups/Edit Permissions</legend>
-<input type='hidden' name='step' value='1' /> 
- 
-<br/> 
- 
-<select name="mydropdown">
-
-<?php
-mysql_connect("localhost", "root", "tucker24") or die("<p>Error connecting to database: " . mysql_error() . "</p>");
-mysql_select_db("Test") or die("<p>Error selecting the database your-database-name: " . mysql_error() . "</p>");
-$result = mysql_query("Select name from groups");
-if (!$result) {
-    die("<p>Error in listing tables: " . mysql_error() . "</p>");
-}
-echo "<p>Tables in database:</p>";
-while ($row = mysql_fetch_row($result)) {
-    echo "<option value ={$row[0]}>" . $row[0] . " </option>";
-}
-?>
-
-</select>
-
-<br/>
- 
-<input type='submit' name='Submit' value='Submit' />
- </div>
-</fieldset>
 </form>
 
   <form action="show" method="POST">
