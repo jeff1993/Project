@@ -343,14 +343,24 @@
    	}
    }
    
-     if ($_POST['step'] == 5) {
-     
-      echo '<script type="text/javascript"> 
    
-   if(confirm("You Have Entered an Incorrect UserName")) {
-       window.location.href = "create"
+   // Posted from create.html.php 
+   // username value is passed into this function which deletes the user from the user list
+     if ($_POST['step'] == 5) {
+     $userName = $_POST['username'];
+     
+      echo "<script type='text/javascript'> 
+   
+   if(confirm('Are You Sure You Want To Delete This User?!')) {
+   
+      ".$clear = mysql_query("DELETE FROM user WHERE username ='".$userName."';")."
+       window.location.href = 'create'
    }
-   </script>';
+   else {
+   		window.location.href = 'create'
+   		}
+   
+   </script>";
      
      
      
