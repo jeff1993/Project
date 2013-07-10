@@ -281,10 +281,10 @@
    
    	//gets the groupID, removes the slash, replaces it with a space, then removes the space.
    		$repoName      = $_POST['repoName'];
-       $reposlash = str_replace('/', ' ', $repoName);
-       $repoName      = trim($reposlash);
+        $reposlash = str_replace('/', ' ', $repoName);
+        $repoName      = trim($reposlash);
    
-   	echo $repoName;
+ 
    	$repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='".$repoName."';");       
            while ($row = mysql_fetch_row($repocheck)) {
                $repo_id = $row[0];
@@ -336,7 +336,7 @@
            
            mysql_query($insert_sql) or die(mysql_error());
       		
-   }
+  			 }
    		}
    	}
    	header("Location: repo");

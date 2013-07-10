@@ -41,5 +41,14 @@ if ($ds)
 		
 	}
  }
+else {
+		$_SESSION['LoggedIn']= false;
+		header("Location: login");	
+		exit();	
 
+
+
+
+
+}
 ?>
