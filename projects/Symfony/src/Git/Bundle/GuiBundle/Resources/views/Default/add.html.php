@@ -270,8 +270,6 @@
    		}
       			
       		
-      		//Thinking about deleting from here down, because it doesn't make sense to alter, we just need to add if present and delete if not
-      		
       		}
       		
       		echo " Alter success";  
@@ -309,7 +307,7 @@
            $groupName  = $selected;
       		$group = str_replace('/', ' ', $groupName);
        	$groupName = trim($group);
-       	 echo $groupName;
+       	
    		
    		$getGroupID = mysql_query("SELECT group_id FROM groups WHERE name ='".$groupName."';");       
            while ($row = mysql_fetch_row($getGroupID)) {
@@ -341,6 +339,7 @@
    }
    		}
    	}
+   	header("Location: repo");
    }
    
    
@@ -354,7 +353,7 @@
    if(confirm('Are You Sure You Want To Delete This User?!')) {
    
       ".$clear = mysql_query("DELETE FROM user WHERE username ='".$userName."';")."
-       window.location.href = 'create'
+       window.location.href = 'submitted'
    }
    else {
    		window.location.href = 'create'

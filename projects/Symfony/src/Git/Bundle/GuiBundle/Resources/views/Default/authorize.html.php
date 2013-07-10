@@ -3,15 +3,14 @@
 session_start();
 
 
-$uname = trim($_REQUEST['username']);
+$userName = trim($_REQUEST['username']);
 $password =$_REQUEST['password'];
-$user ="time-inc-corp\\".$uname;
+$user ="time-inc-corp\\".$userName;
 $ds = ldap_connect("ldaps://corp.ad.timeinc.com:3269")
 	or die("Could not connect to LDAP server.");
 
 
-setcookie("LoggedUser", $user);
-setcookie("LoggedPass", $password);
+setcookie("LoggedUser", $userName);
 
 $basedn = "DC=CORP,DC=AD,DC=TIMEINC,DC=com";
 
@@ -27,7 +26,7 @@ if ($ds)
    	   
        if($dsb)
        {
-       
+       $_SESSION['LoggedIn'] = true;
        header("Location: create");      
  		exit();
 

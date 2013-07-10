@@ -45,10 +45,23 @@ class DefaultController extends Controller
     return $this->render('GitGuiBundle:Default:groupadd.html.php');
     
      }
+       public function indexAction()
+     {
+    
+    return $this->render('GitGuiBundle:Default:index.html.php');
+    
+     }
     public function loginAction()
     {
     
         return $this->render('GitGuiBundle:Default:login.html.php');
+        
+    }
+    
+     public function loggedOutAction()
+    {
+    
+        return $this->render('GitGuiBundle:Default:logout.html.php');
         
     }
      public function managerepoAction()
@@ -77,7 +90,7 @@ class DefaultController extends Controller
     public function submittedAction()
     {
     
-    return $this->render('GitGuiBundle:Default:submitted.html.twig');
+    return $this->render('GitGuiBundle:Default:submitted.html.php');
     
 
     }

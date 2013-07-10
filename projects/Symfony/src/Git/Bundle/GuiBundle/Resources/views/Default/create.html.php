@@ -3,8 +3,13 @@
    require_once('scripts/database.php');
     $view->extend('GitGuiBundle:Default:base.html.php');
     $view['slots']->start('title');
-    
-     ?>
+	session_start();
+	if ($_SESSION['LoggedIn'] !== TRUE) {
+   header("Location:login");
+
+   exit();
+}
+    ?>
 <div class='row-fluid'>
 <div class='span8 offset2'>
       <form action="add" method="POST">

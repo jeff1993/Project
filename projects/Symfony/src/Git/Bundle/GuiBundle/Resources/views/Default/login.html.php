@@ -1,14 +1,24 @@
 <?php
-		
- if (isset($_COOKIE["LoggedUser"])){
- 	 header("Location: create");      
- 		exit();	
- 
- }
- else 
+	
+session_start();
+
+if (isset($_SESSION['LoggedIn'])){
+
+if ($_SESSION['LoggedIn'] == TRUE) {
+   header("Location:create");
+
+   exit();
+}
+
+ else {
 $view->extend('GitGuiBundle:Default:base.html.php');
     $view['slots']->start('title');
-     
+     }
+     }
+     else 
+     $_SESSION['LoggedIn'] = FALSE;
+     	$view->extend('GitGuiBundle:Default:base.html.php');
+    $view['slots']->start('title');
 
 
 

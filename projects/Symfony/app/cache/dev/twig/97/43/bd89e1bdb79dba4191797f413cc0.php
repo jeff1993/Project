@@ -7,36 +7,28 @@ class __TwigTemplate_9743bd89e1bdb79dba4191797f413cc0 extends Twig_Template
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("GitGuiBundle:Default:base.html.twig");
+        $this->parent = false;
 
         $this->blocks = array(
-            'body' => array($this, 'block_body'),
         );
-    }
-
-    protected function doGetParent(array $context)
-    {
-        return "GitGuiBundle:Default:base.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $this->parent->display($context, array_merge($this->blocks, $blocks));
-    }
+        // line 1
+        echo "<?php
+ \$view->extend('GitGuiBundle:Default:base.html.php');
+    \$view['slots']->start('title');
+    
 
-    // line 3
-    public function block_body($context, array $blocks = array())
-    {
-        // line 4
-        echo "
-<h3> Successfully Altered Database</h3>
+echo \"<h3> Successfully Altered Database</h3>
+<a href='create'>Go Back</a>\"
 
+print \$_SESSION['name'];
 
+\$view['slots']->stop();
 
-
-<a href=\"create\">Go Back</a>
-
-";
+?>";
     }
 
     public function getTemplateName()
@@ -44,13 +36,8 @@ class __TwigTemplate_9743bd89e1bdb79dba4191797f413cc0 extends Twig_Template
         return "GitGuiBundle:Default:submitted.html.twig";
     }
 
-    public function isTraitable()
-    {
-        return false;
-    }
-
     public function getDebugInfo()
     {
-        return array (  31 => 4,  28 => 3,);
+        return array (  19 => 1,);
     }
 }

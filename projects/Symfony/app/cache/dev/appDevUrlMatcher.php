@@ -283,15 +283,28 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        if (0 === strpos($pathinfo, '/login')) {
-            // login
-            if ($pathinfo === '/login') {
-                return array (  '_controller' => 'Git\\Bundle\\GuiBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+        // index
+        if ($pathinfo === '/index') {
+            return array (  '_controller' => 'Git\\Bundle\\GuiBundle\\Controller\\DefaultController::indexAction',  '_route' => 'index',);
+        }
+
+        if (0 === strpos($pathinfo, '/log')) {
+            // loggedOut
+            if ($pathinfo === '/loggedOut') {
+                return array (  '_controller' => 'Git\\Bundle\\GuiBundle\\Controller\\DefaultController::loggedOutAction',  '_route' => 'loggedOut',);
             }
 
-            // login_check
-            if ($pathinfo === '/login_check') {
-                return array('_route' => 'login_check');
+            if (0 === strpos($pathinfo, '/login')) {
+                // login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'Git\\Bundle\\GuiBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+                }
+
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array('_route' => 'login_check');
+                }
+
             }
 
         }

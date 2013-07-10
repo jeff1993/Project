@@ -1,6 +1,9 @@
 <?php 
 	require_once('scripts/ldap.php');
 	require_once('scripts/database.php');
+	if(session_id() == '') {
+    session_start();
+}
    ?>
 <!DOCTYPE html>
 <html>
@@ -29,9 +32,8 @@
 					<div class="navbar-inner">
 						
 						<ul class="nav">
-							<li><a href="login">Home</a></li>
-							<li><a href="#">About</a></li>
-							
+							<li><a href="index">Home</a></li>
+
 							<li class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 									Users <b class="caret"></b>
@@ -39,7 +41,7 @@
 								
 								<ul class="dropdown-menu">
 									<li><a href="create">Create Users</a></li>
-									<li><a href="#">link</a></li>
+									
 									<li><a href="#">link</a></li>
 								</ul>
 								
@@ -63,7 +65,7 @@
                   </ul>
                </li>		
 							</li>
-							
+							<li><a href="loggedOut">Log Out</a></li>
 						</ul>
 						
 					</div>

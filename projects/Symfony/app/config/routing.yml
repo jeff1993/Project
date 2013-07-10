@@ -18,7 +18,15 @@ group:
 
 groupadd:
     pattern: /groupadd
-    defaults: { _controller: GitGuiBundle:Default:groupadd }  
+    defaults: { _controller: GitGuiBundle:Default:groupadd }
+    
+index:
+    pattern: /index
+    defaults: { _controller: GitGuiBundle:Default:index }
+    
+loggedOut:
+    pattern: /loggedOut
+    defaults:  { _controller: GitGuiBundle:Default:loggedOut }  
     
 login:
     pattern: /login
