@@ -25,8 +25,9 @@
       </form>
 
 <?php
-   $result = mysql_query("SELECT * FROM user;");
-   if (!$result) {
+	
+   $userInfo = mysql_query("SELECT * FROM user;");
+   if (!$userInfo) {
      die("<p>Error in listing users " . mysql_error() . "</p>");
    }
    
@@ -40,7 +41,7 @@
    <th>Delete?</th>
    </tr>";
    
-   while($row = mysql_fetch_array($result))
+   while($row = mysql_fetch_array($userInfo))
    {
    echo" <form action='add' method='POST'> 
        <input type='hidden' name='step' value='5' /> 

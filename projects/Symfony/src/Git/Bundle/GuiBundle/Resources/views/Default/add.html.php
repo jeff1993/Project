@@ -1,33 +1,39 @@
-<script>
-   function myFunction()
-   {
-   alert("I am an alert box!"); // this is the message in ""
-   }
-</script>
 <?php
 require_once('scripts/database.php');
-//removes user from group
+
+
+//submitted from Show Step 1. Which is the dual view list of assigning users to groups
+//Purpose: To assign the relationship between users and groups.
+	//1. Removes all association of that group
+	//2. Checks for duplicate entries
+	//3. Adds the users that are in the 2nd Dual View Box and creates an assocation in group_management
+	//4. Redirects you back to the groups page upon completion
+	
 if ($_POST['step'] == 1)
     {
     //gets the groupID, removes the slash, replaces it with a space, then removes the space.
     $groupname  = $_POST['groupname'];
     $groupslash = str_replace('/', ' ', $groupname);
     $groupname  = trim($groupslash);
-    echo $groupname;
     $groupcheck = mysql_query("SELECT group_id FROM groups WHERE NAME ='" . $groupname . "';");
     while ($row = mysql_fetch_row($groupcheck))
         {
         $group_id = $row[0];
         }
+        //if the 2nd box is empty we are to delete all association of users to that repo
     if (empty($_POST['box2View']))
         {
         $clear = mysql_query("DELETE FROM group_management WHERE groupID ='" . $group_id . "';");
         }
     else
         {
+        //to fix some bugs I automatically clear the entire list. So that way 
+        //whenever you readd these users the ones you removed from the group
+        //still won't have an entry. Only those who are left in the column.
         $clear = mysql_query("DELETE FROM group_management WHERE groupID ='" . $group_id . "';");
         foreach ($_POST['box2View'] as $selected)
             {
+            //same fix for the slash problem.
             $username  = $selected;
             $user      = str_replace('/', ' ', $username);
             $username  = trim($user);
@@ -39,12 +45,14 @@ if ($_POST['step'] == 1)
             $check = mysql_query("SELECT  * FROM group_management WHERE groupID ='" . $group_id . "' and userID='" . $user_id . "';");
             if (mysql_fetch_row($check))
                 {
+                //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                 $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-    WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+  								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                 mysql_query($timeUpdate) or die(mysql_error());
                 }
             else
                 {
+                //finally adds to group_manage the association between users and groups
                 $insert_sql = "INSERT INTO group_management (groupID, userID) " . "VALUES ('{$group_id}', '{$user_id}');";
                 mysql_query($insert_sql) or die(mysql_error());
                 }
@@ -53,6 +61,8 @@ if ($_POST['step'] == 1)
     header("Location: group");
     exit();
     }
+    //End result, users are properly assigned to their groups in the group_mangement table
+    
 //creates a new user
 if ($_POST['step'] == 2)
     {
@@ -124,8 +134,16 @@ if ($_POST['step'] == 2)
             }
         }
     }
+    
+    //This is passed from Show	Step 3. It is displayed under the the Groups to Repo
+    //dual view list. 
+    //Purpose:
+    	//Submits the changes  of the permisions of the groups to a specific repo
+    	//Checks each of the check boxes and passes them into this function
+    	//if checked marked in repo_management table as 1, if not a 0
 if ($_POST['step'] == 3)
     {
+    //removes the slashes that are present in the repository name and the group name
     $reponame   = $_REQUEST['submitted'];
     $reposlash  = str_replace('/', ' ', $reponame);
     $reponame   = trim($reposlash);
@@ -144,8 +162,8 @@ if ($_POST['step'] == 3)
         $group_id = $row1[0];
         echo $group_id;
         }
-    //$check =mysql_query("Select repoID from repo_management WHERE groupID ='".$group_id."';");
-    $read   = 0;
+    //read is always selected because there is no instance where you wouldn't want a group to be in the repo and not able to read
+    $read   = 1;
     $write  = 0;
     $manage = 0;
     if (isset($_POST['Delete']))
@@ -191,6 +209,7 @@ if ($_POST['step'] == 3)
         exit();
         }
     }
+    
 if ($_POST['step'] == 4)
     {
     //gets the groupID, removes the slash, replaces it with a space, then removes the space.

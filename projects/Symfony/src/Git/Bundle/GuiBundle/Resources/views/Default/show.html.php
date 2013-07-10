@@ -3,14 +3,18 @@
      $view['slots']->start('title');
    require_once('scripts/database.php');
    
+   //value passed from group list page
    //shows each of the users that are assigned to the groups
    if ($_POST['step'] == 1)
    {
+   	//gets the group name from the drop down in the groups list page
      $event = $_POST["groupdropdown"];
      echo "<h1>" . $event . "</h1>";
      
    
    ?>
+   <!--From here till the end bracket is where you where we create the dual list view
+   that you can assign users to the individual groups-->
 <div class='row-fluid'>
 <div class='span8 offset2'>
    <form  method="post" action="add" >
@@ -22,7 +26,7 @@
          <table>
             <tr>
                <td>
-                  <h3>All Users </h3>
+                  <legend>All Users </legend>
                   <br/>
                   Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
                   <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -47,7 +51,7 @@
                   <button id="to1" type="button"> < </button>
                </td>
                <td>
-                  <h3>Users Currently in <?php echo  $event ?> </h3>
+                  <legend>Users Currently in <?php echo  $event ?> </legend>
                   <br/>
                   Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
                   <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -193,6 +197,8 @@
       }
    
    ?>
+    <!--From here  till the end of collapseOne is where you where we create the dual list view
+   that you can assign groups to the individual repositories-->
 <div class="accordion" id="accordion2">
 <div class="accordion-group">
 <div class="accordion-heading">
@@ -213,7 +219,7 @@
                   <table>
                      <tr>
                         <td>
-                           <h3>All Groups </h3>
+                           <legend>All Groups </legend>
                            <br/>
                            Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -238,7 +244,7 @@
                            <button id="to1" type="button"> < </button>
                         </td>
                         <td>
-                           <h3>Users Currently in <?php echo  $event ?> </h3>
+                           <legend>Users Currently in <?php echo  $event ?> </legend>
                            <br/>
                            Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
                            <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -282,6 +288,9 @@
    Adjust Group Permissions
    </a>
 </div>
+<!--CollapseTwo is about showing the permissions that each of the groups have to that repository
+it will dynamically display what options are checked for each group. Then you can alter them beneath the 
+dual list view of groups to repos. The changes are submitted to add.html.php with the value of Step 3-->
 <div id="collapseTwo" class="accordion-body collapse">
 <div class="accordion-inner">
 <?php  
@@ -348,10 +357,10 @@
        }
       
        echo "<td><input type='submit' name='Submit' value='Submit' /> </td>";
-       
-   }    echo "</table> </div> </div>
-   </div>
-   </div>
+        echo "</tr></form> </div> </div>";
+   }   
+  	echo" </table></div>
+   </div> 
    </div> ";
    	}
    

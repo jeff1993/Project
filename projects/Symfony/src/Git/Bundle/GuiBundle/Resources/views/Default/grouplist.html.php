@@ -8,10 +8,11 @@
      ?>
 <div class='row-fluid'>
    <div class='span8 offset2'>
-      <h3> Create a New Group </h3>
+      <legend> Create a New Group </legend>
       <form action="groupadd" method="POST">
          <input type='hidden' name='step' value='1' />
-         Group Name: <input type="text" name="groupname" required><br>	
+         <label for='groupname' >Group Name*:</label>
+         <input type="text" name="groupname" id='groupname' required><br>	
          <input type='submit' name='Submit' value='Submit' />
       </form>
       <form action="show" method="POST">
@@ -28,13 +29,14 @@
                while ($row = mysql_fetch_row($result)) {
                    echo "<option value ={$row[0]}>" . $row[0] . " </option>";
                }
-               ?>
-            <br/>
-            <br/>       
+               ?> 
+               </select> 
          </fieldset>
+         <input type='submit' name='Submit' value='Submit' />
       </form>
-      </ul>
+      
    </div>
 </div>
-<input type='submit' name='Submit' value='Submit' />
+
+
 <?php $view['slots']->stop();?>
