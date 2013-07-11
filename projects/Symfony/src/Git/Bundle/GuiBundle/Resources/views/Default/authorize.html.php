@@ -33,7 +33,7 @@ if ($ds)
         }
     catch (Exception $e)
         {
-        
+        $_SESSION['Alert'] = true;
         header("Location: login");
         exit();
         throw new Exception(' Something really gone wrong', 0, $e);
@@ -42,6 +42,7 @@ if ($ds)
     }
 else
     {
+    $_SESSION['Alert'] = true;
     $_SESSION['LoggedIn'] = false;
     header("Location: login");
     exit();
