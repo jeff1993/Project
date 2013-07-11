@@ -36,7 +36,7 @@
 
 <?php
 	
-   $userInfo = mysql_query("SELECT * FROM user;");
+   $userInfo = mysql_query("SELECT * FROM user ORDER BY first_name;");
    if (!$userInfo) {
      die("<p>Error in listing users " . mysql_error() . "</p>");
    }

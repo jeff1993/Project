@@ -36,7 +36,7 @@
                   Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small'id="box1Clear">X</button><br />
                   <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                   <?php
-                     $result = mysql_query("SELECT * FROM user;");
+                     $result = mysql_query("SELECT * FROM user ORDER BY username;");
                      while($row = mysql_fetch_array($result)){
                      echo "<option id='" . $row['username'] . "' name='box1View[]'  value='".$row['username']."'> ".$row['username']."</option>";
                      
@@ -75,7 +75,7 @@
                      {
                      $name = $row1[0];
                      
-                     $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "';");
+                     $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "' ORDER BY username;");
                      while ($row = mysql_fetch_array($username))
                      {
                      echo "<option id='" . $row['username'] . "' name='box2View[]'  value='".$row['username']."'> ".$row['username']."</option>";
@@ -234,7 +234,7 @@
                            Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                            <?php
-                              $groups = mysql_query("SELECT * FROM groups;");
+                              $groups = mysql_query("SELECT * FROM groups ORDER BY name;");
                               while($row = mysql_fetch_array($groups)){
                               echo "<option id='" . $row['name'] . "' name='box1View[]'  value='".$row['name']."'> ".$row['name']."</option>";
                               
@@ -267,7 +267,7 @@
                               
                               $getGroupName = mysql_query("Select name FROM groups WHERE group_id ='" . $group_id . "';");
                               
-                              $result = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "';");
+                              $result = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "' ORDER BY name;");
                               
                               
                               while ($row = mysql_fetch_array($getGroupName))
@@ -295,7 +295,7 @@
 <div class="accordion-group">
 <div class="accordion-heading">
    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-   Adjust Group Permissions
+    Adjust Group Permissions
    </a>
 </div>
 <!--CollapseTwo is about showing the permissions that each of the groups have to that repository

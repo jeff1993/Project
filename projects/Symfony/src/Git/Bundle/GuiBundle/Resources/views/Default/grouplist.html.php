@@ -27,7 +27,7 @@
             <input type='hidden' name='step' value='1' /> 
             <select name="groupdropdown">
             <?php
-               $result = mysql_query("Select name from groups");
+               $result = mysql_query("SELECT name FROM groups ORDER BY name");
                if (!$result) {
                    die("<p>Error in listing tables: " . mysql_error() . "</p>");
                }

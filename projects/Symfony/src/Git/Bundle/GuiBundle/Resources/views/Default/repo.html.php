@@ -30,7 +30,7 @@
             <input type='hidden' name='step' value='3' /> 
             <select name="repoDropDown">
             <?php
-               $result = mysql_query("Select name from repo");
+               $result = mysql_query("SELECT name FROM repo ORDER BY name");
                
                if (!$result) {
                    die("<p>Error in listing tables: " . mysql_error() . "</p>");
