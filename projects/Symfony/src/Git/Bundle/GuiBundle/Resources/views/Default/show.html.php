@@ -9,7 +9,12 @@
    {
    	//gets the group name from the drop down in the groups list page
      $event = $_POST["groupdropdown"];
-     echo "<h1>" . $event . "</h1>";
+       ?>
+       <div class="row-fluid">
+  		<div class="span4">
+  		<div class="span4 offset2">
+  <?php
+     echo "<h1>" . $event . "</h1> </div> </div> </div>";
      
    
    ?>
@@ -28,7 +33,7 @@
                <td>
                   <legend>All Users </legend>
                   <br/>
-                  Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
+                  Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small'id="box1Clear">X</button><br />
                   <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                   <?php
                      $result = mysql_query("SELECT * FROM user;");
@@ -45,15 +50,15 @@
                   </select>
                </td>
                <td>
-                  <button id="to2" type="button"> > </button>
-                  <button id="allTo2" type="button"> >> </button>
-                  <button id="allTo1" type="button"> << </button>
-                  <button id="to1" type="button"> < </button>
+                  <button id="to2" type="button" class='btn btn-small'> > </button>
+                  <button id="allTo2" type="button" class='btn btn-small'> >> </button>
+                  <button id="allTo1" type="button" class='btn btn-small'> << </button>
+                  <button id="to1" type="button" class='btn btn-small'> < </button>
                </td>
                <td>
                   <legend>Users Currently in <?php echo  $event ?> </legend>
                   <br/>
-                  Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
+                  Filter: <input type="text" id="box2Filter" /><button type="button" class='btn btn-small' id="box2Clear">X</button><br />
                   <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
                   <?php
                      $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
@@ -87,7 +92,7 @@
             </tr>
          </table>
       </div>
-      <input type="submit" value="Submit" />
+      <button type='Submit' name ='Submit' class='btn'>Submit</button>
    </form>
 </div>
 <?php
@@ -168,7 +173,7 @@
    			 <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>";
        echo "<h1>" . $event . "</h1>";
        echo "manage permissions for this repository";
-       echo "<input type='submit' name='Submit' value='Submit' />";
+       echo "<button type='Submit' name ='Submit' class='btn'>Submit</button>";
        
    
    
@@ -176,7 +181,7 @@
    
    }
    
-   
+   //sent from the manage repo page, used by the drop down
    if ($_POST['step'] == 3) {
    
     $name      = $_POST['repoDropDown'];
@@ -190,7 +195,12 @@
    	
    
        $event = $_POST['repoDropDown'];
-     echo "<h1>" . $event . "</h1>";
+       ?>
+       <div class="row-fluid">
+  		<div class="span4">
+  		<div class="span4 offset2">
+  <?php
+     echo "<h1>" . $event . "</h1> </div> </div> </div>";
      $repo= mysql_query("SELECT repo_id FROM repo WHERE name ='".$event."';");
       while($row = mysql_fetch_row($repo)){
       $repo_id = $row[0];
@@ -221,7 +231,7 @@
                         <td>
                            <legend>All Groups </legend>
                            <br/>
-                           Filter: <input type="text" id="box1Filter" /><button type="button" id="box1Clear">X</button><br />
+                           Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                            <?php
                               $groups = mysql_query("SELECT * FROM groups;");
@@ -238,15 +248,15 @@
                            </select>
                         </td>
                         <td>
-                           <button id="to2" type="button"> > </button>
-                           <button id="allTo2" type="button"> >> </button>
-                           <button id="allTo1" type="button"> << </button>
-                           <button id="to1" type="button"> < </button>
+                           <button id="to2" type="button" class='btn btn-small'> > </button>
+                           <button id="allTo2" type="button" class='btn btn-small'> >> </button>
+                           <button id="allTo1" type="button" class='btn btn-small'> << </button>
+                           <button id="to1" type="button" class='btn btn-small'> < </button>
                         </td>
                         <td>
                            <legend>Users Currently in <?php echo  $event ?> </legend>
                            <br/>
-                           Filter: <input type="text" id="box2Filter" /><button type="button" id="box2Clear">X</button><br />
+                           Filter: <input type="text" id="box2Filter" /><button type="button"  class='btn btn-small' id="box2Clear">X</button><br />
                            <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
                            <?php
                               $getGroupID = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
@@ -276,7 +286,7 @@
                      </tr>
                   </table>
                </div>
-               <input type="submit" value="Submit" />
+              <button type='Submit' name ='Submit' class='btn'>Submit</button>
             </form>
          </div>
       </div>
@@ -356,7 +366,7 @@ dual list view of groups to repos. The changes are submitted to add.html.php wit
            echo "<td>	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage</td>";
        }
       
-       echo "<td><input type='submit' name='Submit' value='Submit' /> </td>";
+       echo "<td><button type='Submit' name ='Submit' class='btn'>Submit</button> </td>";
         echo "</tr></form> </div> </div>";
    }   
   	echo" </table></div>

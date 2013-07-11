@@ -20,7 +20,7 @@
             <label for='reponame' >Repository Name*:</label>
             <input type='text' name='reponame' id='reponame'  maxlength="50" />
             <br/> 
-            <input type='submit' name='Submit' value='Submit' />
+            <button type="Submit" name ="Submit" class="btn">Submit</button>
          </fieldset>
          <br/>
       </form>
@@ -46,7 +46,7 @@
             <br/>
             <br/>
          </fieldset>
-         <input type='submit' name='Submit' value='Submit' />
+         <button type="Submit" name ="Submit" class="btn">Submit</button>
       </form>
    </div>
 </div>

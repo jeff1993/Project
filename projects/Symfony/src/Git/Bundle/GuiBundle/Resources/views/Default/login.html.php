@@ -42,7 +42,7 @@
          <label for='password' >Password*:</label>
          <input type='password' name='password' id='password' maxlength="50" required />
          <br/>
-         <input type='submit' name='Submit' value='Submit' />
+         <button type="Submit" name ="Submit" class="btn">Submit</button>
       </fieldset>
    </form>
 </div>

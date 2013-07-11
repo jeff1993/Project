@@ -38,7 +38,7 @@
                ?> 
                </select> 
          </fieldset>
-         <input type='submit' name='Submit' value='Submit' />
+        <button type="Submit" name ="Submit" class="btn">Submit</button>
       </form>
       
    </div>

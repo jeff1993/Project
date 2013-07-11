@@ -30,7 +30,7 @@
             <label for='username' >UserName*:</label>
             <input type='text' name='username' id='username' required  maxlength="50" />
             <br/> 
-            <input type='submit' name='Submit' value='Submit' />
+            <button type="Submit" name ="Submit" class="btn">Submit</button>
          </fieldset>
       </form>
 
