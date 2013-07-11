@@ -22,6 +22,7 @@
             <p>You have entered an incorrect username and password! Try again!</p>
    
           </div>
+          </div>
           <?php
    }
    
@@ -31,7 +32,7 @@
    
    
    
-
+ <div class="span12 pagination-centered">
    <form action="authorize" method="POST">
       <fieldset >
          <legend>Login</legend>
@@ -45,6 +46,7 @@
       </fieldset>
    </form>
 </div>
+
 <?php 
    }
    $view['slots']->stop();

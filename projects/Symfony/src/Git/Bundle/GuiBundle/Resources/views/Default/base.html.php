@@ -25,10 +25,24 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="./index.html">Git Gui</a>
+       <?php   if ($_SESSION['LoggedIn'] !== TRUE) {
+       ?>
+<a class="brand" href="login">Git Gui</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active">
+            <li class="active">
+               <a href="login">Log In</a>
+              </li>
+            <?php
+}
+else {
+
+
+?>
+          <a class="brand" href="#">Git Gui</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="">
                <a href="index">Home</a>
               </li>
               <li class="">
@@ -46,6 +60,7 @@
               <li class="">
                 <a href="loggedOut">Log Out</a>
               </li>
+              <?php } ?>
            
             </ul>
           </div>

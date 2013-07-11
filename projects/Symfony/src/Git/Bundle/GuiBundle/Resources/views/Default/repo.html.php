@@ -1,6 +1,12 @@
 <?php
    require_once('scripts/ldap.php');
      require_once('scripts/database.php');
+     session_start();
+     if ($_SESSION['LoggedIn'] !== TRUE) {
+   header("Location:login");
+
+   exit();
+}
       $view->extend('GitGuiBundle:Default:base.html.php');
       $view['slots']->start('title');
       

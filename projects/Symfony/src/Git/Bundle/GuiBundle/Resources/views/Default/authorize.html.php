@@ -25,6 +25,7 @@ if ($ds)
         
         if ($dsb)
             {
+             $_SESSION['Alert'] = false;
             $_SESSION['LoggedIn'] = true;
             header("Location: create");
             exit();

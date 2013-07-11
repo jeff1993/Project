@@ -1,6 +1,7 @@
 <?php
 require_once('scripts/database.php');
-
+require_once('scripts/ldap.php');
+session_start();
 
 //submitted from Show Step 1. Which is the dual view list of assigning users to groups
 //Purpose: To assign the relationship between users and groups.
@@ -63,15 +64,15 @@ if ($_POST['step'] == 1)
     }
     //End result, users are properly assigned to their groups in the group_mangement table
     
-//creates a new user
+//creates a new user. Sent from the create user page
 if ($_POST['step'] == 2)
     {
     $uname = trim($_REQUEST['username']);
     $user  = "time-inc-corp\\" . $uname;
     $ds = ldap_connect("ldaps://corp.ad.timeinc.com:3269") or die("Could not connect to LDAP server.");
     $basedn          = "DC=CORP,DC=AD,DC=TIMEINC,DC=com";
-    $logged_user     = $_COOKIE["LoggedUser"];
-    $logged_password = $_COOKIE["LoggedPass"];
+    $logged_user     = $_SESSION['searchUser'];
+    $logged_password = $_SESSION["searchPass"];
     $dsb             = ldap_bind($ds, $logged_user, $logged_password);
     // Search surname entry
     $filter          = "(sAMAccountName=" . $uname . ")";
@@ -86,12 +87,10 @@ if ($_POST['step'] == 2)
     $info            = ldap_get_entries($ds, $sr);
     if ($info["count"] === 0)
         {
-        echo '<script type="text/javascript"> 
-   
-   if(confirm("You Have Entered an Incorrect UserName")) {
-       window.location.href = "create"
-   }
-   </script>';
+        
+        $_SESSION['Alert'] = true;
+          header("Location: create");
+    exit();
         }
     else if (!$sr)
         {
@@ -119,18 +118,15 @@ if ($_POST['step'] == 2)
                 {
                 $user_id = $row[0];
                 }
-            echo $user_id;
-            header("Location: submitted");
+                $_SESSION['Alert'] = false;
+            header("Location: create");
             exit();
             }
         else
             {
-            echo '<script type="text/javascript"> 
-   
-   if(confirm("This Username already exists")) {
-       window.location.href = "create"
-   }
-   </script>';
+$_SESSION['Alert'] = true;
+          header("Location: create");
+    exit();
             }
         }
     }
@@ -269,7 +265,7 @@ if ($_POST['step'] == 5)
    if(confirm('Are You Sure You Want To Delete This User?!')) {
    
       " . $clear = mysql_query("DELETE FROM user WHERE username ='" . $userName . "';") . "
-       window.location.href = 'submitted'
+       window.location.href = 'create'
    }
    else {
    		window.location.href = 'create'
