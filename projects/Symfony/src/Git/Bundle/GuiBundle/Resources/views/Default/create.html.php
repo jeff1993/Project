@@ -10,7 +10,7 @@
    exit();
 }
   if (isset($_SESSION['Alert']) && $_SESSION['Alert'] == TRUE){
-   ?> <br/><br/><br/>
+   ?> 
    <div class="span12 pagination-centered">
        <div class="alert alert-block alert-error fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -19,6 +19,7 @@
    
           </div>
 <?php }?>
+
 <div class='row-fluid'>
 <div class='span8 offset2'>
       <form action="add" method="POST">

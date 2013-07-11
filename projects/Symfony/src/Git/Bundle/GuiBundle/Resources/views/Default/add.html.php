@@ -205,7 +205,7 @@ if ($_POST['step'] == 3)
         exit();
         }
     }
-    
+  //sent from the assigning groups to repos page, the dual list  
 if ($_POST['step'] == 4)
     {
     //gets the groupID, removes the slash, replaces it with a space, then removes the space.
@@ -254,6 +254,7 @@ if ($_POST['step'] == 4)
             }
         }
     header("Location: repo");
+    exit();
     }
 // Posted from create.html.php 
 // username value is passed into this function which deletes the user from the user list
