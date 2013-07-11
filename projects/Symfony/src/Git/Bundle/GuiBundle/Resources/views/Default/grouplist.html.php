@@ -32,7 +32,7 @@
    }
    
 
-   echo "<table class='table table-hover'>
+   echo "<table class='table table-condensed table-hover'>
    <tr>
    <th>Group Name</th>
    <th>Edit</th>
@@ -46,8 +46,8 @@
        <input type ='hidden' name ='groupName'  id ='groupName' value ='".$row['name']."'/>";
    echo "<tr>";
    echo "<td> {$row['name']} </td>" ;
-   echo "<td> <button class='btn btn-warning' value ='edit' type='submit'>Edit</td> ";
-   echo "<td> <button class='btn btn-danger' type='submit'>Delete</td> ";
+   echo "<td> <button class='btn btn-warning btn-small' value ='edit' type='submit'>Edit</td> ";
+   echo "<td> <button class='btn btn-danger btn-small' type='submit'>Delete</td> ";
    echo "</tr>";
    echo "</form>";
    }
