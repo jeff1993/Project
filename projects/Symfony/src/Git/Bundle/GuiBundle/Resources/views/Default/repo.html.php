@@ -20,6 +20,11 @@
             <label for='reponame' >Repository Name*:</label>
             <input type='text' name='reponame' id='reponame'  maxlength="50" />
             <br/> 
+            <select name = "repoType">
+            	<option value='git'> Git </option>
+            	<option value='svn'> SVN </option>
+            	</select>
+            	</br>
             <button type="Submit" name ="Submit" class="btn">Submit</button>
          </fieldset>
          <br/>
@@ -43,6 +48,7 @@
                
                ?>
             </select>
+            
             <br/>
             <br/>
          </fieldset>

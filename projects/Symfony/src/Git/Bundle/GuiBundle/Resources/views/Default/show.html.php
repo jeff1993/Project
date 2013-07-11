@@ -8,7 +8,7 @@
    if ($_POST['step'] == 1)
    {
    	//gets the group name from the drop down in the groups list page
-     $event = $_POST["groupdropdown"];
+     $event = $_POST["groupName"];
        ?>
        <div class="row-fluid">
   		<div class="span4">
@@ -229,7 +229,7 @@
                   <table>
                      <tr>
                         <td>
-                           <legend>All Groups </legend>
+                           <legend>All Groups</legend>
                            <br/>
                            Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">

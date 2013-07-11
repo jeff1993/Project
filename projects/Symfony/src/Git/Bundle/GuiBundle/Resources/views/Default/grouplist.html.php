@@ -19,28 +19,42 @@
          <input type='hidden' name='step' value='1' />
          <label for='groupname' >Group Name*:</label>
          <input type="text" name="groupname" id='groupname' required><br>	
-         <input type='submit' name='Submit' value='Submit' />
+         <input type='submit' class= 'btn' name='Submit' value='Submit' />
       </form>
-      <form action="show" method="POST">
-         <fieldset >
-            <legend>Assign Users</legend>
-            <input type='hidden' name='step' value='1' /> 
-            <select name="groupdropdown">
-            <?php
-               $result = mysql_query("SELECT name FROM groups ORDER BY name");
-               if (!$result) {
-                   die("<p>Error in listing tables: " . mysql_error() . "</p>");
-               }
-               echo "<p>Tables in database:</p>";
-               while ($row = mysql_fetch_row($result)) {
-                   echo "<option value ={$row[0]}>" . $row[0] . " </option>";
-               }
-               ?> 
-               </select> 
-         </fieldset>
-        <button type="Submit" name ="Submit" class="btn">Submit</button>
-      </form>
+    
+       <fieldset >
+      <legend> All Groups </legend>
       
+      <?php
+         $groupInfo = mysql_query("SELECT * FROM groups ORDER BY name;");
+   if (!$groupInfo) {
+     die("<p>Error in listing users " . mysql_error() . "</p>");
+   }
+   
+
+   echo "<table class='table table-hover'>
+   <tr>
+   <th>Group Name</th>
+   <th>Edit</th>
+   <th>Delete?</th>
+   </tr>";
+   
+   while($row = mysql_fetch_array($groupInfo))
+   {
+   echo" <form action='show' method='POST'> 
+       <input type='hidden' name='step' value='1' /> 
+       <input type ='hidden' name ='groupName'  id ='groupName' value ='".$row['name']."'/>";
+   echo "<tr>";
+   echo "<td> {$row['name']} </td>" ;
+   echo "<td> <button class='btn btn-warning' value ='edit' type='submit'>Edit</td> ";
+   echo "<td> <button class='btn btn-danger' type='submit'>Delete</td> ";
+   echo "</tr>";
+   echo "</form>";
+   }
+   echo "</table> </div></div>";
+   ?>   
+      </fieldset>
+      </legend>
    </div>
 </div>
 

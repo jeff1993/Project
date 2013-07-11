@@ -6,7 +6,20 @@
    
    $reponame = $_REQUEST['reponame'];   
    $path = "/Users/jsimpson1271/Desktop";
- 
+   $repoType = $_POST['repoType'];
+	$reposlash = str_replace('/', ' ', $repoType);
+    $repoType  = trim($reposlash);
+
+ 	if($repoType == 'git'){
+ 		$git=1;
+ 		$svn=0;
+ 		}
+ 	else  {
+ 		$git =0;
+ 		$svn =1;
+ 	}	
+ 		
+ 	
    chdir($path);
    
    exec ("mkdir ".$reponame);
@@ -33,8 +46,8 @@
        
        if ($num_results1 == 0) { 
         
-           $insert_sql = "INSERT INTO repo (name) " . "VALUES ('{$reponame}');";
-           
+           $insert_sql = "INSERT INTO repo (name, git, svn) " . "VALUES ('{$reponame}', '{$git}', '{$svn}');";
+            //$insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
            mysql_query($insert_sql) or die(mysql_error());
            
            header("Location: repo");

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Git Gui</title>
+      <title>Source Code Repository Management</title>
       <!-- Bootstrap -->
       <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
       <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -27,7 +27,7 @@
           </button>
        <?php   if ($_SESSION['LoggedIn'] !== TRUE) {
        ?>
-<a class="brand" href="login">Git Gui</a>
+<a class="brand" href="login">Source Code Repository Management</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
             <li class="active">
@@ -39,7 +39,7 @@ else {
 
 
 ?>
-          <a class="brand" href="#">Git Gui</a>
+          <a class="brand" href="#">Source Code Repository Management</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="">

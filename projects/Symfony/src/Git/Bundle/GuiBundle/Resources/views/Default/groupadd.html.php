@@ -5,11 +5,21 @@
    
    
    if ($_POST['step'] == 1) {
-       $name      = $_REQUEST['groupdropdown'];
+       $name      = $_POST['groupname'];
        $groupname = str_replace('/', ' ', $name);
        $name      = trim($groupname);
-   
-     	echo $name;      
+       
+   		$groupID= mysql_query("Select * from groups WHERE name ='".$name."';");
+        if($row =mysql_fetch_array($groupID)) {
+      		header("Location: group");
+           exit();
+       }
+       
+       else{
+      	$insert_sql = mysql_query("INSERT INTO groups (name) " . "VALUES ('{$name}');") or die (mysql_error());
+       header("Location: group");
+           exit();
+           }
     }
     
    
@@ -72,6 +82,32 @@
            exit();
    
        
+   }
+   
+   
+   //Sent from the groups page, used to delete groups.
+   if ($_POST['step'] == 3){
+   
+   $groupName = $_POST['groupName'];
+   
+	$delete = "DELETE FROM groups WHERE name ='" . $groupName . "';";
+	?>
+     <script type='text/javascript'> 
+     var r = confirm('Are You Sure You Want To Delete This Group?!');
+     if(r!==true){
+     
+   		
+       window.location.href = 'create';
+   }
+   else {
+   <?php
+   		 mysql_query($delete);
+   		 ?>
+   		window.location.href = 'group';
+   		}
+   
+   </script>";
+   <?php
    }
    
    
