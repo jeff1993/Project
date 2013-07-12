@@ -261,17 +261,9 @@ if ($_POST['step'] == 4)
 if ($_POST['step'] == 5)
     {
     $userName = $_POST['username'];
-    echo "<script type='text/javascript'> 
-   
-   if(confirm('Are You Sure You Want To Delete This User?!')) {
-   
-      " . $clear = mysql_query("DELETE FROM user WHERE username ='" . $userName . "';") . "
-       window.location.href = 'create'
-   }
-   else {
-   		window.location.href = 'create'
-   		}
-   
-   </script>";
+	 $clear = mysql_query("DELETE FROM user WHERE username ='" . $userName . "';");
+     header("Location: create");
+        exit();
+ 
     }
 ?>

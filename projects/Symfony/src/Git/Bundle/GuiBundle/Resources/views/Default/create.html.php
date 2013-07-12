@@ -61,10 +61,30 @@
    echo "<td> {$row['last_name']} </td>";
    echo "<td> {$row['username']} </a> </td>";
    echo "<td> {$row['email']} </td>";
-   echo "<td> <button class='btn btn-danger' type='submit'>Delete</td> ";
+   echo "<td> <a href='#myModal' role='button' name = 'delete' value ='".$row['username']."' class='btn btn-danger' data-toggle='modal'>Delete</a> </td>";
    echo "</tr>";
    echo "</form>";
    }
    echo "</table> </div></div>";
+   ?>
+   
+   <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Delete User? ></h3>
+  </div>
+  <div class="modal-body">
+    <p>Are You Sure You Want To Delete This Users?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-danger" type='submit'>Delete</button>
+  </div>
+</div>
+<?php
+   
+   
+   
+   
    $view['slots']->stop();
    ?>

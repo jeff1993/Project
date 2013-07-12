@@ -184,7 +184,7 @@
    //sent from the manage repo page, used by the drop down
    if ($_POST['step'] == 3) {
    
-    $name      = $_POST['repoDropDown'];
+    $name      = $_POST['repoName'];
        $groupname = str_replace('/', ' ', $name);
        $event      = trim($groupname);
         
@@ -192,9 +192,6 @@
         while ($row1 = mysql_fetch_row($num2)) {
       		$repo_id=$row1[0];
        }
-   	
-   
-       $event = $_POST['repoDropDown'];
        ?>
        <div class="row-fluid">
   		<div class="span4">
@@ -234,6 +231,9 @@
                            Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                            <?php
+                           
+                           
+                           
                               $groups = mysql_query("SELECT * FROM groups ORDER BY name;");
                               while($row = mysql_fetch_array($groups)){
                               echo "<option id='" . $row['name'] . "' name='box1View[]'  value='".$row['name']."'> ".$row['name']."</option>";

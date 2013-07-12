@@ -19,7 +19,6 @@
          <input type='hidden' name='step' value='1' />
          <label for='groupname' >Group Name*:</label>
          <input type="text" name="groupname" id='groupname' required><br>	
-         </br></br>
          <input type='submit' class= 'btn' name='Submit' value='Submit' />
       </form>
     
@@ -48,7 +47,7 @@
    echo "<tr>";
    echo "<td> {$row['name']} </td>" ;
    echo "<td> <button class='btn btn-warning btn-small' value ='edit' type='submit'>Edit</td> ";
-   echo "<td> <button class='btn btn-danger btn-small' type='submit'>Delete</td> ";
+   echo "<td> <button class='btn btn-danger btn-small' type='button'>Delete</td> ";
    echo "</tr>";
    echo "</form>";
    }
