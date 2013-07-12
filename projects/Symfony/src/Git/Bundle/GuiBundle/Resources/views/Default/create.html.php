@@ -50,39 +50,36 @@
    <th>Email </th>
    <th>Delete?</th>
    </tr>";
-   
+
    while($row = mysql_fetch_array($userInfo))
    {
-   echo" <form action='add' method='POST'> 
-       <input type='hidden' name='step' value='5' /> 
-       <input type ='hidden' name ='username'  id ='username' value ='".$row['username']."'/>";
+
    echo "<tr>";
    echo "<td> {$row['first_name']} </td>" ;
    echo "<td> {$row['last_name']} </td>";
    echo "<td> {$row['username']} </a> </td>";
    echo "<td> {$row['email']} </td>";
    echo "<td> <a href='#myModal' role='button' name = 'delete' value ='".$row['username']."' class='btn btn-danger' data-toggle='modal'>Delete</a> </td>";
-   echo "</tr>";
-   echo "</form>";
-   }
-   echo "</table> </div></div>";
-   ?>
-   
-   <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   echo "</tr>";  
+   ?><div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Delete User? ></h3>
+    <h3 id="myModalLabel">Delete User? <?php echo $row['username']?></h3>
+   <?php  echo" <form action='add' method='POST'> 
+       <input type='hidden' name='step' value='5' /> 
+       <input type ='hidden' name ='username'  id ='username' value ='".$row['username']."'/>";?>
   </div>
   <div class="modal-body">
     <p>Are You Sure You Want To Delete This Users?</p>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-danger" type='submit'>Delete</button>
+    <button class="btn btn-danger" type='submit'>Delete</button></form>
   </div>
 </div>
-<?php
-   
+  <?php }
+   echo "</table> </div></div>";
+
    
    
    
