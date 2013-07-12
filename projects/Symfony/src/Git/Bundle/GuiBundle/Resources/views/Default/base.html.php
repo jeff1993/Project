@@ -76,6 +76,7 @@ else {
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
    <script src="js/bootstrap.js"></script>
    <script src="<?php echo $view['assets']->getUrl('js/jQuery.dualListBox-1.3.js') ?>" type="text/javascript" ></script>
+   <script src="<?php echo $view['assets']->getUrl('js/jquery.tablesorter.js') ?>" type="text/javascript" ></script>
    <script language="javascript" type="text/javascript">
       $(function() {
       

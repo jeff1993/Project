@@ -25,15 +25,15 @@
     
        <fieldset >
       <legend> All Groups </legend>
-      
+      <input type="text" id="search" placeholder="Type to search">
       <?php
          $groupInfo = mysql_query("SELECT * FROM groups ORDER BY name;");
    if (!$groupInfo) {
      die("<p>Error in listing users " . mysql_error() . "</p>");
    }
    
-
-   echo "<table class='table table-condensed table-hover'>
+	
+   echo "<table class='table table-condensed table-hover' id ='table'>
    <tr>
    <th>Group Name</th>
    <th>Edit</th>
@@ -59,5 +59,21 @@
    </div>
 </div>
 
+
+<script>
+
+
+
+
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+</script>
 
 <?php $view['slots']->stop();?>
