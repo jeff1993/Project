@@ -36,7 +36,7 @@
    echo "<table class='table table-condensed table-hover' id ='table'>
    <tr>
    <th>Group Name</th>
-   <th>Edit</th>
+   <th>Edit</th> 
    <th>Delete?</th>
    </tr>";
    
