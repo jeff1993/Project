@@ -29,27 +29,28 @@
             if (!$groupInfo) {
             die("<p>Error in listing users " . mysql_error() . "</p>");
             }
-            
-            
+            echo" <form action='show' method='POST' id ='deleteUser'> 
+            <input type='hidden' name='step' value='1' /> ";
+
             echo "<table class='table table-condensed table-hover' id ='table'>
             <tr>
             <th>Group Name</th>
             <th>Edit</th> 
-            <th>Delete?</th>
+            <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger' data-toggle='modal'>Delete</a></th>
             </tr>";
             
             while($row = mysql_fetch_array($groupInfo))
             {
-            echo" <form action='show' method='POST' id ='deleteUser'> 
-            <input type='hidden' name='step' value='1' /> 
-            <input type ='hidden' name ='groupName'  id ='groupName' value ='".$row['name']."'/>";
+            
             echo "<tr>";
             echo "<td> {$row['name']} </td>" ;
-            echo "<td> <button class='btn btn-warning btn-small' name = 'action' value ='edit' type='submit'>Edit</td> ";
-            echo "<td><a href='#myModal' role='button' name = 'action' value ='delete' class='btn btn-danger btn-small' data-toggle='modal'>Delete</a></td> ";
+            
+            echo "<td> <button class='btn btn-warning btn-small' name = 'action' value ='".$row['name']."' type='submit'>Edit</td> ";
+            echo "<td> <input type='checkbox' name='deleteBox[]' value='".$row['name']."'</td>";
             echo "</tr>";
-            echo "</form>";
+           
             }
+             echo "</form>";
             echo "</table> </div></div>";
             ?>   
       </fieldset>
