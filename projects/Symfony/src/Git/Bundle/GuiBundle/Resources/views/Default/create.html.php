@@ -41,47 +41,32 @@
      die("<p>Error in listing users " . mysql_error() . "</p>");
    }
    
-
-   echo "<table class='table table-hover'>
+echo" <form action='add' method='POST' id = 'deleteUser'> 
+       <input type='hidden' name='step' value='5' /> 
+         <input type='text' id='search' placeholder='Type to search'>";
+   echo "<table class='table table-hover' id= 'table'>
    <tr>
    <th>First Name</th>
    <th>Last Name</th>
    <th>User Name</th>
    <th>Email </th>
-   <th>Delete?</th>
+   <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger' data-toggle='modal'>Delete</a></th>
    </tr>";
 
    while($row = mysql_fetch_array($userInfo))
    {
+//when you click the modal it is only the first one that gets displayed
 
    echo "<tr>";
    echo "<td> {$row['first_name']} </td>" ;
    echo "<td> {$row['last_name']} </td>";
    echo "<td> {$row['username']} </a> </td>";
    echo "<td> {$row['email']} </td>";
-   echo "<td> <a href='#myModal' role='button' name = 'delete' value ='".$row['username']."' class='btn btn-danger' data-toggle='modal'>Delete</a> </td>";
+   echo "<td> <input type='checkbox' name='deleteBox[]' value='".$row['username']."'</td>";
    echo "</tr>";  
-   ?><div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Delete User? <?php echo $row['username']?></h3>
-   <?php  echo" <form action='add' method='POST'> 
-       <input type='hidden' name='step' value='5' /> 
-       <input type ='hidden' name ='username'  id ='username' value ='".$row['username']."'/>";?>
-  </div>
-  <div class="modal-body">
-    <p>Are You Sure You Want To Delete This Users?</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-danger" type='submit'>Delete</button></form>
-  </div>
-</div>
-  <?php }
+ }
    echo "</table> </div></div>";
 
-   
-   
    
    $view['slots']->stop();
    ?>

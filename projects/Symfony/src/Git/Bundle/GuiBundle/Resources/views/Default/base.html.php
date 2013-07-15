@@ -73,6 +73,41 @@ else {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Delete User? </h3>
+  	</div>
+  <div class="modal-body">
+    <p>Are You Sure You Want To Delete This Users?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-danger" name = 'action' value= 'delete' type='button' onclick ='confirmation()'>Delete</button></form>
+  </div>
+</div>
+
+
+<script>
+function confirmation() {
+ 
+        document.getElementById("deleteUser").submit();
+
+}
+
+
+var $rows = $('#table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+</script>
+
+
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
    <script src="js/bootstrap.js"></script>
    <script src="<?php echo $view['assets']->getUrl('js/jQuery.dualListBox-1.3.js') ?>" type="text/javascript" ></script>
@@ -83,6 +118,11 @@ else {
           $.configureBoxes();
       
       });
+      
+      
+      
+      
+      
       
    </script>
    

@@ -59,6 +59,8 @@ if ($_POST['step'] == 1)
                 }
             }
         }
+        
+        
     header("Location: group");
     exit();
     }
@@ -260,10 +262,13 @@ if ($_POST['step'] == 4)
 // username value is passed into this function which deletes the user from the user list
 if ($_POST['step'] == 5)
     {
-    $userName = $_POST['username'];
-	 $clear = mysql_query("DELETE FROM user WHERE username ='" . $userName . "';");
-     header("Location: create");
-        exit();
- 
+    
+   	foreach($_POST['deleteBox'] as $checkbox){
+   		$delete_query="DELETE FROM user WHERE username ='".$checkbox."';";
+   		mysql_query($delete_query) or die(mysql_error());
+   	
+   		}
+ 	header("Location: create");
+   		exit();
     }
 ?>

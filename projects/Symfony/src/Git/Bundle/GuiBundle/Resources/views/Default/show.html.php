@@ -9,6 +9,10 @@
    {
    	//gets the group name from the drop down in the groups list page
      $event = $_POST["groupName"];
+     
+     if($_GET['action']=='edit'){
+     
+     
        ?>
        <div class="row-fluid">
   		<div class="span4">
@@ -97,6 +101,12 @@
 </div>
 <?php
    }
+   else {
+   
+   echo "hello world";
+   
+   }
+  }
    
    
    //shows each of the groups that are assigned to each reposistory 
