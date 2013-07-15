@@ -88,24 +88,10 @@ else {
 </div>
 
 
-<script>
-function confirmation() {
- 
-        document.getElementById("deleteUser").submit();
+         
+         
+         
 
-}
-
-
-var $rows = $('#table tr');
-$('#search').keyup(function() {
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-
-    $rows.show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        return !~text.indexOf(val);
-    }).hide();
-});
-</script>
 
 
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -125,6 +111,16 @@ $('#search').keyup(function() {
       
       
    </script>
+   <script>
+function confirmation() {
+ 
+        document.getElementById("deleteUser").submit();
+
+}
+</script>
+
+
+   
    
 
       <?php

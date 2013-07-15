@@ -9,9 +9,16 @@
    {
    	//gets the group name from the drop down in the groups list page
      $event = $_POST["groupName"];
+       if(!isset($_POST['action'])){
+   
+   			$delete_query ="DELETE FROM groups WHERE name ='".$event."';";
+   			mysql_query($delete_query) or die (mysql_error());
+   			header("Location: group");
+   			exit();	
+   	
+ 	  }
      
-     if($_GET['action']=='edit'){
-     
+     else{
      
        ?>
        <div class="row-fluid">
@@ -101,11 +108,7 @@
 </div>
 <?php
    }
-   else {
-   
-   echo "hello world";
-   
-   }
+
   }
    
    
@@ -194,9 +197,21 @@
    //sent from the manage repo page, used by the drop down
    if ($_POST['step'] == 3) {
    
-    $name      = $_POST['repoName'];
-       $groupname = str_replace('/', ' ', $name);
-       $event      = trim($groupname);
+  	  $name  = $_POST['repoName'];
+       $repoSlash = str_replace('/', ' ', $name);
+       $event      = trim($repoSlash);
+        
+          echo $name;
+
+        if(!isset($_POST['action'])){
+   				
+   				echo $event;
+   		
+   	
+ 	  }
+     
+     else{
+        
         
        $num2= mysql_query("Select repo_id from repo WHERE name ='".$event."';");
         while ($row1 = mysql_fetch_row($num2)) {
@@ -383,7 +398,7 @@ dual list view of groups to repos. The changes are submitted to add.html.php wit
    </div> 
    </div> ";
    	}
-   
+   }
    	?>
 <?php 
    $view['slots']->stop()
