@@ -29,6 +29,10 @@
             <input type='hidden' name='step' value='2' />
             <label for='username' >UserName*:</label>
             <input type='text' name='username' id='username' required  maxlength="50" />
+            <br/>
+            <input type="radio" name="userType" value="user" checked>User
+            <input type="radio" name="userType" value="manager">Manager
+            </br>
             <br/> 
             <button type="Submit" name ="Submit" class="btn">Submit</button>
          </fieldset>

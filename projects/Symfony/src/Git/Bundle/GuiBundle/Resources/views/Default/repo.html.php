@@ -20,7 +20,7 @@
             <label for='reponame' >Repository Name*:</label>
             <input type='text' name='reponame' id='reponame'  maxlength="50" />
             <br/> 
-            <input type="radio" name="repoType" value="git">Git
+            <input type="radio" name="repoType" value="git" checked>Git
             <input type="radio" name="repoType" value="svn">Svn
             </br>
             </br>

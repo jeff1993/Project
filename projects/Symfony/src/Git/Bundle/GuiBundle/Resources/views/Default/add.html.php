@@ -69,6 +69,19 @@ if ($_POST['step'] == 1)
 //creates a new user. Sent from the create user page
 if ($_POST['step'] == 2)
     {
+    
+    
+    $userType = $_POST['userType'];
+	$userslash = str_replace('/', ' ', $userType);
+    $userType  = trim($userslash);
+
+ 	if($userType == 'user'){
+ 		$manager =0;
+ 		}
+ 	else  {
+ 		$manager=1;
+ 	}	
+
     $uname = trim($_REQUEST['username']);
     $user  = "time-inc-corp\\" . $uname;
     $ds = ldap_connect("ldaps://corp.ad.timeinc.com:3269") or die("Could not connect to LDAP server.");
@@ -113,7 +126,7 @@ if ($_POST['step'] == 2)
         $num_results1 = mysql_num_rows($tester);
         if ($num_results1 == 0)
             {
-            $insert_sql = "INSERT INTO user (username, first_name, " . "last_name, email) " . "VALUES ('{$uname}', '{$firstName}', '{$lastName}', " . "'{$email}');";
+            $insert_sql = "INSERT INTO user (username, first_name, " . "last_name, email, manager) " . "VALUES ('{$uname}', '{$firstName}', '{$lastName}', " . "'{$email}', '{$manager}');";
             mysql_query($insert_sql) or die(mysql_error());
             $num = mysql_query("Select user_id from user WHERE username ='" . $uname . "';");
             while ($row = mysql_fetch_row($num))
