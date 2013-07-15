@@ -40,7 +40,27 @@
                   else
                   {
                   ?>
+                  <?php if ($_SESSION['manager'] !== true){
+                  ?>
                <a class="brand" href="#">Source Code Repository Management</a>
+               <div class="nav-collapse collapse">
+                  <ul class="nav">
+                     <li class="">
+                        <a href="index">Home</a>
+                        </li>
+                         <li class="">
+                        <a href="loggedOut">Log Out</a>
+                     </li>
+                        </ul>
+                           </div>
+            </div>
+         </div>
+      </div>
+                        
+                     </li>
+                     <?php }
+                     else {?>
+                     <a class="brand" href="#">Source Code Repository Management</a>
                <div class="nav-collapse collapse">
                   <ul class="nav">
                      <li class="">
@@ -62,6 +82,7 @@
                         <a href="loggedOut">Log Out</a>
                      </li>
                      <?php
+                        }
                         }
                         ?>
                   </ul>
