@@ -41,7 +41,8 @@
             
             echo "<table class='table table-condensed table-hover' id ='table'>
             <tr>
-            <th>Repo Name</th>    
+            <th>Repo Name</th>  
+            <th>Type </th>  
             <th>Edit</th> 
            <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger' data-toggle='modal'>Delete</a></th>
             </tr>";
@@ -51,6 +52,13 @@
             
             echo "<tr>";
             echo "<td> {$row['name']} </td>" ;
+            if ($row['git']==1){
+            
+        		echo "<td> Git </td>";
+        		}		
+        		else {		
+        		echo "<td> Svn </td>";
+        		}
             echo "<td> <button class='btn btn-warning btn-small' name = 'action' value ='".$row['name']."' type='submit'>Edit</td> ";
             echo "<td> <input type='checkbox' name='deleteBox[]' value='".$row['name']."'</td>";
             echo "</tr>";
@@ -61,15 +69,5 @@
       </fieldset>
    </div>
 </div>
-<script>
-   var $rows = $('#table tr');
-   $('#search').keyup(function() {
-       var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-   
-       $rows.show().filter(function() {
-           var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-           return !~text.indexOf(val);
-       }).hide();
-   });
-</script>
+
 <?php $view['slots']->stop();?>

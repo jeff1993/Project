@@ -1,38 +1,28 @@
 <?php
    session_start();
    $view->extend('GitGuiBundle:Default:base.html.php');
-       
-   if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == TRUE){
-   
-   
-      header("Location:create");
-   
-      exit();
-   }
-   
-    else {
-   $view['slots']->start('title');
-   
-    if (isset($_SESSION['Alert']) && $_SESSION['Alert'] == TRUE){
+   if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == TRUE)
+       {
+       header("Location:create");
+       exit();
+       }
+   else
+       {
+       $view['slots']->start('title');
+       if (isset($_SESSION['Alert']) && $_SESSION['Alert'] == TRUE)
+           {
    ?> <br/><br/><br/>
-   <div class="span12 pagination-centered">
-       <div class="alert alert-block alert-error fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading">Oh snap! You got an error!</h4>
-            <p>You have entered an incorrect username and password! Try again!</p>
-   
-          </div>
-          </div>
-          <?php
+<div class="span12 pagination-centered">
+   <div class="alert alert-block alert-error fade in">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4 class="alert-heading">Oh snap! You got an error!</h4>
+      <p>You have entered an incorrect username and password! Try again!</p>
+   </div>
+</div>
+<?php
    }
-   
    ?>
-   
-   
-   
-   
-   
- <div class="span12 pagination-centered">
+<div class="span12 pagination-centered">
    <form action="authorize" method="POST">
       <fieldset >
          <legend>Login</legend>
@@ -46,9 +36,7 @@
       </fieldset>
    </form>
 </div>
-
-<?php 
+<?php
    }
    $view['slots']->stop();
-   
    ?>
