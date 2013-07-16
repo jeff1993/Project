@@ -54,6 +54,7 @@
           while ($row1 = mysql_fetch_array($groupName)) {
               $gName = $row1[0];
               echo $gName;
+              echo "<br/>";
           }
       }
       ?>

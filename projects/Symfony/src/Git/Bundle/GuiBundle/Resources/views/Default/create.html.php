@@ -53,6 +53,7 @@
       <th>Last Name</th>
       <th>User Name</th>
       <th>Email </th>
+      <th>Type </th>
       <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger' data-toggle='modal'>Delete</a></th>
       </tr>";
    while ($row = mysql_fetch_array($userInfo))
@@ -63,6 +64,12 @@
        echo "<td> {$row['last_name']} </td>";
        echo "<td> {$row['username']} </a> </td>";
        echo "<td> {$row['email']} </td>";
+       		if ($row['manager']==1){
+       		echo "<td> Manager </td>";
+       		}
+       		else {
+       		echo "<td> User </td>";
+       		}
        echo "<td> <input type='checkbox' name='deleteBox[]' value='" . $row['username'] . "'</td>";
        echo "</tr>";
        }
