@@ -15,8 +15,9 @@
 <div class="span12 pagination-centered">
 <div class="alert alert-block alert-error fade in">
    <button type="button" class="close" data-dismiss="alert">&times;</button>
-   <h4 class="alert-heading">Oh snap! You got an error!</h4>
+   <h4 class="alert-heading">You got an error!</h4>
    <p>You have entered an incorrect username! Try again!</p>
+</div>
 </div>
 <?php
    }

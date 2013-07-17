@@ -113,7 +113,7 @@
            }
        }
    }
-   //This is passed from Show	Step 3. It is displayed under the the Groups to Repo
+   //This is passed from Show Step 3. It is displayed under the the Groups to Repo
    //dual view list. 
    //Purpose:
    //Submits the changes  of the permisions of the groups to a specific repo
@@ -240,7 +240,7 @@
        }
        $insert_query = "UPDATE repo SET git ='" . $git . "', svn ='" . $svn . "' WHERE name ='" . $repo . "';";
        mysql_query($insert_query) or die(mysql_error());
-       header("Location: index");
+       header("Location: repo");
        exit();
    }
    ?>
