@@ -193,38 +193,40 @@
       <div class='row-fluid'>
          <div class='span8'>
             <div class ="span3">
-               <h5>
-               Your Current Repository Type 
-               <h5>
-               <?php
-                  if ($git == 1) {
-                      echo "Git";
-                  } else {
-                      echo "Svn";
-                  }
-                  ?>
-               <br/>
-               <form method = "post" action= "add">
-                  <input type='hidden' name='step' id='step' value='7'/>
-                  <?php
-                     echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
-                     ?>
-                  <br/>
-                  //changes the default checked radio button depending on the type of repo it already is
+               <div class ="well">
+                  <h5>
+                  Your Current Repository Type 
+                  <h5>
                   <?php
                      if ($git == 1) {
-                         echo "<input type='radio' name='repoType' value='git' checked>Git  
-                               <input type='radio' name='repoType' value='svn'>Svn";
+                         echo "Git";
                      } else {
-                         echo "<input type='radio' name='repoType' value='git'>Git  
-                               <input type='radio' name='repoType' value='svn' checked>Svn";
+                         echo "Svn";
                      }
                      ?>
                   <br/>
-                  <br/>
-                  <button type='Submit' name ='Submit' class='btn btn-small'>Submit</button>
+                  <form method = "post" action= "add">
+                     <input type='hidden' name='step' id='step' value='7'/>
+                     <?php
+                        echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
+                        ?>
+                     <br/>
+                     <?php
+                        //changes the default checked radio button depending on the type of repo it already is            
+                        if ($git == 1) {
+                            echo "<input type='radio' name='repoType' value='git' checked>Git  
+                                                     <input type='radio' name='repoType' value='svn'>Svn";
+                        } else {
+                            echo "<input type='radio' name='repoType' value='git'>Git  
+                                                     <input type='radio' name='repoType' value='svn' checked>Svn";
+                        }
+                        ?>
+                     <br/>
+                     <br/>
+                     <button type='Submit' name ='Submit' class='btn btn-small'>Submit</button>
+               </div>
+               </form>
             </div>
-            </form>
             <span class = "span3">
             <form  method="post" action="add" >
                <div>

@@ -2,6 +2,7 @@
    require_once('scripts/ldap.php');
      require_once('scripts/database.php');
      session_start();
+     $_SESSION['Alert'] == False;
      if ($_SESSION['LoggedIn'] !== TRUE) {
    header("Location:login");
    
