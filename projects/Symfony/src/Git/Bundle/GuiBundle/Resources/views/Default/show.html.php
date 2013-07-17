@@ -183,7 +183,7 @@
    that you can assign groups to the individual repositories-->
 <div class="tabbable tabs-right">
 <ul class="nav nav-tabs">
-   <li class="active"><a href="#gR" data-toggle="tab">Assign Groups to Repositories</a></li>
+   <li class="active"><a href="#gR" data-toggle="tab">Assign Groups</a></li>
    <li><a href="#aR" data-toggle="tab">Adjust Groups Rights</a></li>
 </ul>
 <div class="tab-content">

@@ -49,8 +49,8 @@
        }
        header("Location: group");
        exit();
-   }
-   //End result, users are properly assigned to their groups in the group_mangement table
+   }//End result, users are properly assigned to their groups in the group_mangement table
+  
    //creates a new user. Sent from the create user page
    if ($_POST['step'] == 2) {
        $userType  = $_POST['userType'];

@@ -22,6 +22,7 @@
 <?php
    }
    ?>
+   <div class= "row-fluid">
 <div class="span12 pagination-centered">
    <form action="authorize" method="POST">
       <fieldset >
@@ -35,6 +36,7 @@
          <button type="Submit" name ="Submit" class="btn">Submit</button>
       </fieldset>
    </form>
+</div>
 </div>
 <?php
    }

@@ -27,7 +27,6 @@
 <form action="add" method="POST">
    <fieldset >
       <legend>Create User</legend>
-      <input type='hidden' name='submitted' id='submitted' value='1'/>
       <input type='hidden' name='step' value='2' />
       <label for='username' >UserName*:</label>
       <input type='text' name='username' id='username' required  maxlength="50" />
