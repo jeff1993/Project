@@ -22,10 +22,10 @@
 <?php
    $event = $_POST['action'];
    echo "<h1>" . $event . "</h1> </div> </div> </div>";
-    $getGroupID = mysql_query("SELECT group_id FROM groups where name ='".$event."';");
-                 while ($row1 = mysql_fetch_array($getGroupID)) {
-                      	$groupID = $row1['group_id'];
-                      	}
+   $getGroupID = mysql_query("SELECT group_id FROM groups where name ='" . $event . "';");
+   while ($row1 = mysql_fetch_array($getGroupID)) {
+       $groupID = $row1['group_id'];
+   }
    ?>
 <!--From here till the end bracket is where you where we create the dual list view
    that you can assign users to the individual groups-->
@@ -42,22 +42,20 @@
          <table>
             <tr>
                <td>
-                  <legend>Users Not In <?php echo $event ?> </legend>
+                  <legend>Users Not In <?php
+                     echo $event;
+                     ?> </legend>
                   <br/>
                   Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small'id="box1Clear">X</button><br />
                   <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                   <?php
                      $result = mysql_query("SELECT * FROM user ORDER BY username;");
-                 while ($row1 = mysql_fetch_array($result)) {
-                      	$userID = $row1['user_id'];
-                      	
-                      	$check = mysql_query("Select * FROM group_management where groupID ='".$groupID."' and userID ='".$userID."';");
-                     	
-                     	if(mysql_fetch_array($check)==0){
-                     	
-                     	     echo "<option id='" . $row1['username'] . "' name='box1View[]'  value='" . $row1['username'] . "'> " . $row1['username'] . "</option>";
-                     
-                     }
+                     while ($row1 = mysql_fetch_array($result)) {
+                         $userID = $row1['user_id'];
+                         $check  = mysql_query("Select * FROM group_management where groupID ='" . $groupID . "' and userID ='" . $userID . "';");
+                         if (mysql_fetch_array($check) == 0) {
+                             echo "<option id='" . $row1['username'] . "' name='box1View[]'  value='" . $row1['username'] . "'> " . $row1['username'] . "</option>";
+                         }
                      }
                      ?>
                   </select><br/>
@@ -195,9 +193,9 @@
       <div class='row-fluid'>
          <div class='span8'>
             <div class ="span3">
-               <h4>
+               <h5>
                Your Current Repository Type 
-               <h4>
+               <h5>
                <?php
                   if ($git == 1) {
                       echo "Git";
@@ -212,11 +210,19 @@
                      echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
                      ?>
                   <br/>
-                  <input type="radio" name="repoType" value="git" checked>Git
-                  <input type="radio" name="repoType" value="svn">Svn
+                  //changes the default checked radio button depending on the type of repo it already is
+                  <?php
+                     if ($git == 1) {
+                         echo "<input type='radio' name='repoType' value='git' checked>Git  
+                               <input type='radio' name='repoType' value='svn'>Svn";
+                     } else {
+                         echo "<input type='radio' name='repoType' value='git'>Git  
+                               <input type='radio' name='repoType' value='svn' checked>Svn";
+                     }
+                     ?>
                   <br/>
                   <br/>
-                  <button type='Submit' name ='Submit' class='btn'>Submit</button>
+                  <button type='Submit' name ='Submit' class='btn btn-small'>Submit</button>
             </div>
             </form>
             <span class = "span3">
@@ -231,23 +237,21 @@
                   <table>
                      <tr>
                         <td>
-                           <legend>Groups Not Assigned to <?php echo $event?></legend>
+                           <legend>Groups Not Assigned to <?php
+                              echo $event;
+                              ?></legend>
                            <br/>
                            Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                            <?php
-                                $result = mysql_query("SELECT * FROM groups ORDER BY name;");
-                 while ($row1 = mysql_fetch_array($result)) {
-                      	$groupID = $row1['group_id'];
-                      	
-                      	$check = mysql_query("Select * FROM repo_management where groupID ='".$groupID."' and repoID ='".$repo_id."';");
-                     	
-                     	if(mysql_fetch_array($check)==0){
-                     	
-                     	     echo "<option id='" . $row1['name'] . "' name='box1View[]'  value='" . $row1['name'] . "'> " . $row1['name'] . "</option>";
-                     
-                     }
-                     }
+                              $result = mysql_query("SELECT * FROM groups ORDER BY name;");
+                              while ($row1 = mysql_fetch_array($result)) {
+                                  $groupID = $row1['group_id'];
+                                  $check   = mysql_query("Select * FROM repo_management where groupID ='" . $groupID . "' and repoID ='" . $repo_id . "';");
+                                  if (mysql_fetch_array($check) == 0) {
+                                      echo "<option id='" . $row1['name'] . "' name='box1View[]'  value='" . $row1['name'] . "'> " . $row1['name'] . "</option>";
+                                  }
+                              }
                               ?>
                            </select><br/>
                            <span id="box1Counter" class="countLabel"></span>
