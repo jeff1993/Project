@@ -294,56 +294,61 @@
       </div>
    </div>
    <div class="tab-pane" id="aR">
-      <?php
-         $check = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
-         while ($row = mysql_fetch_row($check)) {
-             $group_id = $row[0];
-         }
-         echo "<table class='table table-bordered table-condensed table-striped'>
-          <tr>
-          <th>Group Name</th>
-          <th>Read</th>
-          <th>Write</th>
-          <th>Manage</th>
-          <th> Update</th>
-          </tr>";
-         $perm = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
-         while ($row = mysql_fetch_array($perm)) {
-             //echo $row['groupID'];
-             $group = mysql_query("Select name from groups where group_id ='" . $row['groupID'] . "';");
-             while ($row3 = mysql_fetch_row($group)) {
-                 $group_name = $row3[0];
-             }
-             echo "<form action='add' method='POST'>
-          <input type='hidden' name='step' value='3' />
-          <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
-          <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
-             echo "<tr>";
-             echo "<td>" . $group_name . "</td>";
-             if ($row['perm_read'] == 1) {
-                 echo "<td>	<input type='checkbox' class='form' value='read' checked name='checkbox[]' /> Read</td>";
-             } else {
-                 echo "<td><input type='checkbox' class='form' value='read' name='checkbox[]' /> Read</td>";
-             }
-             if ($row['perm_write'] == 1) {
-                 echo "<td>	<input type='checkbox' class='form' value='write' checked name='checkbox[]' /> Write</td>";
-             } else {
-                 echo "<td>	<input type='checkbox' class='form' value='write' name='checkbox[]' /> Write </td>";
-             }
-             if ($row['perm_manage'] == 1) {
-                 echo "<td>	<input type='checkbox' class='form' value='manage' checked name='checkbox[]' /> Manage</td>";
-             } else {
-                 echo "<td>	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage</td>";
-             }
-             echo "<td><button type='Submit' name ='Submit' class='btn'>Submit</button> </td>";
-             echo "</tr></form> </div> </div>";
-         }
-         echo " </table></div>
-          </div> 
-          </div> ";
-         }
-         }
-         ?>
+      <div class="span10">
+         <fieldset>
+            <legend> Change Group Permissions </legend>
+            <?php
+               $check = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
+               while ($row = mysql_fetch_row($check)) {
+                   $group_id = $row[0];
+               }
+               echo "<table class='table table-bordered table-condensed table-striped'>
+                <tr>
+                <th>Group Name</th>
+                <th>Read</th>
+                <th>Write</th>
+                <th>Manage</th>
+                <th> Update</th>
+                </tr>";
+               $perm = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
+               while ($row = mysql_fetch_array($perm)) {
+                   //echo $row['groupID'];
+                   $group = mysql_query("Select name from groups where group_id ='" . $row['groupID'] . "';");
+                   while ($row3 = mysql_fetch_row($group)) {
+                       $group_name = $row3[0];
+                   }
+                   echo "<form action='add' method='POST'>
+                <input type='hidden' name='step' value='3' />
+                <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
+                <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
+                   echo "<tr>";
+                   echo "<td>" . $group_name . "</td>";
+                   if ($row['perm_read'] == 1) {
+                       echo "<td>	<input type='checkbox' class='form' value='read' checked name='checkbox[]' /> Read</td>";
+                   } else {
+                       echo "<td><input type='checkbox' class='form' value='read' name='checkbox[]' /> Read</td>";
+                   }
+                   if ($row['perm_write'] == 1) {
+                       echo "<td>	<input type='checkbox' class='form' value='write' checked name='checkbox[]' /> Write</td>";
+                   } else {
+                       echo "<td>	<input type='checkbox' class='form' value='write' name='checkbox[]' /> Write </td>";
+                   }
+                   if ($row['perm_manage'] == 1) {
+                       echo "<td>	<input type='checkbox' class='form' value='manage' checked name='checkbox[]' /> Manage</td>";
+                   } else {
+                       echo "<td>	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage</td>";
+                   }
+                   echo "<td><button type='Submit' name ='Submit' class='btn'>Submit</button> </td>";
+                   echo "</tr></form> </div> </div>";
+               }
+               echo " </table></div>
+                </div> 
+                </div> ";
+               }
+               }
+               ?>
+         </fieldset>
+      </div>
    </div>
 </div>
 <?php
