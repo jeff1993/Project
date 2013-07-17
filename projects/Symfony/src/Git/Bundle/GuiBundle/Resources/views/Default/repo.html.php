@@ -27,7 +27,7 @@
          <br/>
       </form>
       <fieldset >
-         <legend>Manage Repo</legend>
+         <legend>Manage Repositories</legend>
          <input type="text" id="search" placeholder="Type to search">
          <?php
             $repoInfo = mysql_query("SELECT * FROM repo ORDER BY name;");
