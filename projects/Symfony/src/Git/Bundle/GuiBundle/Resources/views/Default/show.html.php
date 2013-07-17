@@ -22,6 +22,10 @@
 <?php
    $event = $_POST['action'];
    echo "<h1>" . $event . "</h1> </div> </div> </div>";
+    $getGroupID = mysql_query("SELECT group_id FROM groups where name ='".$event."';");
+                 while ($row1 = mysql_fetch_array($getGroupID)) {
+                      	$groupID = $row1['group_id'];
+                      	}
    ?>
 <!--From here till the end bracket is where you where we create the dual list view
    that you can assign users to the individual groups-->
@@ -38,14 +42,22 @@
          <table>
             <tr>
                <td>
-                  <legend>All Users </legend>
+                  <legend>Users Not In <?php echo $event ?> </legend>
                   <br/>
                   Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small'id="box1Clear">X</button><br />
                   <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                   <?php
                      $result = mysql_query("SELECT * FROM user ORDER BY username;");
-                     while ($row = mysql_fetch_array($result)) {
-                         echo "<option id='" . $row['username'] . "' name='box1View[]'  value='" . $row['username'] . "'> " . $row['username'] . "</option>";
+                 while ($row1 = mysql_fetch_array($result)) {
+                      	$userID = $row1['user_id'];
+                      	
+                      	$check = mysql_query("Select * FROM group_management where groupID ='".$groupID."' and userID ='".$userID."';");
+                     	
+                     	if(mysql_fetch_array($check)==0){
+                     	
+                     	     echo "<option id='" . $row1['username'] . "' name='box1View[]'  value='" . $row1['username'] . "'> " . $row1['username'] . "</option>";
+                     
+                     }
                      }
                      ?>
                   </select><br/>
@@ -219,15 +231,23 @@
                   <table>
                      <tr>
                         <td>
-                           <legend>All Groups</legend>
+                           <legend>Groups Not Assigned to <?php echo $event?></legend>
                            <br/>
                            Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                            <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
                            <?php
-                              $groups = mysql_query("SELECT * FROM groups ORDER BY name;");
-                              while ($row = mysql_fetch_array($groups)) {
-                                  echo "<option id='" . $row['name'] . "' name='box1View[]'  value='" . $row['name'] . "'> " . $row['name'] . "</option>";
-                              }
+                                $result = mysql_query("SELECT * FROM groups ORDER BY name;");
+                 while ($row1 = mysql_fetch_array($result)) {
+                      	$groupID = $row1['group_id'];
+                      	
+                      	$check = mysql_query("Select * FROM repo_management where groupID ='".$groupID."' and repoID ='".$repo_id."';");
+                     	
+                     	if(mysql_fetch_array($check)==0){
+                     	
+                     	     echo "<option id='" . $row1['name'] . "' name='box1View[]'  value='" . $row1['name'] . "'> " . $row1['name'] . "</option>";
+                     
+                     }
+                     }
                               ?>
                            </select><br/>
                            <span id="box1Counter" class="countLabel"></span>
@@ -241,9 +261,7 @@
                            <button id="to1" type="button" class='btn btn-small'> < </button>
                         </td>
                         <td>
-                           <legend>Users Currently in <?php
-                              echo $event;
-                              ?> </legend>
+                           <legend>Groups Currently Assigned  </legend>
                            <br/>
                            Filter: <input type="text" id="box2Filter" /><button type="button"  class='btn btn-small' id="box2Clear">X</button><br />
                            <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">

@@ -36,7 +36,7 @@
             <tr>
             <th>Group Name</th>
             <th>Edit</th> 
-            <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger' data-toggle='modal'>Delete</a></th>
+            <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger btn-small' data-toggle='modal'>Delete</a></th>
             </tr>";
             
             while($row = mysql_fetch_array($groupInfo))
