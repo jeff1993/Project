@@ -14,7 +14,7 @@ class DefaultController extends Controller
     public function addAction()
     {
     
-    return $this->render('GitGuiBundle:Default:add.html.php');
+    return $this->render('GitGuiBundle:Default:scripts/add.html.php');
     
 
     }
@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function authorizeAction()
     {
       
-        return $this->render('GitGuiBundle:Default:authorize.html.php');
+        return $this->render('GitGuiBundle:Default:scripts/authorize.html.php');
     
     }
       
@@ -42,7 +42,7 @@ class DefaultController extends Controller
       public function groupaddAction()
      {
     
-    return $this->render('GitGuiBundle:Default:groupadd.html.php');
+    return $this->render('GitGuiBundle:Default:scripts/groupadd.html.php');
     
      }
        public function indexAction()
@@ -67,7 +67,7 @@ class DefaultController extends Controller
      public function managerepoAction()
     {
     
-        return $this->render('GitGuiBundle:Default:managerepo.html.php');
+        return $this->render('GitGuiBundle:Default:scripts/managerepo.html.php');
         
     }
       public function repoAction()

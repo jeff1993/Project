@@ -7,8 +7,9 @@
        }
    ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
    <head>
+   <meta charset="UTF-8">
       <title>Source Code Repository Management</title>
       <!-- Bootstrap -->
       <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
@@ -91,8 +92,9 @@
             </ul>
          </div>
       </div>
-      </div>
-      </div>
+ </div>
+ </div>
+   
       <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -106,7 +108,7 @@
             <button class="btn btn-danger" name = 'action' value= 'delete' type='button' onclick ='confirmation()'>Delete</button></form>
          </div>
       </div>
-      <!-- Le javascript
+         <!-- Le javascript
          ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -146,16 +148,6 @@
                  return !~text.indexOf(val);
              }).hide();
          });
-      </script>
-      <script type="text/javascript"> 
-         function stopRKey(evt) { 
-           var evt = (evt) ? evt : ((event) ? event : null); 
-           var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
-           if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
-         } 
-         
-         document.onkeypress = stopRKey; 
-         
       </script>
    </body>
 </html>
