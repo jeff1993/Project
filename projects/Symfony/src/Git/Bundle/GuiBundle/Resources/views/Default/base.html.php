@@ -138,16 +138,30 @@
       <?php
          $view['slots']->output('title', 'Hello Application');
          ?>
-      <script>
-         var $rows = $('#table tr');
-         $('#search').keyup(function() {
-             var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
          
-             $rows.show().filter(function() {
-                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                 return !~text.indexOf(val);
-             }).hide();
-         });
+            <script>
+         function Search() {
+    var value = $('input[id$="txtSearch"]').val();
+    if (value) {
+        $('#table tr:not(:first)').each(function () {
+            var index = -1;
+            $(this).children('td').each(function () {
+                var text = $(this).text();
+                if (text.toLowerCase().indexOf(value.toLowerCase()) != -1) {
+                    index = 0;
+                    return false;
+                }
+            });
+            if (index == 0)
+                $(this).show();
+            else
+                $(this).hide();
+        });
+    }
+    else
+        $('#table tr').show();
+}
       </script>
+     
    </body>
 </html>

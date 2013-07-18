@@ -29,7 +29,7 @@
       </form>
       <fieldset >
          <legend>Manage Repositories</legend>
-         <input type="text" id="search" placeholder="Type to search">
+           <input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>
          <?php
             $repoInfo = mysql_query("SELECT * FROM repo ORDER BY name;");
             if (!$repoInfo) {

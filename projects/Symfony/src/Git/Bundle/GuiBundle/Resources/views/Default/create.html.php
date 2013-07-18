@@ -45,7 +45,7 @@
    }
    echo " <form action='add' method='POST' id = 'deleteUser'> 
              <input type='hidden' name='step' value='5' /> 
-               <input type='text' id='search' placeholder='Type to search'>";
+               <input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>";
    echo "<table class='table table-hover' id= 'table'>
          <tr>
          <th>First Name</th>

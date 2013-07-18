@@ -24,7 +24,7 @@
       </form>
       <fieldset >
          <legend> All Groups </legend>
-         <input type="text" id="search" placeholder="Type to search">
+           <input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>
          <?php
             $groupInfo = mysql_query("SELECT * FROM groups ORDER BY name;");
             if (!$groupInfo) {
