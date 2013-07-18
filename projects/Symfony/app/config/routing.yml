@@ -54,9 +54,6 @@ submitted:
 user:
     pattern: /user
     defaults: { _controller: GitGuiBundle:Default:user }
-    
-_user_bundle:
-    resource: "@GitGuiBundle/Resources/config/routing.yml"
 
 
 # Internal routing configuration to handle ESI
