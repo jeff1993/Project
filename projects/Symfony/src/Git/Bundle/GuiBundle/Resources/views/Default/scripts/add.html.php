@@ -1,6 +1,6 @@
 <?php
-   require_once('scripts/database.php');
-   require_once('scripts/ldap.php');
+   require_once('database.php');
+   require_once('ldap.php');
    session_start();
    //submitted from Show Step 1. Which is the dual view list of assigning users to groups
    //Purpose: To assign the relationship between users and groups.
