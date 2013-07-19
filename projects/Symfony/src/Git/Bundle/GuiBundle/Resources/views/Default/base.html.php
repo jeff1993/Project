@@ -129,6 +129,14 @@
          
       </script>
       <script>
+     function show()
+    {
+   $('#myModal').modal('show')
+   }
+   
+   </script>
+
+      <script>
          function confirmation() {
           
                  document.getElementById("deleteUser").submit();

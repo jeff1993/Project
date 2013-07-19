@@ -1,16 +1,16 @@
 <?php
-   require_once('scripts/ldap.php');
-   require_once('scripts/database.php');
-   $view->extend('GitGuiBundle:Default:base.html.php');
-   $view['slots']->start('title');
-   session_start();
-   $_SESSION['Success'] = false;
-   if ($_SESSION['LoggedIn'] !== TRUE) {
-       header("Location:login");
-       exit();
-   }
-   if (isset($_SESSION['Alert']) && $_SESSION['Alert'] == TRUE) {
-   ?> 
+require_once('scripts/ldap.php');
+require_once('scripts/database.php');
+$view->extend('GitGuiBundle:Default:base.html.php');
+$view['slots']->start('title');
+session_start();
+$_SESSION['Success'] = false;
+if ($_SESSION['LoggedIn'] !== TRUE) {
+    header("Location:login");
+    exit();
+}
+if (isset($_SESSION['Alert']) && $_SESSION['Alert'] == TRUE) {
+?> 
 <div class="span8 offset3">
    <div class="alert alert-block alert-error fade in">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -19,8 +19,8 @@
    </div>
 </div>
 <?php
-   }
-   ?>
+}
+?>
 <div class='row-fluid'>
 <div class='span8 offset2'>
 <form action="add" method="POST">
@@ -40,37 +40,45 @@
 <fieldset>
 <legend> Search Current Users </legend>
 <?php
-   $userInfo = mysql_query("SELECT * FROM user ORDER BY first_name;");
-   if (!$userInfo) {
-       die("<p>Error in listing users " . mysql_error() . "</p>");
-   }
-   echo " <form action='add' method='POST' id = 'deleteUser'> 
-             <input type='hidden' name='step' value='5' /> 
-               <input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>";
-   echo "<table class='table table-hover' id= 'table'>
+$userInfo = mysql_query("SELECT * FROM user ORDER BY first_name;");
+if (!$userInfo) {
+    die("<p>Error in listing users " . mysql_error() . "</p>");
+}
+echo "<input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>";
+echo "<table class='table table-hover' id= 'table'>
          <tr>
          <th>First Name</th>
          <th>Last Name</th>
          <th>User Name</th>
          <th>Email </th>
          <th>Type </th>
-         <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger btn-small' data-toggle='modal'>Delete</a></th>
+         <th>Delete?</th>
          </tr>";
-   while ($row = mysql_fetch_array($userInfo)) {
-       //when you click the modal it is only the first one that gets displayed
-       echo "<tr>";
-       echo "<td> {$row['first_name']} </td>";
-       echo "<td> {$row['last_name']} </td>";
-       echo "<td> {$row['username']} </a> </td>";
-       echo "<td> {$row['email']} </td>";
-       if ($row['manager'] == 1) {
-           echo "<td> Manager </td>";
-       } else {
-           echo "<td> User </td>";
-       }
-       echo "<td> <input type='checkbox' name='deleteBox[]' value='" . $row['username'] . "'</td>";
-       echo "</tr>";
-   }
-   echo "</table> </fieldset></div></div>";
-   $view['slots']->stop();
-   ?>
+while ($row = mysql_fetch_array($userInfo)) {
+    echo " <form action='' method='POST'>
+             <input type='hidden' name='username' value='" . $row['username'] . "' />";
+    echo "<tr>";
+    echo "<td> {$row['first_name']} </td>";
+    echo "<td> {$row['last_name']} </td>";
+    echo "<td> {$row['username']} </a> </td>";
+    echo "<td> {$row['email']} </td>";
+    if ($row['manager'] == 1) {
+        echo "<td> Manager </td>";
+    } else {
+        echo "<td> User </td>";
+    }
+    echo "<td><button class='btn btn-danger btn-small' name = 'delete' value ='delete' type='submit'>Delete</td> ";
+    echo "</tr> </form>";
+}
+echo "</table> </fieldset></div></div>";
+if (isset($_POST['delete'])) {
+    echo "<script>
+    show();
+</script>";
+    $username = $_REQUEST['username'];
+    echo "<form action='add' method='POST' id ='deleteUser'>
+ 		<input type='hidden' name='step' value='5' />
+             <input type='hidden' name='username' value='" . $username . "' /></form>";
+}
+$view['slots']->stop();
+?>
