@@ -3,6 +3,7 @@
    require_once('scripts/database.php');
    session_start();
     $_SESSION['Alert'] = false;
+    $_SESSION['Success'] = false;
    if ($_SESSION['LoggedIn'] !== TRUE) {
        header("Location:login");
        exit();

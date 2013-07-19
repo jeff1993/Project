@@ -210,10 +210,9 @@
    // Posted from create.html.php 
    // username value is passed into this function which deletes the user from the user list
    if ($_POST['step'] == 5) {
-       foreach ($_POST['deleteBox'] as $checkbox) {
-           $delete_query = "DELETE FROM user WHERE username ='" . $checkbox . "';";
+    		$username = $_REQUEST['username']; 
+           $delete_query = "DELETE FROM user WHERE username ='" . $username . "';";
            mysql_query($delete_query) or die(mysql_error());
-       }
        header("Location: create");
        exit();
    }

@@ -4,6 +4,7 @@
    $view->extend('GitGuiBundle:Default:base.html.php');
    $view['slots']->start('title');
    session_start();
+   $_SESSION['Success'] = false;
    if ($_SESSION['LoggedIn'] !== TRUE) {
        header("Location:login");
        exit();
