@@ -38,7 +38,7 @@
                if (mysql_fetch_row($check)) {
                    //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                    $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-        								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+           								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    //finally adds to group_manage the association between users and groups
@@ -49,12 +49,10 @@
        }
        header("Location: group");
        exit();
-   }//End result, users are properly assigned to their groups in the group_mangement table
-  
+   } //End result, users are properly assigned to their groups in the group_mangement table
    //creates a new user. Sent from the create user page
    if ($_POST['step'] == 2) {
        $userType  = $_POST['userType'];
-       
        $userslash = str_replace('/', ' ', $userType);
        $userType  = trim($userslash);
        if ($userType == 'user') {
@@ -104,7 +102,7 @@
                while ($row = mysql_fetch_row($num)) {
                    $user_id = $row[0];
                }
-               $_SESSION['Alert'] = false;
+               $_SESSION['Alert']         = false;
                $_SESSION['CreateSuccess'] = true;
                header("Location: create");
                exit();
@@ -156,9 +154,9 @@
            $exists = mysql_query("Select * from repo_management where groupID='" . $group_id . "' and repoID='" . $repo_id . "';");
            if ($row = mysql_fetch_array($exists)) {
                $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
-         perm_write ='" . $write . "',
-         perm_manage ='" . $manage . "'
-          WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+            perm_write ='" . $write . "',
+            perm_manage ='" . $manage . "'
+             WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                $check = mysql_query($sql) or die(mysql_error());
            } else {
                echo $repo_id;
@@ -198,7 +196,7 @@
                $check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='" . $group_id . "' and repoID='" . $repo_id . "';");
                if (mysql_fetch_row($check)) {
                    $timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
-          WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+             WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
@@ -212,10 +210,10 @@
    // Posted from create.html.php 
    // username value is passed into this function which deletes the user from the user list
    if ($_POST['step'] == 5) {
-    		$username = $_REQUEST['username']; 
-           $delete_query = "DELETE FROM user WHERE username ='" . $username . "';";
-           mysql_query($delete_query) or die(mysql_error());
-            $_SESSION['CreateSuccess'] = true;
+       $username     = $_REQUEST['username'];
+       $delete_query = "DELETE FROM user WHERE username ='" . $username . "';";
+       mysql_query($delete_query) or die(mysql_error());
+       $_SESSION['CreateSuccess'] = true;
        header("Location: create");
        exit();
    }
@@ -244,5 +242,14 @@
        mysql_query($insert_query) or die(mysql_error());
        header("Location: repo");
        exit();
+   }
+   if ($_POST['step'] == 8) {
+       $groupname    = $_REQUEST['name'];
+       $delete_query = "DELETE FROM groups WHERE name ='" . $groupname . "';";
+       mysql_query($delete_query) or die(mysql_error());
+       header("Location: group");
+       exit();
+   } 
+   else {
    }
    ?>

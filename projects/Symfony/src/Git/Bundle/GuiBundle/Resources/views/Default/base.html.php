@@ -145,6 +145,8 @@
          function disable(){
          <?php 
             $_SESSION['CreateSuccess'] = false;
+            $_SESSION['Alert'] = false;
+            $_SESSION['Success'] == false;
             ?>
          
          

@@ -7,20 +7,13 @@
    if ($_POST['step'] == 1) {
        //gets the group name from the drop down in the groups list page
        // $event = $_POST["groupName"];
-       if (!isset($_POST['action'])) {
-           foreach ($_POST['deleteBox'] as $checkbox) {
-               $delete_query = "DELETE FROM groups WHERE name ='" . $checkbox . "';";
-               mysql_query($delete_query) or die(mysql_error());
-           }
-           header("Location: group");
-           exit();
-       } else {
+     
    ?>
 <div class="row-fluid">
 <div class="span4">
 <div class="span4 offset2">
 <?php
-   $event = $_POST['action'];
+   $event = $_POST['name'];
    echo "<h1>" . $event . "</h1> </div> </div> </div>";
    $getGroupID = mysql_query("SELECT group_id FROM groups where name ='" . $event . "';");
    while ($row1 = mysql_fetch_array($getGroupID)) {
@@ -104,7 +97,7 @@
 </div>
 <?php
    }
-   }
+   
    //shows each of the groups that are assigned to each reposistory 
    if ($_POST['step'] == 2) {
    $name      = $_REQUEST['groupdropdown'];
