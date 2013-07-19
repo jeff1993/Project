@@ -247,6 +247,7 @@
        $groupname    = $_REQUEST['name'];
        $delete_query = "DELETE FROM groups WHERE name ='" . $groupname . "';";
        mysql_query($delete_query) or die(mysql_error());
+       $_SESSION['GroupSuccess'] = true;
        header("Location: group");
        exit();
    } 

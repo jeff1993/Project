@@ -1,5 +1,6 @@
 <?php
    require_once('database.php');
+   session_start();
    if ($_POST['step'] == 1)
        {
        $name      = $_POST['groupname'];
@@ -8,11 +9,15 @@
        $groupID   = mysql_query("Select * from groups WHERE name ='" . $name . "';");
        if ($row = mysql_fetch_array($groupID))
            {
+           $_SESSION['GroupSuccess'] = false;
+           $_SESSION['GroupAlert'] = true;
            header("Location: group");
            exit();
            }
        else
            {
+            $_SESSION['GroupAlert'] = false;
+           $_SESSION['GroupSuccess'] = true;
            $insert_sql = mysql_query("INSERT INTO groups (name) " . "VALUES ('{$name}');") or die(mysql_error());
            header("Location: group");
            exit();

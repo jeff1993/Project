@@ -146,7 +146,9 @@
          <?php 
             $_SESSION['CreateSuccess'] = false;
             $_SESSION['Alert'] = false;
-            $_SESSION['Success'] == false;
+            $_SESSION['Success'] = false;
+            $_SESSION['GroupSuccess'] = false;
+            $_SESSION['GroupAlert'] =false;
             ?>
          
          

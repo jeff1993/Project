@@ -16,6 +16,30 @@
      ?>
 <div class='row-fluid'>
    <div class='span8 offset2'>
+   <?php
+            if (isset($_SESSION['GroupSuccess']) && $_SESSION['GroupSuccess'] == TRUE) {
+            ?> 
+         <div class="span8">
+            <div class="alert alert-block alert-success fade in">
+               <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
+               <h4 class="alert-heading">Update Successfully</h4>
+               <p>You Have Successfully Updated The Database</p>
+            </div>
+         </div>
+         <?php
+      }
+            if (isset($_SESSION['GroupAlert']) && $_SESSION['GroupAlert'] == TRUE) {
+            ?> 
+         <div class="span8">
+            <div class="alert alert-block alert-error fade in">
+               <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
+               <h4 class="alert-heading">Error</h4>
+               <p>Group Name Already Exists</p>
+            </div>
+         </div>
+         <?php
+            }
+            ?>      
       <legend> Create a New Group </legend>
       <form action="groupadd" method="POST">
          <input type='hidden' name='step' value='1' />
