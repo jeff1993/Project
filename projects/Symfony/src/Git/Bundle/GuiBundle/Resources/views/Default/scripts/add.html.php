@@ -54,6 +54,7 @@
    //creates a new user. Sent from the create user page
    if ($_POST['step'] == 2) {
        $userType  = $_POST['userType'];
+       
        $userslash = str_replace('/', ' ', $userType);
        $userType  = trim($userslash);
        if ($userType == 'user') {
@@ -104,6 +105,7 @@
                    $user_id = $row[0];
                }
                $_SESSION['Alert'] = false;
+               $_SESSION['CreateSuccess'] = true;
                header("Location: create");
                exit();
            } else {
@@ -213,6 +215,7 @@
     		$username = $_REQUEST['username']; 
            $delete_query = "DELETE FROM user WHERE username ='" . $username . "';";
            mysql_query($delete_query) or die(mysql_error());
+            $_SESSION['CreateSuccess'] = true;
        header("Location: create");
        exit();
    }
