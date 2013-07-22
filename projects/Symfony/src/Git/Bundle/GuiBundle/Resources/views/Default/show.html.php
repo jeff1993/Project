@@ -128,9 +128,9 @@
                $write  = $row['perm_write'];
                $manage = $row['perm_manage'];
                $sql    = "UPDATE repo_management SET  perm_read ='" . $read . "',
-                     perm_write ='" . $write . "',
-                     perm_manage ='" . $manage . "'
-                     WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                        perm_write ='" . $write . "',
+                        perm_manage ='" . $manage . "'
+                        WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                $check = mysql_query($sql) or die(mysql_error());
            } else {
                echo $repo_id;
@@ -143,8 +143,8 @@
        echo " Alter success";
        $event = $_POST["groupdropdown"];
        echo "<form action='managerepo' method='POST'>
-                     <input type='hidden' name='step' value='2' /> 
-                     <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>";
+                        <input type='hidden' name='step' value='2' /> 
+                        <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>";
        echo "<h1>" . $event . "</h1>";
        echo "manage permissions for this repository";
        echo "<button type='Submit' name ='Submit' class='btn'>Submit</button>";
@@ -175,7 +175,7 @@
    ?>
 <!--From here  till the end of collapseOne is where you where we create the dual list view
    that you can assign groups to the individual repositories-->
-<div class="tabbable tabs-right">
+<div class="tabbable tabs-left">
 <ul class="nav nav-tabs">
    <li class="active"><a href="#gR" data-toggle="tab">Assign Groups</a></li>
    <li><a href="#aR" data-toggle="tab">Adjust Groups Rights</a></li>
@@ -188,7 +188,6 @@
             <div class = "span3 offset1">
                <form  method="post" action="" >
                   <div>
-                     <input type='hidden' name='step' id='step' value='4'/>
                      <?php
                         echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
                         ?>
@@ -264,13 +263,13 @@
                    $group_id = $row[0];
                }
                echo "<table class='table table-bordered table-condensed table-striped'>
-                                                                              <tr>
-                                                                              <th>Group Name</th>
-                                                                              <th>Read</th>
-                                                                              <th>Write</th>
-                                                                              <th>Manage</th>
-                                                                              <th> Update</th>
-                                                                              </tr>";
+                                                                                         <tr>
+                                                                                         <th>Group Name</th>
+                                                                                         <th>Read</th>
+                                                                                         <th>Write</th>
+                                                                                         <th>Manage</th>
+                                                                                         <th> Update</th>
+                                                                                         </tr>";
                $perm = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
                while ($row = mysql_fetch_array($perm)) {
                    //echo $row['groupID'];
@@ -278,10 +277,10 @@
                    while ($row3 = mysql_fetch_row($group)) {
                        $group_name = $row3[0];
                    }
-                   echo "<form action='add' method='POST'>
-                                                                              <input type='hidden' name='step' value='3' />
-                                                                              <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
-                                                                              <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
+                   echo "<form action='' method='POST'>
+                                                                                         
+                                                                                         <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
+                                                                                         <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
                    echo "<tr>";
                    echo "<td>" . $group_name . "</td>";
                    if ($row['perm_read'] == 1) {
@@ -299,11 +298,10 @@
                    } else {
                        echo "<td>	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage</td>";
                    }
-                   echo "<td><button type='Submit' name ='Submit' class='btn'>Submit</button> </td>";
+                   echo "<td><button type='Submit' name ='PermissionSubmit' id = 'PermissionSubmit' class='btn'>Submit</button> </td>";
                    echo "</tr></form> </div> </div>";
                }
-               echo " </table></div>
-                                                                              ";
+               echo " </table></div>";
                ?>
          </fieldset>
       </div>
@@ -331,10 +329,10 @@
                      //changes the default checked radio button depending on the type of repo it already is            
                      if ($git == 1) {
                          echo "<input type='radio' name='repoType' value='git' checked>Git  
-                                                                                                                                                                                            <input type='radio' name='repoType' value='svn'>Svn";
+                                                                                                                                                                                                             <input type='radio' name='repoType' value='svn'>Svn";
                      } else {
                          echo "<input type='radio' name='repoType' value='git'>Git  
-                                                                                                                                                                                            <input type='radio' name='repoType' value='svn' checked>Svn";
+                                                                                                                                                                                                             <input type='radio' name='repoType' value='svn' checked>Svn";
                      }
                      ?>
                   <br/>
@@ -378,7 +376,7 @@
                    if (mysql_fetch_row($check)) {
                        //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                        $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                             								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                                								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        //finally adds to group_manage the association between users and groups
@@ -388,9 +386,9 @@
                }
            }
            echo "
-               			 <form action='show' method='POST' id ='deleteUser'> 
-                        <input type='hidden' name='step' value='1' /> 
-                        <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
+                  			 <form action='show' method='POST' id ='deleteUser'> 
+                           <input type='hidden' name='step' value='1' /> 
+                           <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
            $_SESSION['GroupAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -423,7 +421,7 @@
                    $check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='" . $group_id . "' and repoID='" . $repo_id . "';");
                    if (mysql_fetch_row($check)) {
                        $timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
-                         WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                            WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
@@ -432,9 +430,9 @@
                }
            }
            echo "
-                     	 <form action='show' method='POST' id ='deleteUser'> 
-                      <input type='hidden' name='step' value='3' /> 
-                       <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+                        	 <form action='show' method='POST' id ='deleteUser'> 
+                         <input type='hidden' name='step' value='3' /> 
+                          <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -453,9 +451,65 @@
            $insert_query = "UPDATE repo SET git ='" . $git . "', svn ='" . $svn . "' WHERE name ='" . $repo . "';";
            mysql_query($insert_query) or die(mysql_error());
            echo "
-                     	 <form action='show' method='POST' id ='deleteUser'> 
-                              <input type='hidden' name='step' value='3' /> 
-                              <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
+                        	 <form action='show' method='POST' id ='deleteUser'> 
+                                 <input type='hidden' name='step' value='3' /> 
+                                 <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
+           $_SESSION['RepoAlterSuccess'] = true;
+           echo "<script>confirmation();</script>";
+       }
+       //This is passed from Show Step 3. It is displayed under the the Groups to Repo
+       //dual view list. 
+       //Purpose:
+       //Submits the changes  of the permisions of the groups to a specific repo
+       //Checks each of the check boxes and passes them into this function
+       //if checked marked in repo_management table as 1, if not a 0
+       if (isset($_POST['PermissionSubmit'])) {
+           //removes the slashes that are present in the repository name and the group name
+           $reponame   = $_REQUEST['submitted'];
+           $reposlash  = str_replace('/', ' ', $reponame);
+           $reponame   = trim($reposlash);
+           $groupname  = $_REQUEST['groupName'];
+           $groupslash = str_replace('/', ' ', $groupname);
+           $groupname  = trim($groupslash);
+           $num2       = mysql_query("Select repo_id from repo WHERE name ='" . $reponame . "';");
+           while ($row1 = mysql_fetch_row($num2)) {
+               $repo_id = $row1[0];
+           }
+           $sql   = "Select group_id from groups WHERE name ='" . $groupname . "';";
+           $check = mysql_query($sql);
+           while ($row1 = mysql_fetch_row($check)) {
+               $group_id = $row1[0];
+           }
+           //read is always selected because there is no instance where you wouldn't want a group to be in the repo and not able to read
+           $read   = 1;
+           $write  = 0;
+           $manage = 0;
+           foreach ($_POST['checkbox'] as $checkbox) {
+               if ($checkbox === "read") {
+                   $read = 1;
+               }
+               if ($checkbox === "write") {
+                   $write = 1;
+               }
+               if ($checkbox === "manage") {
+                   $manage = 1;
+               }
+               $exists = mysql_query("Select * from repo_management where groupID='" . $group_id . "' and repoID='" . $repo_id . "';");
+               if ($row = mysql_fetch_array($exists)) {
+                   $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
+               perm_write ='" . $write . "',
+               perm_manage ='" . $manage . "'
+                WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                   $check = mysql_query($sql) or die(mysql_error());
+               } else {
+                   echo $repo_id;
+                   $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
+                   mysql_query($insert_sql) or die(mysql_error());
+               }
+           }
+           echo "<form action='show' method='POST' id ='deleteUser'> 
+                <input type='hidden' name='step' value='3' /> 
+             <input type='hidden' name= 'name' value ='".$reponame."'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }

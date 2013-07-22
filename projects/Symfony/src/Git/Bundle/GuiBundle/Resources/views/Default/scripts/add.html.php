@@ -113,61 +113,7 @@
            }
        }
    }
-   //This is passed from Show Step 3. It is displayed under the the Groups to Repo
-   //dual view list. 
-   //Purpose:
-   //Submits the changes  of the permisions of the groups to a specific repo
-   //Checks each of the check boxes and passes them into this function
-   //if checked marked in repo_management table as 1, if not a 0
-   if ($_POST['step'] == 3) {
-       //removes the slashes that are present in the repository name and the group name
-       $reponame   = $_REQUEST['submitted'];
-       $reposlash  = str_replace('/', ' ', $reponame);
-       $reponame   = trim($reposlash);
-       $groupname  = $_REQUEST['groupName'];
-       $groupslash = str_replace('/', ' ', $groupname);
-       $groupname  = trim($groupslash);
-       $num2       = mysql_query("Select repo_id from repo WHERE name ='" . $reponame . "';");
-       while ($row1 = mysql_fetch_row($num2)) {
-           $repo_id = $row1[0];
-       }
-       $sql   = "Select group_id from groups WHERE name ='" . $groupname . "';";
-       $check = mysql_query($sql);
-       while ($row1 = mysql_fetch_row($check)) {
-           $group_id = $row1[0];
-           echo $group_id;
-       }
-       //read is always selected because there is no instance where you wouldn't want a group to be in the repo and not able to read
-       $read   = 1;
-       $write  = 0;
-       $manage = 0;
-       foreach ($_POST['checkbox'] as $checkbox) {
-           if ($checkbox === "read") {
-               $read = 1;
-           }
-           if ($checkbox === "write") {
-               $write = 1;
-           }
-           if ($checkbox === "manage") {
-               $manage = 1;
-           }
-           $exists = mysql_query("Select * from repo_management where groupID='" . $group_id . "' and repoID='" . $repo_id . "';");
-           if ($row = mysql_fetch_array($exists)) {
-               $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
-            perm_write ='" . $write . "',
-            perm_manage ='" . $manage . "'
-             WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
-               $check = mysql_query($sql) or die(mysql_error());
-           } else {
-               echo $repo_id;
-               $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
-               mysql_query($insert_sql) or die(mysql_error());
-           }
-       }
-       header("Location: repo");
-       exit();
-   }
-
+ 
    // Posted from create.html.php 
    // username value is passed into this function which deletes the user from the user list
    if ($_POST['step'] == 5) {
