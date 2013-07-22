@@ -4,6 +4,7 @@
      session_start();
       $_SESSION['Alert'] = false;
       $_SESSION['Success'] = false;
+       $_SESSION['GroupSuccess1']= true;
      if ($_SESSION['LoggedIn'] !== TRUE) {
    header("Location:login");
    

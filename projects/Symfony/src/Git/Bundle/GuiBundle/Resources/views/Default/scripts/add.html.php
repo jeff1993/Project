@@ -167,46 +167,7 @@
        header("Location: repo");
        exit();
    }
-   //sent from the assigning groups to repos page, the dual list  
-   if ($_POST['step'] == 4) {
-       //gets the groupID, removes the slash, replaces it with a space, then removes the space.
-       $repoName  = $_POST['repoName'];
-       $reposlash = str_replace('/', ' ', $repoName);
-       $repoName  = trim($reposlash);
-       $repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='" . $repoName . "';");
-       while ($row = mysql_fetch_row($repocheck)) {
-           $repo_id = $row[0];
-       }
-       $clear = "DELETE FROM repo_management WHERE repoID ='" . $repo_id . "';";
-       if (empty($_POST['box2View'])) {
-           mysql_query($clear) or die(mysql_error());
-       } else {
-           mysql_query($clear) or die(mysql_error());
-           foreach ($_POST['box2View'] as $selected) {
-               $groupName  = $selected;
-               $group      = str_replace('/', ' ', $groupName);
-               $groupName  = trim($group);
-               $getGroupID = mysql_query("SELECT group_id FROM groups WHERE name ='" . $groupName . "';");
-               while ($row = mysql_fetch_row($getGroupID)) {
-                   $group_id = $row[0];
-               }
-               while ($row = mysql_fetch_row($getGroupID)) {
-                   $group_id = $row[0];
-               }
-               $check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='" . $group_id . "' and repoID='" . $repo_id . "';");
-               if (mysql_fetch_row($check)) {
-                   $timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
-             WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
-                   mysql_query($timeUpdate) or die(mysql_error());
-               } else {
-                   $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
-                   mysql_query($insert_sql) or die(mysql_error());
-               }
-           }
-       }
-       header("Location: repo");
-       exit();
-   }
+
    // Posted from create.html.php 
    // username value is passed into this function which deletes the user from the user list
    if ($_POST['step'] == 5) {
@@ -226,29 +187,21 @@
        header("Location: index");
        exit();
    }
-   //updates type of repository, sent from show 3
-   if ($_POST['step'] == 7) {
-       $repoName = $_REQUEST['repoName'];
-       $repo     = trim($repoName);
-       $type     = $_REQUEST['repoType'];
-       if ($type == 'git') {
-           $git = 1;
-           $svn = 0;
-       } else {
-           $git = 0;
-           $svn = 1;
-       }
-       $insert_query = "UPDATE repo SET git ='" . $git . "', svn ='" . $svn . "' WHERE name ='" . $repo . "';";
-       mysql_query($insert_query) or die(mysql_error());
-       header("Location: repo");
-       exit();
-   }
+
    if ($_POST['step'] == 8) {
        $groupname    = $_REQUEST['name'];
        $delete_query = "DELETE FROM groups WHERE name ='" . $groupname . "';";
        mysql_query($delete_query) or die(mysql_error());
        $_SESSION['GroupSuccess'] = true;
        header("Location: group");
+       exit();
+   } 
+    if ($_POST['step'] == 9) {
+       $repoName    = $_REQUEST['name'];
+       $delete_query = "DELETE FROM repo WHERE name ='" . $repoName . "';";
+       mysql_query($delete_query) or die(mysql_error());
+       $_SESSION['repoSuccess'] = true;
+       header("Location: repo");
        exit();
    } 
    else {

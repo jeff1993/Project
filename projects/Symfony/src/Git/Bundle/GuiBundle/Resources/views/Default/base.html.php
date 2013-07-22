@@ -148,7 +148,9 @@
             $_SESSION['Alert'] = false;
             $_SESSION['Success'] = false;
             $_SESSION['GroupSuccess'] = false;
-            $_SESSION['GroupAlert'] =false;
+            $_SESSION['GroupAlterSuccess'] = false;
+            $_SESSION['GroupAlert'] = false;
+            $_SESSION['RepoAlterSuccess'] = false;
             ?>
          
          

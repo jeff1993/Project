@@ -2,8 +2,8 @@
    require_once('scripts/ldap.php');
    require_once('scripts/database.php');
    session_start();
-    $_SESSION['Alert'] = false;
-    $_SESSION['Success'] = false;
+   $_SESSION['Alert']   = false;
+   $_SESSION['Success'] = false;
    if ($_SESSION['LoggedIn'] !== TRUE) {
        header("Location:login");
        exit();
@@ -30,22 +30,22 @@
       </form>
       <fieldset >
          <legend>Manage Repositories</legend>
-           <input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>
+         <input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>
          <?php
             $repoInfo = mysql_query("SELECT * FROM repo ORDER BY name;");
             if (!$repoInfo) {
                 die("<p>Error in listing users " . mysql_error() . "</p>");
             }
-            echo " <form action='show' method='POST' id ='deleteUser'> 
-                        <input type='hidden' name='step' value='3' />";
             echo "<table class='table table-condensed table-hover' id ='table'>
-                        <tr>
-                        <th>Repo Name</th>  
-                        <th>Type </th>  
-                        <th>Edit</th> 
-                       <th><a href='#myModal' role='button' name = 'delete' class='btn btn-danger' data-toggle='modal'>Delete</a></th>
-                        </tr>";
+                                                <tr>
+                                                <th>Repo Name</th>  
+                                                <th>Type </th>  
+                                                <th>Edit</th> 
+                                               <th>Delete?</th>
+                                                </tr>";
             while ($row = mysql_fetch_array($repoInfo)) {
+                echo " <form action='' method='POST'> 
+                               <input type='hidden' name= 'name' value ='" . $row['name'] . "'/>";
                 echo "<tr>";
                 echo "<td> {$row['name']} </td>";
                 if ($row['git'] == 1) {
@@ -53,13 +53,27 @@
                 } else {
                     echo "<td> Svn </td>";
                 }
-                echo "<td> <button class='btn btn-warning btn-small' name = 'action' value ='" . $row['name'] . "' type='submit'>Edit</td> ";
-                echo "<td> <input type='checkbox' name='deleteBox[]' value='" . $row['name'] . "'</td>";
+                echo "<td><button class='btn btn-warning btn-small' name = 'edit' id ='edit' value ='edit' type='submit'>Edit</td> ";
+                echo "<td><button class='btn btn-danger btn-small' name = 'delete' id ='delete' value ='delete' type='submit'>Delete</td> ";
                 echo "</tr>";
                 echo "</form>";
             }
             echo "</table> </div></div>";
-            ?>   
+            if (isset($_POST['edit'])) {
+                $name = $_REQUEST['name'];
+                echo "<form action='show' method='POST' id ='deleteUser'> 
+                    <input type='hidden' name='step' value='3' /> 
+                     <input type='hidden' name= 'name' value ='" . $name . "'/> </form>";
+                echo "<script>confirmation();</script>";
+            }
+            if (isset($_POST['delete'])) {
+                echo "<script>show();</script>";
+                $name = $_REQUEST['name'];
+                echo "<form action='add' method='POST' id ='deleteUser'>
+                 <input type='hidden' name='step' value='9' />
+                <input type='hidden' name='name' value='" . $name . "' /></form>";
+            }
+            ?>
       </fieldset>
    </div>
 </div>
