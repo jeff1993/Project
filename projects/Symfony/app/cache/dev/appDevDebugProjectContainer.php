@@ -3370,7 +3370,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.root_dir' => '/Users/jsimpson1271/Applications/apache2/htdocs/projects/Symfony/app',
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
-            'kernel.name' => 'app',
+            'kernel.name' => 'ap_',
             'kernel.cache_dir' => '/Users/jsimpson1271/Applications/apache2/htdocs/projects/Symfony/app/cache/dev',
             'kernel.logs_dir' => '/Users/jsimpson1271/Applications/apache2/htdocs/projects/Symfony/app/logs',
             'kernel.bundles' => array(

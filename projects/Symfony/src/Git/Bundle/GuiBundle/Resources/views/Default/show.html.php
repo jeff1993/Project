@@ -143,8 +143,8 @@
        echo " Alter success";
        $event = $_POST["groupdropdown"];
        echo "<form action='managerepo' method='POST'>
-                        <input type='hidden' name='step' value='2' /> 
-                        <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>";
+  		<input type='hidden' name='step' value='2' /> 
+        <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>";
        echo "<h1>" . $event . "</h1>";
        echo "manage permissions for this repository";
        echo "<button type='Submit' name ='Submit' class='btn'>Submit</button>";
