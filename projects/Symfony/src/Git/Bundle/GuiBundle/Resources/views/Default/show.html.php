@@ -431,8 +431,8 @@
            }
            echo "
                	 <form action='show' method='POST' id ='deleteUser'> 
-                        <input type='hidden' name='step' value='3' /> 
-                        <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+                <input type='hidden' name='step' value='3' /> 
+                 <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
