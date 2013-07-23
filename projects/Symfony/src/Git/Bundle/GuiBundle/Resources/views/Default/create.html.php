@@ -59,27 +59,27 @@
    }
    echo "<input type='text' id='txtSearch' onkeyup='Search()' placeholder='Type to search'>";
    echo "<table class='table table-hover' id= 'table'>
-            <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>User Name</th>
-            <th>Email </th>
-            <th>Type </th>
-            <th>Delete?</th>
-            </tr>";
+               <tr>
+               <th>First Name</th>
+               <th>Last Name</th>
+               <th>User Name</th>
+               <th>Type </th>
+               <th>Edit </th>
+               <th>Delete?</th>
+               </tr>";
    while ($row = mysql_fetch_array($userInfo)) {
        echo " <form action='' method='POST'>
-                <input type='hidden' name='username' value='" . $row['username'] . "' />";
+                   <input type='hidden' name='username' value='" . $row['username'] . "' />";
        echo "<tr>";
        echo "<td> {$row['first_name']} </td>";
        echo "<td> {$row['last_name']} </td>";
        echo "<td> {$row['username']} </a> </td>";
-       echo "<td> {$row['email']} </td>";
        if ($row['manager'] == 1) {
            echo "<td> Manager </td>";
        } else {
            echo "<td> User </td>";
        }
+       echo "<td><button class='btn btn-warning btn-small' name = 'edit' id ='edit' value ='edit' type='submit'>Edit</td> ";
        echo "<td><button class='btn btn-danger btn-small' name = 'delete' value ='delete' type='submit'>Delete</td> ";
        echo "</tr> </form>";
    }
@@ -88,8 +88,44 @@
        echo "<script>show();</script>";
        $username = $_REQUEST['username'];
        echo "<form action='add' method='POST' id ='deleteUser'>
-    		<input type='hidden' name='step' value='5' />
-                <input type='hidden' name='username' value='" . $username . "' /></form>";
+       		<input type='hidden' name='step' value='5' />
+                   <input type='hidden' name='username' value='" . $username . "' /></form>";
+   }
+   if (isset($_POST['edit'])) {
+       $username = $_REQUEST['username'];
+   ?>
+<div id="EditModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Change <?php
+         echo $username;
+         ?>'s Type? </h3>
+   </div>
+   <div class="modal-body">
+      <form action="add" method="POST" id = "editForm">
+         <input type='hidden' name='step' value='3' />
+         <?php
+            echo "<input type='hidden' name='userName' value='" . $username . "' />";
+            $managerQuery = mysql_query("SELECT manager FROM user WHERE username ='" . $username . "';");
+            while ($row1 = mysql_fetch_array($managerQuery)) {
+                $manager = $row1['manager'];
+                if ($manager == 1) {
+                    echo "<input type='radio' name='userType' value='user'>User
+              	<input type='radio' name='userType' value='manager' checked>Manager";
+                } else {
+                    echo "<input type='radio' name='userType' value='user' checked>User
+              	<input type='radio' name='userType' value='manager'>Manager ";
+                }
+            }
+            ?> 
+   </div>
+   <div class="modal-footer">
+   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+   <button class="btn btn-warning" name = 'action' value= 'Edit' type='Submit'>Submit</button></form>
+   </div>
+</div>
+<?php
+   echo "<script>show1();</script>";
    }
    ?>
 <?php

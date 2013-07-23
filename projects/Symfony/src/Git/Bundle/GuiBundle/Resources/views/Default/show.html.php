@@ -298,7 +298,8 @@
    </div>
 </div>
 <?php
-   } else {
+   }
+   else {
        if (isset($_POST['GroupSubmit'])) {
            $groupname  = $_POST['groupname'];
            $groupslash = str_replace('/', ' ', $groupname);

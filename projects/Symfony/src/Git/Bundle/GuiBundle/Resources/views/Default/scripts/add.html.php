@@ -113,6 +113,23 @@
            }
        }
    }
+   if ($_POST['step'] == 3) {
+       $userName       = $_REQUEST['userName'];
+       $userType  = $_POST['userType'];
+       $userslash = str_replace('/', ' ', $userType);
+       $userType  = trim($userslash);
+       if ($userType == 'user') {
+           $manager = 0;
+       } else {
+           $manager = 1;
+       }
+        $managerUpdate = "UPDATE user SET  manager ='" . $manager . "'
+              								  WHERE username='" . $userName . "';";
+                   mysql_query($managerUpdate) or die(mysql_error());
+       $_SESSION['Success'] = True;
+       header('Location: create');
+       exit();
+   }
    if ($_POST['step'] == 4) {
        $userID       = $_REQUEST['userID'];
        $sshID        = $_REQUEST['sshID'];

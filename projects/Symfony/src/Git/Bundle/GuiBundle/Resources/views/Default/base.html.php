@@ -135,6 +135,13 @@
          
       </script>
       <script>
+      function show1()
+         {
+         $('#EditModal').modal('show')
+         }
+         
+      </script>
+      <script>
          function confirmation() {
           
                  document.getElementById("deleteUser").submit();
