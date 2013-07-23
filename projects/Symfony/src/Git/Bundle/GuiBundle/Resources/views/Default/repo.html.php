@@ -13,10 +13,34 @@
    ?>
 <div class='row-fluid'>
    <div class='span8 offset2'>
-      <form action="managerepo" method="POST">
+      <?php
+         if (isset($_SESSION['RepoSuccess']) && $_SESSION['RepoSuccess'] == TRUE) {
+         ?> 
+      <div class="span8">
+         <div class="alert alert-block alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
+            <h4 class="alert-heading">Update Successfully</h4>
+            <p>You Have Successfully Updated The Database</p>
+         </div>
+      </div>
+      <?php
+         }
+         if (isset($_SESSION['RepoAlert']) && $_SESSION['RepoAlert'] == TRUE) {
+         ?> 
+      <div class="span8">
+         <div class="alert alert-block alert-error fade in">
+            <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
+            <h4 class="alert-heading">Error</h4>
+            <p>That repository name/type already exists</p>
+         </div>
+      </div>
+      <?php
+         }
+         ?>  
+      <form action="add" method="POST">
          <fieldset >
             <legend>Create a New Repository</legend>
-            <input type='hidden' name='step' value='1' />
+            <input type='hidden' name='step' value='7' />
             <label for='reponame' >Repository Name*:</label>
             <input type='text' name='reponame' id='reponame'  maxlength="50" />
             <br/> 
@@ -37,15 +61,15 @@
                 die("<p>Error in listing users " . mysql_error() . "</p>");
             }
             echo "<table class='table table-condensed table-hover' id ='table'>
-                                                <tr>
-                                                <th>Repo Name</th>  
-                                                <th>Type </th>  
-                                                <th>Edit</th> 
-                                               <th>Delete?</th>
-                                                </tr>";
+                                                            <tr>
+                                                            <th>Repo Name</th>  
+                                                            <th>Type </th>  
+                                                            <th>Edit</th> 
+                                                           <th>Delete?</th>
+                                                            </tr>";
             while ($row = mysql_fetch_array($repoInfo)) {
                 echo " <form action='' method='POST'> 
-                               <input type='hidden' name= 'name' value ='" . $row['name'] . "'/>";
+                                           <input type='hidden' name= 'name' value ='" . $row['name'] . "'/>";
                 echo "<tr>";
                 echo "<td> {$row['name']} </td>";
                 if ($row['git'] == 1) {
@@ -62,16 +86,16 @@
             if (isset($_POST['edit'])) {
                 $name = $_REQUEST['name'];
                 echo "<form action='show' method='POST' id ='deleteUser'> 
-                    <input type='hidden' name='step' value='3' /> 
-                     <input type='hidden' name= 'name' value ='" . $name . "'/> </form>";
+                                <input type='hidden' name='step' value='3' /> 
+                                 <input type='hidden' name= 'name' value ='" . $name . "'/> </form>";
                 echo "<script>confirmation();</script>";
             }
             if (isset($_POST['delete'])) {
                 echo "<script>show();</script>";
                 $name = $_REQUEST['name'];
                 echo "<form action='add' method='POST' id ='deleteUser'>
-                 <input type='hidden' name='step' value='9' />
-                <input type='hidden' name='name' value='" . $name . "' /></form>";
+                             <input type='hidden' name='step' value='9' />
+                            <input type='hidden' name='name' value='" . $name . "' /></form>";
             }
             ?>
       </fieldset>

@@ -1,10 +1,9 @@
 <?php
    require_once('scripts/ldap.php');
    require_once('scripts/database.php');
-   if (session_id() == '')
-       {
+   if (session_id() == '') {
        session_start();
-       }
+   }
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +26,7 @@
                <span class="icon-bar"></span>
                </button>
                <?php
-                  if ($_SESSION['LoggedIn'] !== TRUE)
-                      {
+                  if ($_SESSION['LoggedIn'] !== TRUE) {
                   ?>
                <a class="brand" href="login">Source Code Repository Management</a>
                <div class="nav-collapse collapse">
@@ -37,13 +35,10 @@
                      <a href="login">Log In</a>
                   </li>
                   <?php
-                     }
-                     else
-                     {
+                     } else {
                      ?>
                   <?php
-                     if ($_SESSION['manager'] !== true)
-                         {
+                     if ($_SESSION['manager'] !== true) {
                      ?>
                   <a class="brand" href="index">Source Code Repository Management</a>
                   <div class="nav-collapse collapse">
@@ -60,9 +55,7 @@
             </div>
          </div>
          <?php
-            }
-            else
-            {
+            } else {
             ?>
          <a class="brand" href="index">Source Code Repository Management</a>
          <div class="nav-collapse collapse">
@@ -135,11 +128,11 @@
          
       </script>
       <script>
-      function show1()
-         {
-         $('#EditModal').modal('show')
-         }
-         
+         function show1()
+            {
+            $('#EditModal').modal('show')
+            }
+            
       </script>
       <script>
          function confirmation() {
@@ -150,12 +143,14 @@
       </script>
       <Script>
          function disable(){
-         <?php 
+         <?php
             $_SESSION['CreateSuccess'] = false;
-            $_SESSION['Alert'] = false;
-            $_SESSION['Success'] = false;
-            $_SESSION['GroupSuccess'] = false;
-            $_SESSION['GroupAlert'] = false;
+            $_SESSION['Alert']         = false;
+            $_SESSION['Success']       = false;
+            $_SESSION['GroupSuccess']  = false;
+            $_SESSION['GroupAlert']    = false;
+            $_SESSION['RepoAlert']     = false;
+            $_SESSION['RepoSuccess']   = false;
             ?>
          
          

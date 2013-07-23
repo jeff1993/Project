@@ -38,7 +38,7 @@
                if (mysql_fetch_row($check)) {
                    //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                    $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                 								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                    								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    //finally adds to group_manage the association between users and groups
@@ -124,7 +124,7 @@
            $manager = 1;
        }
        $managerUpdate = "UPDATE user SET  manager ='" . $manager . "'
-                 								  WHERE username='" . $userName . "';";
+                    								  WHERE username='" . $userName . "';";
        mysql_query($managerUpdate) or die(mysql_error());
        $_SESSION['CreateSuccess'] = true;
        header('Location: create');
@@ -157,6 +157,35 @@
        mysql_query($insert_query) or die(mysql_error());
        header("Location: index");
        exit();
+   }
+   if ($_POST['step'] == 7) {
+       $reponame  = $_REQUEST['reponame'];
+       $repoType  = $_POST['repoType'];
+       $reposlash = str_replace('/', ' ', $repoType);
+       $repoType  = trim($reposlash);
+       if ($repoType == 'git') {
+           $git = 1;
+           $svn = 0;
+       } else {
+           $git = 0;
+           $svn = 1;
+       }
+       $tester       = mysql_query("Select repo_id FROM repo WHERE name ='" . $reponame . "' AND git ='" . $git . "';");
+       $num_results1 = mysql_num_rows($tester);
+       if ($num_results1 == 0) {
+           $insert_sql = "INSERT INTO repo (name, git, svn) " . "VALUES ('{$reponame}', '{$git}', '{$svn}');";
+           //$insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
+           mysql_query($insert_sql) or die(mysql_error());
+           $_SESSION['RepoSuccess'] = true;
+           $_SESSION['RepoAlert']   = false;
+           header("Location: repo");
+           exit();
+       } else {
+           $_SESSION['RepoSuccess'] = false;
+           $_SESSION['RepoAlert']   = true;
+           header("Location: repo");
+           exit();
+       }
    }
    if ($_POST['step'] == 8) {
        $groupname    = $_REQUEST['name'];
