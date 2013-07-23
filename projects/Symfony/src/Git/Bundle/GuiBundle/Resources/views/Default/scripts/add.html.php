@@ -38,7 +38,7 @@
                if (mysql_fetch_row($check)) {
                    //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                    $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-           								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+              								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    //finally adds to group_manage the association between users and groups
@@ -113,16 +113,15 @@
            }
        }
    }
-   
    if ($_POST['step'] == 4) {
-   $userID     = $_REQUEST['userID'];
+       $userID       = $_REQUEST['userID'];
        $sshID        = $_REQUEST['sshID'];
-       $delete_query = "DELETE FROM ssh_management WHERE userID ='" . $userID . "' and sshID = '".$sshID."';";
+       $delete_query = "DELETE FROM ssh_management WHERE userID ='" . $userID . "' and sshID = '" . $sshID . "';";
        mysql_query($delete_query) or die(mysql_error());
        $_SESSION['Success'] = True;
        header('Location: index');
        exit();
-       }
+   }
    // Posted from create.html.php 
    // username value is passed into this function which deletes the user from the user list
    if ($_POST['step'] == 5) {
@@ -142,7 +141,6 @@
        header("Location: index");
        exit();
    }
-
    if ($_POST['step'] == 8) {
        $groupname    = $_REQUEST['name'];
        $delete_query = "DELETE FROM groups WHERE name ='" . $groupname . "';";
@@ -150,15 +148,14 @@
        $_SESSION['GroupSuccess'] = true;
        header("Location: group");
        exit();
-   } 
-    if ($_POST['step'] == 9) {
-       $repoName    = $_REQUEST['name'];
+   }
+   if ($_POST['step'] == 9) {
+       $repoName     = $_REQUEST['name'];
        $delete_query = "DELETE FROM repo WHERE name ='" . $repoName . "';";
        mysql_query($delete_query) or die(mysql_error());
        $_SESSION['repoSuccess'] = true;
        header("Location: repo");
        exit();
-   } 
-   else {
+   } else {
    }
    ?>

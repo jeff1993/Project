@@ -32,26 +32,15 @@
        header('Location: index');
        exit();
    }
-   
-   
    if (isset($_POST['delete'])) {
-          echo "<script>show();</script>";
-   		 $userID     = $_REQUEST['userID'];
-      	 $sshID        = $_REQUEST['sshID'];
-
-      echo "<form action='add' method='POST' id ='deleteUser'>  
-        <input type='hidden' name='step' value='4'/> 
-       <input type='hidden' name='userID' value='" . $userID . "'/>
-       <input type='hidden' name='sshID' value='" . $sshID . "'/></form>";
-   
-    
-     
+       echo "<script>show();</script>";
+       $userID = $_REQUEST['userID'];
+       $sshID  = $_REQUEST['sshID'];
+       echo "<form action='add' method='POST' id ='deleteUser'>  
+           <input type='hidden' name='step' value='4'/> 
+          <input type='hidden' name='userID' value='" . $userID . "'/>
+          <input type='hidden' name='sshID' value='" . $sshID . "'/></form>";
    }
-   
-   
-   
-   
-   
    echo "<h2> Welcome " . $firstName . " " . $lastName . "</h2>";
    ?>
 <div class="tabbable tabs-left">
@@ -91,36 +80,37 @@
                        $name     = $row1['name'];
                        $sshKey   = $row1['ssh_key'];
                        $shortKey = substr($sshKey, 0, 25) . "...";
-                        ?> <form action="" method="POST">
-           			    <?php
+               ?> 
+            <form action="" method="POST">
+               <?php
                   echo "<input type='hidden' name='userID' value='" . $userID . "'/>
-                  <input type='hidden' name='sshID' value='" . $sshID . "'/>";
-                       echo "<tr>
-                                                      			<td>" . $name . " </td>
-                                                      			<td>" . $shortKey . " </td>
-                                                      			<td><button class='btn btn-danger btn-small' id ='delete' name = 'delete' value ='delete' type='submit'>Delete</td>
-                                                      			</tr></form>";
-                   }
-               }
-               ?>
+                            <input type='hidden' name='sshID' value='" . $sshID . "'/>";
+                  echo "<tr>
+                                                                			<td>" . $name . " </td>
+                                                                			<td>" . $shortKey . " </td>
+                                                                			<td><button class='btn btn-danger btn-small' id ='delete' name = 'delete' value ='delete' type='submit'>Delete</td>
+                                                                			</tr></form>";
+                  }
+                  }
+                  ?>
          </table>
       </div>
       <div class="tab-pane" id="lB">
-         <fieldset>
-            <legend>Update Your SSH Key</legend>
-            <form action="" method="POST">
-               <?php
-                  echo "<input type='hidden' name='userID' value='" . $userID . "'/>";
-                  ?>
-               <input type='hidden' name='step' value='6' />
-               <label for='sshName' >Name*:</label>
-               <input type='text' name='sshName' id='sshName' required  maxlength="50" />
-               <label for='ssh' >SSH Public Key*:</label>
-               <textarea class ='input-xxlarge' rows='10' name='ssh' id='ssh' required /></textarea>
-               <br/> 
-               <button type="Submit" name ="Submit" value ="Submit" class="btn">Submit</button>
-            </form>
-         </fieldset>
+      <fieldset>
+      <legend>Update Your SSH Key</legend>
+      <form action="" method="POST">
+      <?php
+         echo "<input type='hidden' name='userID' value='" . $userID . "'/>";
+         ?>
+      <input type='hidden' name='step' value='6' />
+      <label for='sshName' >Name*:</label>
+      <input type='text' name='sshName' id='sshName' required  maxlength="50" />
+      <label for='ssh' >SSH Public Key*:</label>
+      <textarea class ='input-xxlarge' rows='10' name='ssh' id='ssh' required /></textarea>
+      <br/> 
+      <button type="Submit" name ="Submit" value ="Submit" class="btn">Submit</button>
+      </form>
+      </fieldset>
       </div>
       <div class="tab-pane" id="lC">
          <fieldset>
