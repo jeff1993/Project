@@ -32,6 +32,26 @@
        header('Location: index');
        exit();
    }
+   
+   
+   if (isset($_POST['delete'])) {
+          echo "<script>show();</script>";
+   		 $userID     = $_REQUEST['userID'];
+      	 $sshID        = $_REQUEST['sshID'];
+
+      echo "<form action='add' method='POST' id ='deleteUser'>  
+        <input type='hidden' name='step' value='4'/> 
+       <input type='hidden' name='userID' value='" . $userID . "'/>
+       <input type='hidden' name='sshID' value='" . $sshID . "'/></form>";
+   
+    
+     
+   }
+   
+   
+   
+   
+   
    echo "<h2> Welcome " . $firstName . " " . $lastName . "</h2>";
    ?>
 <div class="tabbable tabs-left">
@@ -60,6 +80,7 @@
             <tr>
                <th> Name </th>
                <th> SSH Key </th>
+               <th> Delete? </th>
             </tr>
             <?php
                $result = mysql_query("SELECT sshID FROM ssh_management WHERE userID='" . $userID . "';") or die(mysql_error());
@@ -70,10 +91,15 @@
                        $name     = $row1['name'];
                        $sshKey   = $row1['ssh_key'];
                        $shortKey = substr($sshKey, 0, 25) . "...";
+                        ?> <form action="" method="POST">
+           			    <?php
+                  echo "<input type='hidden' name='userID' value='" . $userID . "'/>
+                  <input type='hidden' name='sshID' value='" . $sshID . "'/>";
                        echo "<tr>
                                                       			<td>" . $name . " </td>
                                                       			<td>" . $shortKey . " </td>
-                                                      			</tr>";
+                                                      			<td><button class='btn btn-danger btn-small' id ='delete' name = 'delete' value ='delete' type='submit'>Delete</td>
+                                                      			</tr></form>";
                    }
                }
                ?>

@@ -9,7 +9,7 @@
        if (isset($_SESSION['GroupAlterSuccess']) && $_SESSION['GroupAlterSuccess'] == TRUE) {
    ?> 
 <div class="alert alert-block alert-success fade in">
-   <button type="button" class="close" data-dismiss="alert" onClick="disable();";>&times;</button>
+   <button type="button" class="close" data-dismiss="alert" onClick="<?php $_SESSION['GroupAlterSuccess'] =false?>";>&times;</button>
    <h4 class="alert-heading">Update Successfully</h4>
    <p>You Have Successfully Updated The Database</p>
 </div>
@@ -105,7 +105,7 @@
        if (isset($_SESSION['RepoAlterSuccess']) && $_SESSION['RepoAlterSuccess'] == TRUE) {
    ?> 
 <div class="alert alert-block alert-success fade in">
-   <button type="button" class="close" data-dismiss="alert" onClick="disable();";>&times;</button>
+   <button type="button" class="close" data-dismiss="alert" onClick="<?php $_SESSION['RepoAlterSuccess'] =false?>";>&times;</button>
    <h4 class="alert-heading">Update Successfully</h4>
    <p>You Have Successfully Updated The Database</p>
 </div>

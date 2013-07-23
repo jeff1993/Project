@@ -113,7 +113,16 @@
            }
        }
    }
- 
+   
+   if ($_POST['step'] == 4) {
+   $userID     = $_REQUEST['userID'];
+       $sshID        = $_REQUEST['sshID'];
+       $delete_query = "DELETE FROM ssh_management WHERE userID ='" . $userID . "' and sshID = '".$sshID."';";
+       mysql_query($delete_query) or die(mysql_error());
+       $_SESSION['Success'] = True;
+       header('Location: index');
+       exit();
+       }
    // Posted from create.html.php 
    // username value is passed into this function which deletes the user from the user list
    if ($_POST['step'] == 5) {
