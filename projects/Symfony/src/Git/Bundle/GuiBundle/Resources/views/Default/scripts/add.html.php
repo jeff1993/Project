@@ -38,7 +38,7 @@
                if (mysql_fetch_row($check)) {
                    //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                    $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-              								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                 								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    //finally adds to group_manage the association between users and groups
@@ -114,7 +114,7 @@
        }
    }
    if ($_POST['step'] == 3) {
-       $userName       = $_REQUEST['userName'];
+       $userName  = $_REQUEST['userName'];
        $userType  = $_POST['userType'];
        $userslash = str_replace('/', ' ', $userType);
        $userType  = trim($userslash);
@@ -123,10 +123,10 @@
        } else {
            $manager = 1;
        }
-        $managerUpdate = "UPDATE user SET  manager ='" . $manager . "'
-              								  WHERE username='" . $userName . "';";
-                   mysql_query($managerUpdate) or die(mysql_error());
-       $_SESSION['Success'] = True;
+       $managerUpdate = "UPDATE user SET  manager ='" . $manager . "'
+                 								  WHERE username='" . $userName . "';";
+       mysql_query($managerUpdate) or die(mysql_error());
+       $_SESSION['CreateSuccess'] = true;
        header('Location: create');
        exit();
    }
