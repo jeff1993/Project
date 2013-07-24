@@ -17,7 +17,7 @@
    <body>
       <!-- Navbar
          ================================================== -->
-      <div class="navbar navbar-inverse">
+      <div class="navbar navbar-fixed-top navbar-inverse">
          <div class="navbar-inner">
             <div class="container">
                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -71,9 +71,6 @@
                </li>
                <li class="">
                   <a href="repo">Manage Repositories</a>
-               </li>
-               <li class="">
-                  <a href="../../../../../../../gitlist/index.php">View Repositories</a>
                </li>
                <li class="">
                   <a href="loggedOut">Log Out</a>
