@@ -37,9 +37,9 @@
        $userID = $_REQUEST['userID'];
        $sshID  = $_REQUEST['sshID'];
        echo "<form action='add' method='POST' id ='deleteUser'>  
-           <input type='hidden' name='step' value='4'/> 
-          <input type='hidden' name='userID' value='" . $userID . "'/>
-          <input type='hidden' name='sshID' value='" . $sshID . "'/></form>";
+              <input type='hidden' name='step' value='4'/> 
+             <input type='hidden' name='userID' value='" . $userID . "'/>
+             <input type='hidden' name='sshID' value='" . $sshID . "'/></form>";
    }
    echo "<h2> Welcome " . $firstName . " " . $lastName . "</h2>";
    ?>
@@ -84,12 +84,12 @@
             <form action="" method="POST">
                <?php
                   echo "<input type='hidden' name='userID' value='" . $userID . "'/>
-                            <input type='hidden' name='sshID' value='" . $sshID . "'/>";
+                                      <input type='hidden' name='sshID' value='" . $sshID . "'/>";
                   echo "<tr>
-                                                                			<td>" . $name . " </td>
-                                                                			<td>" . $shortKey . " </td>
-                                                                			<td><button class='btn btn-danger btn-small' id ='delete' name = 'delete' value ='delete' type='submit'>Delete</td>
-                                                                			</tr></form>";
+                                                                          			<td>" . $name . " </td>
+                                                                          			<td>" . $shortKey . " </td>
+                                                                          			<td><button class='btn btn-danger btn-small' id ='delete' name = 'delete' value ='delete' type='submit'>Delete</td>
+                                                                          			</tr></form>";
                   }
                   }
                   ?>
@@ -116,6 +116,13 @@
          <fieldset>
             <legend> Group Memberships </legend>
             <p class="lead">
+            
+             <table class ='table table-striped' >
+            <tr>
+               <th> Group Name </th>
+            </tr>
+            
+            
                <?php
                   $groups = mysql_query("SELECT groupID from group_management where userID ='" . $userID . "';");
                   while ($row = mysql_fetch_array($groups)) {
@@ -123,12 +130,14 @@
                       $groupName = mysql_query("SELECT name from groups where group_id ='" . $groupID . "';");
                       while ($row1 = mysql_fetch_array($groupName)) {
                           $gName = $row1[0];
-                          echo $gName;
-                          echo "<br/>";
+                          echo "<td>". $gName."</td>";
                       }
+                  } 
+                  if (mysql_fetch_array($groups) == 0) {
+                      echo "<h4> You are currently not assigned to any groups </h4>";
                   }
                   ?>
-            </p>
+            </p></table>
          </fieldset>
       </div>
    </div>

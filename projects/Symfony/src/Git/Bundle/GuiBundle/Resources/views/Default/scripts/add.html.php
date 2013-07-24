@@ -199,7 +199,7 @@
        $repoName     = $_REQUEST['name'];
        $delete_query = "DELETE FROM repo WHERE name ='" . $repoName . "';";
        mysql_query($delete_query) or die(mysql_error());
-       $_SESSION['repoSuccess'] = true;
+       $_SESSION['RepoSuccess'] = true;
        header("Location: repo");
        exit();
    } else {

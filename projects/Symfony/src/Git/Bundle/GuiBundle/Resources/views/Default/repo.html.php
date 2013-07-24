@@ -11,12 +11,11 @@
    $view->extend('GitGuiBundle:Default:base.html.php');
    $view['slots']->start('title');
    ?>
-<div class='row-fluid'>
-   <div class='span8 offset2'>
+
       <?php
          if (isset($_SESSION['RepoSuccess']) && $_SESSION['RepoSuccess'] == TRUE) {
          ?> 
-      <div class="span8">
+      <div class="span8 offset2">
          <div class="alert alert-block alert-success fade in">
             <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
             <h4 class="alert-heading">Update Successfully</h4>
@@ -27,7 +26,7 @@
          }
          if (isset($_SESSION['RepoAlert']) && $_SESSION['RepoAlert'] == TRUE) {
          ?> 
-      <div class="span8">
+      <div class="span8 offset2">
          <div class="alert alert-block alert-error fade in">
             <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
             <h4 class="alert-heading">Error</h4>
@@ -37,6 +36,8 @@
       <?php
          }
          ?>  
+         <div class='row-fluid'>
+   <div class='span8 offset2'>
       <form action="add" method="POST">
          <fieldset >
             <legend>Create a New Repository</legend>

@@ -8,16 +8,19 @@
    if (isset($_POST['step']) && $_POST['step'] == 1) {
        if (isset($_SESSION['GroupAlterSuccess']) && $_SESSION['GroupAlterSuccess'] == TRUE) {
    ?> 
-<div class="alert alert-block alert-success fade in">
-   <button type="button" class="close" data-dismiss="alert" onClick="<?php $_SESSION['GroupAlterSuccess'] =false?>";>&times;</button>
-   <h4 class="alert-heading">Update Successfully</h4>
-   <p>You Have Successfully Updated The Database</p>
+<div class='span11 offset2'>
+   <div class="alert alert-block alert-success fade in">
+      <button type="button" class="close" data-dismiss="alert" onClick="<?php
+         $_SESSION['GroupAlterSuccess'] = false?>";>&times;</button>
+      <h4 class="alert-heading">Update Successfully</h4>
+      <p>You Have Successfully Updated The Database</p>
+   </div>
 </div>
 <?php
    }
    ?>
 <div class="row-fluid">
-<div class="span4 offset2">
+<div class='span8 offset2'>
    <?php
       $event = $_POST['name'];
       echo "<h1>" . $event . "</h1>";
@@ -104,19 +107,21 @@
        $event = $_POST['name'];
        if (isset($_SESSION['RepoAlterSuccess']) && $_SESSION['RepoAlterSuccess'] == TRUE) {
    ?> 
-<div class="alert alert-block alert-success fade in">
-   <button type="button" class="close" data-dismiss="alert" onClick="<?php $_SESSION['RepoAlterSuccess'] =false?>";>&times;</button>
-   <h4 class="alert-heading">Update Successfully</h4>
-   <p>You Have Successfully Updated The Database</p>
+<div class='span11 offset2'>
+   <div class="alert alert-block alert-success fade in">
+      <button type="button" class="close" data-dismiss="alert" onClick="<?php
+         $_SESSION['RepoAlterSuccess'] = false?>";>&times;</button>
+      <h4 class="alert-heading">Update Successfully</h4>
+      <p>You Have Successfully Updated The Database</p>
+   </div>
 </div>
 <?php
    }
    ?>
 <div class="row-fluid">
-<div class="span4">
-<div class="span4 offset2">
+<div class="span8 offset2">
 <?php
-   echo "<h1>" . $event . "</h1> </div> </div> </div>";
+   echo "<h1>" . $event . "</h1> </div> </div>";
    $repo = mysql_query("SELECT * FROM repo WHERE name ='" . $event . "';");
    while ($row = mysql_fetch_array($repo)) {
        $repo_id = $row['repo_id'];
@@ -213,16 +218,16 @@
                    $group_id = $row[0];
                }
                echo "<table class='table table-bordered table-condensed table-striped'>
-                                                                                                    <tr>
-                                                                                                    <th>Group Name</th>
-                                                                                                    <th>Read</th>
-                                                                                                    <th>Write</th>
-                                                                                                    <th>Manage</th>
-                                                                                                    <th> Update</th>
-                                                                                                    </tr>";
+                                                                                                                          <tr>
+                                                                                                                          <th>Group Name</th>
+                                                                                                                          <th>Read</th>
+                                                                                                                          <th>Write</th>
+                                                                                                                          <th>Manage</th>
+                                                                                                                          <th> Update</th>
+                                                                                                                          </tr>";
                $perm = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
                if (mysql_fetch_array($perm) == 0) {
-                   echo "<h3> You have no groups assigned to this repository </td>";
+                   echo "<h3> You have no groups assigned to this repository </h3>";
                }
                while ($row = mysql_fetch_array($perm)) {
                    //echo $row['groupID'];
@@ -231,9 +236,9 @@
                        $group_name = $row3[0];
                    }
                    echo "<form action='' method='POST'>
-                                                                                                    
-                                                                                                    <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
-                                                                                                    <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
+                                                                                                                          
+                                                                                                                          <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
+                                                                                                                          <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
                    echo "<tr>";
                    echo "<td>" . $group_name . "</td>";
                    if ($row['perm_read'] == 1) {
@@ -282,10 +287,10 @@
                      //changes the default checked radio button depending on the type of repo it already is            
                      if ($git == 1) {
                          echo "<input type='radio' name='repoType' value='git' checked>Git  
-                                                                                                                                                                                                                              <input type='radio' name='repoType' value='svn'>Svn";
+                                                                                                                                                                                                                                                                <input type='radio' name='repoType' value='svn'>Svn";
                      } else {
                          echo "<input type='radio' name='repoType' value='git'>Git  
-                                                                                                                                                                                                                              <input type='radio' name='repoType' value='svn' checked>Svn";
+                                                                                                                                                                                                                                                                <input type='radio' name='repoType' value='svn' checked>Svn";
                      }
                      ?>
                   <br/>
@@ -298,8 +303,7 @@
    </div>
 </div>
 <?php
-   }
-   else {
+   } else {
        if (isset($_POST['GroupSubmit'])) {
            $groupname  = $_POST['groupname'];
            $groupslash = str_replace('/', ' ', $groupname);
@@ -329,7 +333,7 @@
                    if (mysql_fetch_row($check)) {
                        //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                        $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                                   								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                                         								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        //finally adds to group_manage the association between users and groups
@@ -339,8 +343,8 @@
                }
            }
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                   <input type='hidden' name='step' value='1' /> 
-                   <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
+                         <input type='hidden' name='step' value='1' /> 
+                         <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
            $_SESSION['GroupAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -373,7 +377,7 @@
                    $check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='" . $group_id . "' and repoID='" . $repo_id . "';");
                    if (mysql_fetch_row($check)) {
                        $timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
-                               WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                                     WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
@@ -382,9 +386,9 @@
                }
            }
            echo "
-                           	 <form action='show' method='POST' id ='deleteUser'> 
-                            <input type='hidden' name='step' value='3' /> 
-                             <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+                                 	 <form action='show' method='POST' id ='deleteUser'> 
+                                  <input type='hidden' name='step' value='3' /> 
+                                   <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -403,9 +407,9 @@
            $insert_query = "UPDATE repo SET git ='" . $git . "', svn ='" . $svn . "' WHERE name ='" . $repo . "';";
            mysql_query($insert_query) or die(mysql_error());
            echo "
-                           	 <form action='show' method='POST' id ='deleteUser'> 
-                                    <input type='hidden' name='step' value='3' /> 
-                                    <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
+                                 	 <form action='show' method='POST' id ='deleteUser'> 
+                                          <input type='hidden' name='step' value='3' /> 
+                                          <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -449,9 +453,9 @@
                $exists = mysql_query("Select * from repo_management where groupID='" . $group_id . "' and repoID='" . $repo_id . "';");
                if ($row = mysql_fetch_array($exists)) {
                    $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
-                  perm_write ='" . $write . "',
-                  perm_manage ='" . $manage . "'
-                   WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                        perm_write ='" . $write . "',
+                        perm_manage ='" . $manage . "'
+                         WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                    $check = mysql_query($sql) or die(mysql_error());
                } else {
                    echo $repo_id;
@@ -460,8 +464,8 @@
                }
            }
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                   <input type='hidden' name='step' value='3' /> 
-                <input type='hidden' name= 'name' value ='" . $reponame . "'/> </form>";
+                         <input type='hidden' name='step' value='3' /> 
+                      <input type='hidden' name= 'name' value ='" . $reponame . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
