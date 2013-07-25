@@ -38,7 +38,7 @@
                if (mysql_fetch_row($check)) {
                    //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                    $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                          								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                             								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    //finally adds to group_manage the association between users and groups
@@ -124,7 +124,7 @@
            $manager = 1;
        }
        $managerUpdate = "UPDATE user SET  manager ='" . $manager . "'
-                          								  WHERE username='" . $userName . "';";
+                             								  WHERE username='" . $userName . "';";
        mysql_query($managerUpdate) or die(mysql_error());
        $_SESSION['CreateSuccess'] = true;
        header('Location: create');
@@ -169,7 +169,7 @@
            header("Location: repo");
            exit();
        }
-       $pattern = '/.*[A-Za-z0-9\.\/\-\\\]*./';
+        $pattern = '/[^A-Za-z0-9\.\/\-\\\]/';
        if (preg_match($pattern, $repotrim)) {
            $_SESSION['RepoAlert'] = true;
            header("Location: repo");
@@ -222,6 +222,45 @@
        $_SESSION['RepoSuccess'] = true;
        header("Location: repo");
        exit();
+   }
+   if ($_POST['step'] == 10) {
+       if (isset($_POST['groupname'])) {
+           $name      = $_POST['groupname'];
+           
+       } else {
+           $_SESSION['GroupSuccess'] = false;
+           $_SESSION['GroupAlert']   = true;
+           header("Location: group");
+           exit();
+       }
+       $groupname = str_replace('/', ' ', $name);
+           $name      = trim($groupname);
+       $pattern = '/[^A-Za-z0-9\.\/\-\\\]/';
+       if (preg_match($pattern, $name)) {
+           $_SESSION['GroupAlert'] = true;
+           header("Location: group");
+           exit();
+       }
+        if ($name == null) {
+           $_SESSION['GroupAlert'] = true;
+           header("Location: group");
+           exit();
+       }
+       
+       
+       $groupID = mysql_query("Select * from groups WHERE name ='" . $name . "';");
+       if ($row = mysql_fetch_array($groupID)) {
+           $_SESSION['GroupSuccess'] = false;
+           $_SESSION['GroupAlert']   = true;
+           header("Location: group");
+           exit();
+       } else {
+           $_SESSION['GroupAlert']   = false;
+           $_SESSION['GroupSuccess'] = true;
+           $insert_sql = mysql_query("INSERT INTO groups (name) " . "VALUES ('{$name}');") or die(mysql_error());
+           header("Location: group");
+           exit();
+       }
    } else {
    }
    ?>

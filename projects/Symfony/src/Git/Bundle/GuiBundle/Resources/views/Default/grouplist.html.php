@@ -29,7 +29,7 @@
    <div class="alert alert-block alert-error fade in">
       <button type="button" class="close" data-dismiss="alert" onClick="disable()">&times;</button>
       <h4 class="alert-heading">Error</h4>
-      <p>Group Name Already Exists</p>
+      <p>Invalid Group Name</p>
    </div>
 </div>
 <?php
@@ -38,8 +38,8 @@
 <div class='row-fluid'>
    <div class='span8 offset2'>
       <legend> Create a New Group </legend>
-      <form action="groupadd" method="POST">
-         <input type='hidden' name='step' value='1' />
+      <form action="add" method="POST">
+         <input type='hidden' name='step' value='10' />
          <label for='groupname' >Group Name*:</label>
          <input type="text" name="groupname" id='groupname' required><br>	
          <input type='submit' class= 'btn' name='Submit' value='Submit' />
