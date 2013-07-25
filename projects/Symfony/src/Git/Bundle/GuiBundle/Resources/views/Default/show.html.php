@@ -105,7 +105,7 @@
    }
    if (isset($_POST['step']) && $_POST['step'] == 3) {
        $event = $_POST['name'];
-       $git = $_POST['git'];
+       $git   = $_POST['git'];
        if (isset($_SESSION['RepoAlterSuccess']) && $_SESSION['RepoAlterSuccess'] == TRUE) {
    ?> 
 <div class='span11 offset2'>
@@ -122,11 +122,12 @@
 <div class="row-fluid">
 <div class="span8 offset2">
 <?php
-   echo "<h1>" . $event ."</h1> </div> </div>";
-   $repo = mysql_query("SELECT * FROM repo WHERE name ='" . $event . "' AND git ='".$git."';");
+   echo "<h1>" . $event . "</h1> </div> </div>";
+   $repo = mysql_query("SELECT * FROM repo WHERE name ='" . $event . "' AND git ='" . $git . "';");
    while ($row = mysql_fetch_array($repo)) {
        $repo_id = $row['repo_id'];
        $git     = $row['git'];
+       $Desc    = $row['description'];
    }
    ?>
 <!--From here  till the end of collapseOne is where you where we create the dual list view
@@ -136,154 +137,157 @@
    <li class="active"><a href="#gR" data-toggle="tab">Assign Repositories</a></li>
    <li><a href="#aR" data-toggle="tab">Adjust Repository Rights</a></li>
    <li><a href="#aD" data-toggle="tab">Adjust Description</a></li>
-    </ul>
+</ul>
 <div class="tab-content">
-   <div class="tab-pane active" id="gR">
-      <div class='row-fluid'>
-         <div class='span8'>
-            <div class = "span3 offset1">
-               <form  method="post" action="" >
-                  <div>
-                     <?php
-                        echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
-                        echo "<input type='hidden' name='git' value='".$git."' /> ";
-                        ?>
-                        
-                  </div>
-                  <div>
-                     <table>
-                        <tr>
-                           <td>
-                              <legend>Repos Currently Not Assigned</legend>
-                              <br/>
-                              Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
-                              <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
-                              <?php
-                                 $result = mysql_query("SELECT * FROM groups ORDER BY name;");
-                                 while ($row1 = mysql_fetch_array($result)) {
-                                     $groupID = $row1['group_id'];
-                                     $check   = mysql_query("Select * FROM repo_management where groupID ='" . $groupID . "' and repoID ='" . $repo_id . "';");
-                                     if (mysql_fetch_array($check) == 0) {
-                                         echo "<option id='" . $row1['name'] . "' name='box1View[]'  value='" . $row1['name'] . "'> " . $row1['name'] . "</option>";
-                                     }
-                                 }
-                                 ?>
-                              </select><br/>
-                              <span id="box1Counter" class="countLabel"></span>
-                              <select id="box1Storage">
-                              </select>
-                           </td>
-                           <td>
-                              <button id="to2" type="button" class='btn btn-small'> > </button>
-                              <button id="allTo2" type="button" class='btn btn-small'> >> </button>
-                              <button id="allTo1" type="button" class='btn btn-small'> << </button>
-                              <button id="to1" type="button" class='btn btn-small'> < </button>
-                           </td>
-                           <td>
-                              <legend>Repos Currently Assigned  </legend>
-                              <br/>
-                              Filter: <input type="text" id="box2Filter" /><button type="button"  class='btn btn-small' id="box2Clear">X</button><br />
-                              <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
-                              <?php
-                                 $getGroupID = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
-                                 while ($row1 = mysql_fetch_array($getGroupID)) {
-                                     $group_id     = $row1[0];
-                                     $getGroupName = mysql_query("Select name FROM groups WHERE group_id ='" . $group_id . "';");
-                                     $result       = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "' ORDER BY name;");
-                                     while ($row = mysql_fetch_array($getGroupName)) {
-                                         echo "<option id='" . $row['name'] . "' name='box2View[]'  value='" . $row['name'] . "'> " . $row['name'] . "</option>";
-                                     }
-                                 }
-                                 ?>
-                              </select><br/>
-                              <span id="box2Counter" class="countLabel"></span>
-                              <select id="box2Storage">
-                              </select>
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-                  <button type='Submit' name ='RepoSubmit' id ='RepoSubmit' class='btn'>Submit</button>
-               </form>
-            </div>
+<div class="tab-pane active" id="gR">
+   <div class='row-fluid'>
+      <div class='span8'>
+         <div class = "span3 offset1">
+            <form  method="post" action="" >
+               <div>
+                  <?php
+                     echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
+                     echo "<input type='hidden' name='git' value='" . $git . "' /> ";
+                     ?>
+               </div>
+               <div>
+                  <table>
+                     <tr>
+                        <td>
+                           <legend>Repos Currently Not Assigned</legend>
+                           <br/>
+                           Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
+                           <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
+                           <?php
+                              $result = mysql_query("SELECT * FROM groups ORDER BY name;");
+                              while ($row1 = mysql_fetch_array($result)) {
+                                  $groupID = $row1['group_id'];
+                                  $check   = mysql_query("Select * FROM repo_management where groupID ='" . $groupID . "' and repoID ='" . $repo_id . "';");
+                                  if (mysql_fetch_array($check) == 0) {
+                                      echo "<option id='" . $row1['name'] . "' name='box1View[]'  value='" . $row1['name'] . "'> " . $row1['name'] . "</option>";
+                                  }
+                              }
+                              ?>
+                           </select><br/>
+                           <span id="box1Counter" class="countLabel"></span>
+                           <select id="box1Storage">
+                           </select>
+                        </td>
+                        <td>
+                           <button id="to2" type="button" class='btn btn-small'> > </button>
+                           <button id="allTo2" type="button" class='btn btn-small'> >> </button>
+                           <button id="allTo1" type="button" class='btn btn-small'> << </button>
+                           <button id="to1" type="button" class='btn btn-small'> < </button>
+                        </td>
+                        <td>
+                           <legend>Repos Currently Assigned  </legend>
+                           <br/>
+                           Filter: <input type="text" id="box2Filter" /><button type="button"  class='btn btn-small' id="box2Clear">X</button><br />
+                           <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
+                           <?php
+                              $getGroupID = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
+                              while ($row1 = mysql_fetch_array($getGroupID)) {
+                                  $group_id     = $row1[0];
+                                  $getGroupName = mysql_query("Select name FROM groups WHERE group_id ='" . $group_id . "';");
+                                  $result       = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "' ORDER BY name;");
+                                  while ($row = mysql_fetch_array($getGroupName)) {
+                                      echo "<option id='" . $row['name'] . "' name='box2View[]'  value='" . $row['name'] . "'> " . $row['name'] . "</option>";
+                                  }
+                              }
+                              ?>
+                           </select><br/>
+                           <span id="box2Counter" class="countLabel"></span>
+                           <select id="box2Storage">
+                           </select>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+               <button type='Submit' name ='RepoSubmit' id ='RepoSubmit' class='btn'>Submit</button>
+            </form>
          </div>
       </div>
    </div>
-   <div class="tab-pane" id="aR">
-      <div class="span10">
-         <fieldset>
-            <legend> Change Repository Permissions </legend>
-            <?php
-              
-               echo "<table class='table table-bordered table-condensed table-striped'>
-                                                                                                                          <tr>
-                                                                                                                          <th>Group Name</th>
-                                                                                                                          <th>Read</th>
-                                                                                                                          <th>Write</th>
-                                                                                                                          <th>Manage</th>
-                                                                                                                          <th> Update</th>
-                                                                                                                          </tr>";
-               $check = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
-              
-               while ($row = mysql_fetch_array($check)) {
-                   $group_id = $row['groupID'];
-               
-    
-                   $group = mysql_query("Select name from groups where group_id ='" . $group_id . "';");
-                   while ($row3 = mysql_fetch_row($group)) {
-                       $group_name = $row3[0];
-                   }
-                   echo "<form action='' method='POST'>
-                                                                                                                          
-                                                                                                                          <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
-                                                                                                                          <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
-                   echo "<tr>";
-                   echo "<td>" . $group_name . "</td>";
-                   if ($row['perm_read'] == 1) {
-                       echo "<td>	<input type='checkbox' class='form' value='read' checked name='checkbox[]' /> Read</td>";
-                   } else {
-                       echo "<td><input type='checkbox' class='form' value='read' name='checkbox[]' /> Read</td>";
-                   }
-                   if ($row['perm_write'] == 1) {
-                       echo "<td>	<input type='checkbox' class='form' value='write' checked name='checkbox[]' /> Write</td>";
-                   } else {
-                       echo "<td>	<input type='checkbox' class='form' value='write' name='checkbox[]' /> Write </td>";
-                   }
-                   if ($row['perm_manage'] == 1) {
-                       echo "<td>	<input type='checkbox' class='form' value='manage' checked name='checkbox[]' /> Manage</td>";
-                   } else {
-                       echo "<td>	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage</td>";
-                   }
-                   echo "<td><button type='Submit' name ='PermissionSubmit' id = 'PermissionSubmit' class='btn'>Submit</button> </td>";
-                   echo "</tr></form> </div> </div>";
-               }
-               echo " </table></div>";
-               ?>
-         </fieldset>
-      </div>
-   
-
-   <div class="tab-pane" id="aD">
-   <form action='' method ='POST'>
-   <label for='description' >Update Description*:</label>
-      <textarea class ='input-xxlarge' rows='10' name='description' id='description' required /></textarea>
-       <button type='Submit' name ='DescriptionSubmit' id = 'DescriptionSubmit' class='btn'>Submit</button>
-       </form>
 </div>
+<div class="tab-pane" id="aR">
+   <div class="span10">
+      <fieldset>
+         <legend> Change Repository Permissions </legend>
+         <?php
+            echo "<table class='table table-bordered table-condensed table-striped'>
+                                                                                                                                          <tr>
+                                                                                                                                          <th>Group Name</th>
+                                                                                                                                          <th>Read</th>
+                                                                                                                                          <th>Write</th>
+                                                                                                                                          <th>Manage</th>
+                                                                                                                                          <th> Update</th>
+                                                                                                                                          </tr>";
+            $check = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
+            while ($row = mysql_fetch_array($check)) {
+                $group_id = $row['groupID'];
+                $group    = mysql_query("Select name from groups where group_id ='" . $group_id . "';");
+                while ($row3 = mysql_fetch_row($group)) {
+                    $group_name = $row3[0];
+                }
+                echo "<form action='' method='POST'>
+                                                                                                                                          
+                                                                                                                                          <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
+                                                                                                                                          <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
+                echo "<tr>";
+                echo "<td>" . $group_name . "</td>";
+                if ($row['perm_read'] == 1) {
+                    echo "<td>	<input type='checkbox' class='form' value='read' checked name='checkbox[]' /> Read</td>";
+                } else {
+                    echo "<td><input type='checkbox' class='form' value='read' name='checkbox[]' /> Read</td>";
+                }
+                if ($row['perm_write'] == 1) {
+                    echo "<td>	<input type='checkbox' class='form' value='write' checked name='checkbox[]' /> Write</td>";
+                } else {
+                    echo "<td>	<input type='checkbox' class='form' value='write' name='checkbox[]' /> Write </td>";
+                }
+                if ($row['perm_manage'] == 1) {
+                    echo "<td>	<input type='checkbox' class='form' value='manage' checked name='checkbox[]' /> Manage</td>";
+                } else {
+                    echo "<td>	<input type='checkbox' class='form' value='manage' name='checkbox[]' /> Manage</td>";
+                }
+                echo "<td><button type='Submit' name ='PermissionSubmit' id = 'PermissionSubmit' class='btn'>Submit</button> </td>";
+                echo "</tr></form> </div> </div>";
+            }
+            echo " </table></div>";
+            ?>
+      </fieldset>
+   </div>
+   <div class="tab-pane" id="aD">
+      <form action='' method ='POST'>
+         <label for='description' >Update Description*:</label>
+         <?php
+            echo "<textarea class ='input-xxlarge' rows='10' name='description' id='description' required />" . $Desc . "</textarea>";
+            echo " <input type='hidden' name='repoID' id='repoID' value='" . $repo_id . "'/>";
+            echo " <input type='hidden' name='git' id='git' value='" . $git . "'/>";
+            echo " <input type='hidden' name='repoName' id='repoName' value='" . $event . "'/>";
+            ?>
+         </br>
+         <button type='Submit' name ='DescriptionSubmit' id = 'DescriptionSubmit' class='btn'>Submit</button>
+      </form>
+   </div>
 </div>
 <?php
    } else {
-   if (isset($_POST['DescriptionSubmit'])) {
-   		$description    = $_REQUEST['description'];
-       $timeUpdate = "UPDATE repo SET  description ='" . $description. "'
-                                         								  WHERE repoID='" . $repo_id . "';";
-       mysql_query($insert_sql) or die(mysql_error());
-   
-   
-   
-   
-   }
-   
+       if (isset($_POST['DescriptionSubmit'])) {
+           $description = $_REQUEST['description'];
+           $repoID      = $_REQUEST['repoID'];
+           $git         = $_REQUEST['git'];
+           $repoName    = $_REQUEST['repoName'];
+           $repoUpdate  = "UPDATE repo SET  description ='" . $description . "'
+                                               								  WHERE repo_id='" . $repoID . "';";
+           mysql_query($repoUpdate) or die(mysql_error());
+           echo " <form action='show' method='POST' id ='deleteUser'> 
+                                        <input type='hidden' name='step' value='3' /> 
+                                        <input type='hidden' name='git' value='" . $git . "' /> 
+                                         <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+           $_SESSION['RepoAlterSuccess'] = true;
+           echo "<script>confirmation();</script>";
+       }
        if (isset($_POST['GroupSubmit'])) {
            $groupname  = $_POST['groupname'];
            $groupslash = str_replace('/', ' ', $groupname);
@@ -313,7 +317,7 @@
                    if (mysql_fetch_row($check)) {
                        //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                        $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                                         								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                                               								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        //finally adds to group_manage the association between users and groups
@@ -323,19 +327,19 @@
                }
            }
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                         <input type='hidden' name='step' value='1' /> 
-                         <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
+                               <input type='hidden' name='step' value='1' /> 
+                               <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
            $_SESSION['GroupAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
        //sent from the assigning groups to repos page, the dual list  
        if (isset($_POST['RepoSubmit'])) {
            //gets the groupID, removes the slash, replaces it with a space, then removes the space.
-          	$git = $_POST['git'];
+           $git       = $_POST['git'];
            $repoName  = $_POST['repoName'];
            $reposlash = str_replace('/', ' ', $repoName);
            $repoName  = trim($reposlash);
-           $repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='" . $repoName . "' and git ='".$git."';");
+           $repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='" . $repoName . "' and git ='" . $git . "';");
            while ($row = mysql_fetch_row($repocheck)) {
                $repo_id = $row[0];
            }
@@ -358,7 +362,7 @@
                    $check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='" . $group_id . "' and repoID='" . $repo_id . "';");
                    if (mysql_fetch_row($check)) {
                        $timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
-                                     WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                                           WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
@@ -367,10 +371,10 @@
                }
            }
            echo "
-                                 	 <form action='show' method='POST' id ='deleteUser'> 
-                                  <input type='hidden' name='step' value='3' /> 
-                                  <input type='hidden' name='git' value='".$git."' /> 
-                                   <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+                                       	 <form action='show' method='POST' id ='deleteUser'> 
+                                        <input type='hidden' name='step' value='3' /> 
+                                        <input type='hidden' name='git' value='" . $git . "' /> 
+                                         <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -389,9 +393,9 @@
            $insert_query = "UPDATE repo SET git ='" . $git . "', svn ='" . $svn . "' WHERE name ='" . $repo . "';";
            mysql_query($insert_query) or die(mysql_error());
            echo "
-                                 	 <form action='show' method='POST' id ='deleteUser'> 
-                                          <input type='hidden' name='step' value='3' /> 
-                                          <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
+                                       	 <form action='show' method='POST' id ='deleteUser'> 
+                                                <input type='hidden' name='step' value='3' /> 
+                                                <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -435,9 +439,9 @@
                $exists = mysql_query("Select * from repo_management where groupID='" . $group_id . "' and repoID='" . $repo_id . "';");
                if ($row = mysql_fetch_array($exists)) {
                    $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
-                        perm_write ='" . $write . "',
-                        perm_manage ='" . $manage . "'
-                         WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                              perm_write ='" . $write . "',
+                              perm_manage ='" . $manage . "'
+                               WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                    $check = mysql_query($sql) or die(mysql_error());
                } else {
                    echo $repo_id;
@@ -446,8 +450,8 @@
                }
            }
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                         <input type='hidden' name='step' value='3' /> 
-                      <input type='hidden' name= 'name' value ='" . $reponame . "'/> </form>";
+                               <input type='hidden' name='step' value='3' /> 
+                            <input type='hidden' name= 'name' value ='" . $reponame . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
