@@ -88,8 +88,12 @@
                 echo "<td> {$row['name']} </td>";
                 if ($row['git'] == 1) {
                     echo "<td> Git </td>";
+                    echo " <input type='hidden' name= 'git' value ='1'/>";
+                    echo " <input type='hidden' name= 'svn' value ='0'/>";
                 } else {
                     echo "<td> Svn </td>";
+                     echo " <input type='hidden' name= 'git' value ='0'/>";
+                    echo " <input type='hidden' name= 'svn' value ='1'/>";
                 }
                 echo "<td><button class='btn btn-warning btn-small' name = 'edit' id ='edit' value ='edit' type='submit'>Edit</td> ";
                 echo "<td><button class='btn btn-danger btn-small' name = 'delete' id ='delete' value ='delete' type='submit'>Delete</td> ";
@@ -99,8 +103,12 @@
             echo "</table> </div></div>";
             if (isset($_POST['edit'])) {
                 $name = $_REQUEST['name'];
+                $git = $_REQUEST['git'];
+                $svn = $_REQUEST['svn'];
                 echo "<form action='show' method='POST' id ='deleteUser'> 
                                                         <input type='hidden' name='step' value='3' /> 
+                                                         <input type='hidden' name= 'git' value ='".$git."'/>
+                   										 <input type='hidden' name= 'svn' value ='".$svn."'/>
                                                          <input type='hidden' name= 'name' value ='" . $name . "'/> </form>";
                 echo "<script>confirmation();</script>";
             }

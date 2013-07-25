@@ -105,6 +105,7 @@
    }
    if (isset($_POST['step']) && $_POST['step'] == 3) {
        $event = $_POST['name'];
+       $git = $_POST['git'];
        if (isset($_SESSION['RepoAlterSuccess']) && $_SESSION['RepoAlterSuccess'] == TRUE) {
    ?> 
 <div class='span11 offset2'>
@@ -121,8 +122,8 @@
 <div class="row-fluid">
 <div class="span8 offset2">
 <?php
-   echo "<h1>" . $event . "</h1> </div> </div>";
-   $repo = mysql_query("SELECT * FROM repo WHERE name ='" . $event . "';");
+   echo "<h1>" . $event ."</h1> </div> </div>";
+   $repo = mysql_query("SELECT * FROM repo WHERE name ='" . $event . "' AND git ='".$git."';");
    while ($row = mysql_fetch_array($repo)) {
        $repo_id = $row['repo_id'];
        $git     = $row['git'];
@@ -134,7 +135,8 @@
 <ul class="nav nav-tabs">
    <li class="active"><a href="#gR" data-toggle="tab">Assign Repositories</a></li>
    <li><a href="#aR" data-toggle="tab">Adjust Repository Rights</a></li>
-</ul>
+   <li><a href="#aD" data-toggle="tab">Adjust Description</a></li>
+    </ul>
 <div class="tab-content">
    <div class="tab-pane active" id="gR">
       <div class='row-fluid'>
@@ -144,7 +146,9 @@
                   <div>
                      <?php
                         echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
+                        echo "<input type='hidden' name='git' value='".$git."' /> ";
                         ?>
+                        
                   </div>
                   <div>
                      <table>
@@ -258,10 +262,28 @@
          </fieldset>
       </div>
    
-   </div>
+
+   <div class="tab-pane" id="aD">
+   <form action='' method ='POST'>
+   <label for='description' >Update Description*:</label>
+      <textarea class ='input-xxlarge' rows='10' name='description' id='description' required /></textarea>
+       <button type='Submit' name ='DescriptionSubmit' id = 'DescriptionSubmit' class='btn'>Submit</button>
+       </form>
+</div>
 </div>
 <?php
    } else {
+   if (isset($_POST['DescriptionSubmit'])) {
+   		$description    = $_REQUEST['description'];
+       $timeUpdate = "UPDATE repo SET  description ='" . $description. "'
+                                         								  WHERE repoID='" . $repo_id . "';";
+       mysql_query($insert_sql) or die(mysql_error());
+   
+   
+   
+   
+   }
+   
        if (isset($_POST['GroupSubmit'])) {
            $groupname  = $_POST['groupname'];
            $groupslash = str_replace('/', ' ', $groupname);
@@ -309,10 +331,11 @@
        //sent from the assigning groups to repos page, the dual list  
        if (isset($_POST['RepoSubmit'])) {
            //gets the groupID, removes the slash, replaces it with a space, then removes the space.
+          	$git = $_POST['git'];
            $repoName  = $_POST['repoName'];
            $reposlash = str_replace('/', ' ', $repoName);
            $repoName  = trim($reposlash);
-           $repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='" . $repoName . "';");
+           $repocheck = mysql_query("SELECT repo_id FROM repo WHERE name ='" . $repoName . "' and git ='".$git."';");
            while ($row = mysql_fetch_row($repocheck)) {
                $repo_id = $row[0];
            }
@@ -346,6 +369,7 @@
            echo "
                                  	 <form action='show' method='POST' id ='deleteUser'> 
                                   <input type='hidden' name='step' value='3' /> 
+                                  <input type='hidden' name='git' value='".$git."' /> 
                                    <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
