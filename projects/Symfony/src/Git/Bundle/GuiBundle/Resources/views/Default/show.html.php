@@ -150,7 +150,7 @@
                      <table>
                         <tr>
                            <td>
-                              <legend>Repositories Currently Not Assigned</legend>
+                              <legend>Repos Currently Not Assigned</legend>
                               <br/>
                               Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                               <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -176,7 +176,7 @@
                               <button id="to1" type="button" class='btn btn-small'> < </button>
                            </td>
                            <td>
-                              <legend>Repository Currently Assigned  </legend>
+                              <legend>Repos Currently Assigned  </legend>
                               <br/>
                               Filter: <input type="text" id="box2Filter" /><button type="button"  class='btn btn-small' id="box2Clear">X</button><br />
                               <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -210,10 +210,7 @@
          <fieldset>
             <legend> Change Repository Permissions </legend>
             <?php
-               $check = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
-               while ($row = mysql_fetch_row($check)) {
-                   $group_id = $row[0];
-               }
+              
                echo "<table class='table table-bordered table-condensed table-striped'>
                                                                                                                           <tr>
                                                                                                                           <th>Group Name</th>
@@ -222,13 +219,13 @@
                                                                                                                           <th>Manage</th>
                                                                                                                           <th> Update</th>
                                                                                                                           </tr>";
-               $perm = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
-               if (mysql_fetch_array($perm) == 0) {
-                   echo "<h3> You have no groups assigned to this repository </h3>";
-               }
-               while ($row = mysql_fetch_array($perm)) {
-                   //echo $row['groupID'];
-                   $group = mysql_query("Select name from groups where group_id ='" . $row['groupID'] . "';");
+               $check = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
+              
+               while ($row = mysql_fetch_array($check)) {
+                   $group_id = $row['groupID'];
+               
+    
+                   $group = mysql_query("Select name from groups where group_id ='" . $group_id . "';");
                    while ($row3 = mysql_fetch_row($group)) {
                        $group_name = $row3[0];
                    }
