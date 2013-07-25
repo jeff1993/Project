@@ -38,7 +38,7 @@
                if (mysql_fetch_row($check)) {
                    //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                    $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                    								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                       								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                    mysql_query($timeUpdate) or die(mysql_error());
                } else {
                    //finally adds to group_manage the association between users and groups
@@ -124,7 +124,7 @@
            $manager = 1;
        }
        $managerUpdate = "UPDATE user SET  manager ='" . $manager . "'
-                    								  WHERE username='" . $userName . "';";
+                       								  WHERE username='" . $userName . "';";
        mysql_query($managerUpdate) or die(mysql_error());
        $_SESSION['CreateSuccess'] = true;
        header('Location: create');
@@ -159,10 +159,23 @@
        exit();
    }
    if ($_POST['step'] == 7) {
-       $reponame  = $_REQUEST['reponame'];
-       $repoType  = $_POST['repoType'];
+       $reponame = $_REQUEST['reponame'];
+       $repotrim = trim($reponame);
+       if (isset($_POST['repoType'])) {
+           $repoType = $_POST['repoType'];
+       } else {
+           $_SESSION['RepoSuccess'] = false;
+           $_SESSION['OptionAlert'] = true;
+           header("Location: repo");
+           exit();
+       }
        $reposlash = str_replace('/', ' ', $repoType);
        $repoType  = trim($reposlash);
+       if ($repotrim == null) {
+           $_SESSION['RepoAlert'] = true;
+           header("Location: repo");
+           exit();
+       }
        if ($repoType == 'git') {
            $git = 1;
            $svn = 0;
@@ -178,6 +191,7 @@
            mysql_query($insert_sql) or die(mysql_error());
            $_SESSION['RepoSuccess'] = true;
            $_SESSION['RepoAlert']   = false;
+           $_SESSION['OptionAlert'] = false;
            header("Location: repo");
            exit();
        } else {
