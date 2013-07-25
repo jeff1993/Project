@@ -115,7 +115,7 @@
       <div class="tab-pane" id="lC">
          <fieldset>
             <legend> Group Memberships </legend>
-            <p class="lead">
+    
             
              <table class ='table table-striped' >
             <tr>
@@ -130,14 +130,14 @@
                       $groupName = mysql_query("SELECT name from groups where group_id ='" . $groupID . "';");
                       while ($row1 = mysql_fetch_array($groupName)) {
                           $gName = $row1[0];
-                          echo "<td>". $gName."</td>";
+                          echo "<tr><td>". $gName."</td></tr>";
                       }
                   } 
                   if (mysql_fetch_array($groups) == 0) {
                       echo "<h4> You are currently not assigned to any groups </h4>";
                   }
                   ?>
-            </p></table>
+            </table>
          </fieldset>
       </div>
    </div>

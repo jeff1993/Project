@@ -132,9 +132,8 @@
    that you can assign groups to the individual repositories-->
 <div class="tabbable tabs-left">
 <ul class="nav nav-tabs">
-   <li class="active"><a href="#gR" data-toggle="tab">Assign Groups</a></li>
-   <li><a href="#aR" data-toggle="tab">Adjust Groups Rights</a></li>
-   <li><a href="#aT" data-toggle="tab">Adjust Group Type</a></li>
+   <li class="active"><a href="#gR" data-toggle="tab">Assign Repositories</a></li>
+   <li><a href="#aR" data-toggle="tab">Adjust Repository Rights</a></li>
 </ul>
 <div class="tab-content">
    <div class="tab-pane active" id="gR">
@@ -151,9 +150,7 @@
                      <table>
                         <tr>
                            <td>
-                              <legend>Groups Not Assigned to <?php
-                                 echo $event;
-                                 ?></legend>
+                              <legend>Repositories Currently Not Assigned</legend>
                               <br/>
                               Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small' id="box1Clear">X</button><br />
                               <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -179,7 +176,7 @@
                               <button id="to1" type="button" class='btn btn-small'> < </button>
                            </td>
                            <td>
-                              <legend>Groups Currently Assigned  </legend>
+                              <legend>Repository Currently Assigned  </legend>
                               <br/>
                               Filter: <input type="text" id="box2Filter" /><button type="button"  class='btn btn-small' id="box2Clear">X</button><br />
                               <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
@@ -211,7 +208,7 @@
    <div class="tab-pane" id="aR">
       <div class="span10">
          <fieldset>
-            <legend> Change Group Permissions </legend>
+            <legend> Change Repository Permissions </legend>
             <?php
                $check = mysql_query("Select groupID from repo_management WHERE repoID ='" . $repo_id . "';");
                while ($row = mysql_fetch_row($check)) {
@@ -263,43 +260,7 @@
                ?>
          </fieldset>
       </div>
-      <div class ="tab-pane" id ="aT">
-         <div class ="span6">
-            <div class ="well">
-               <h5>
-               Your Current Repository Type 
-               <h5>
-               <?php
-                  if ($git == 1) {
-                      echo "Git";
-                  } else {
-                      echo "Svn";
-                  }
-                  ?>
-               <br/>
-               <form method = "post" action= "">
-                  <input type='hidden' name='step' id='step' value='7'/>
-                  <?php
-                     echo "<input type='hidden' name='repoName' id='repoName' value=' " . $event . " '/>";
-                     ?>
-                  <br/>
-                  <?php
-                     //changes the default checked radio button depending on the type of repo it already is            
-                     if ($git == 1) {
-                         echo "<input type='radio' name='repoType' value='git' checked>Git  
-                                                                                                                                                                                                                                                                <input type='radio' name='repoType' value='svn'>Svn";
-                     } else {
-                         echo "<input type='radio' name='repoType' value='git'>Git  
-                                                                                                                                                                                                                                                                <input type='radio' name='repoType' value='svn' checked>Svn";
-                     }
-                     ?>
-                  <br/>
-                  <br/>
-                  <button type='Submit' name ='ChangeRepoSubmit' id = 'ChangeRepoSubmit' class='btn btn-small'>Submit</button>
-               </form>
-            </div>
-         </div>
-      </div>
+   
    </div>
 </div>
 <?php

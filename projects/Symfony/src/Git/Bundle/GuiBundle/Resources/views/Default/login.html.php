@@ -2,7 +2,7 @@
    session_start();
    $view->extend('GitGuiBundle:Default:base.html.php');
    if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == TRUE) {
-       header("Location:create");
+       header("Location:index");
        exit();
    } else {
        $view['slots']->start('title');
