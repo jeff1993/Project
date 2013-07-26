@@ -19,90 +19,120 @@
 <?php
    }
    ?>
-<div class="row-fluid">
-<div class='span8 offset2'>
-   <?php
-      $event = $_POST['name'];
-      echo "<h1>" . $event . "</h1>";
-      $getGroupID = mysql_query("SELECT group_id FROM groups where name ='" . $event . "';");
-      while ($row1 = mysql_fetch_array($getGroupID)) {
-          $groupID = $row1['group_id'];
-      }
-      ?>
-   <!--From here till the end bracket is where you where we create the dual list view
-      that you can assign users to the individual groups-->
-   <form  action="" method="POST" >
-      <div>
-         <?php
-            echo "<input type='hidden' name='groupname' id='groupname' value=' " . $event . " '/>";
-            ?>
+<?php
+   $event = $_POST['name'];
+   echo "<h1>" . $event . "</h1>";
+   $getGroupID = mysql_query("SELECT group_id FROM groups where name ='" . $event . "';");
+   while ($row1 = mysql_fetch_array($getGroupID)) {
+       $groupID = $row1['group_id'];
+   }
+   ?>
+<div class="tabbable tabs-left">
+   <ul class="nav nav-tabs">
+      <li class="active"><a href="#gR" data-toggle="tab">Assign Users</a></li>
+      <li><a href="#aR" data-toggle="tab">Adjust Paths</a></li>
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="gR">
+         <!--From here till the end bracket is where you where we create the dual list view
+            that you can assign users to the individual groups-->
+         <div class="row-fluid">
+            <div class='span8'>
+               <form  action="" method="POST" >
+                  <div>
+                     <?php
+                        echo "<input type='hidden' name='groupname' id='groupname' value=' " . $event . " '/>";
+                        ?>
+                  </div>
+                  <div>
+                     <table>
+                        <tr>
+                           <td>
+                              <legend>Users Not In <?php
+                                 echo $event;
+                                 ?> </legend>
+                              <br/>
+                              Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small'id="box1Clear">X</button><br />
+                              <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
+                              <?php
+                                 $result = mysql_query("SELECT * FROM user ORDER BY username;");
+                                 while ($row1 = mysql_fetch_array($result)) {
+                                     $userID = $row1['user_id'];
+                                     $check  = mysql_query("Select * FROM group_management where groupID ='" . $groupID . "' and userID ='" . $userID . "';");
+                                     if (mysql_fetch_array($check) == 0) {
+                                         echo "<option id='" . $row1['username'] . "' name='box1View[]'  value='" . $row1['username'] . "'> " . $row1['username'] . "</option>";
+                                     }
+                                 }
+                                 ?>
+                              </select><br/>
+                              <span id="box1Counter" class="countLabel"></span>
+                              <select id="box1Storage">
+                              </select>
+                           </td>
+                           <td>
+                              <button id="to2" type="button" class='btn btn-small'> > </button>
+                              <button id="allTo2" type="button" class='btn btn-small'> >> </button>
+                              <button id="allTo1" type="button" class='btn btn-small'> << </button>
+                              <button id="to1" type="button" class='btn btn-small'> < </button>
+                           </td>
+                           <td>
+                              <legend>Users Currently in <?php
+                                 echo $event;
+                                 ?> </legend>
+                              <br/>
+                              Filter: <input type="text" id="box2Filter" /><button type="button" class='btn btn-small' id="box2Clear">X</button><br />
+                              <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
+                              <?php
+                                 $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
+                                 while ($row1 = mysql_fetch_row($num2)) {
+                                     $group_id = $row1[0];
+                                 }
+                                 $perm   = mysql_query("Select * from groups WHERE name ='" . $event . "';");
+                                 $result = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "';");
+                                 while ($row1 = mysql_fetch_row($result)) {
+                                     $name     = $row1[0];
+                                     $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "' ORDER BY username;");
+                                     while ($row = mysql_fetch_array($username)) {
+                                         echo "<option id='" . $row['username'] . "' name='box2View[]'  value='" . $row['username'] . "'> " . $row['username'] . "</option>";
+                                     }
+                                 }
+                                 ?>
+                              </select><br/>
+                              <span id="box2Counter" class="countLabel"></span>
+                              <select id="box2Storage">
+                              </select>
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
+                  <button type='Submit' name ='GroupSubmit' id ='GroupSubmit' value = 'GroupSubmit' class='btn'>Submit</button>
+               </form>
+            </div>
+         </div>
       </div>
-      <div>
-         <table>
-            <tr>
-               <td>
-                  <legend>Users Not In <?php
-                     echo $event;
-                     ?> </legend>
-                  <br/>
-                  Filter: <input type="text" id="box1Filter" /><button type="button" class='btn btn-small'id="box1Clear">X</button><br />
-                  <select id="box1View" name="box1View[]" multiple="multiple" style="height:500px;width:300px;">
-                  <?php
-                     $result = mysql_query("SELECT * FROM user ORDER BY username;");
-                     while ($row1 = mysql_fetch_array($result)) {
-                         $userID = $row1['user_id'];
-                         $check  = mysql_query("Select * FROM group_management where groupID ='" . $groupID . "' and userID ='" . $userID . "';");
-                         if (mysql_fetch_array($check) == 0) {
-                             echo "<option id='" . $row1['username'] . "' name='box1View[]'  value='" . $row1['username'] . "'> " . $row1['username'] . "</option>";
-                         }
-                     }
-                     ?>
-                  </select><br/>
-                  <span id="box1Counter" class="countLabel"></span>
-                  <select id="box1Storage">
-                  </select>
-               </td>
-               <td>
-                  <button id="to2" type="button" class='btn btn-small'> > </button>
-                  <button id="allTo2" type="button" class='btn btn-small'> >> </button>
-                  <button id="allTo1" type="button" class='btn btn-small'> << </button>
-                  <button id="to1" type="button" class='btn btn-small'> < </button>
-               </td>
-               <td>
-                  <legend>Users Currently in <?php
-                     echo $event;
-                     ?> </legend>
-                  <br/>
-                  Filter: <input type="text" id="box2Filter" /><button type="button" class='btn btn-small' id="box2Clear">X</button><br />
-                  <select id="box2View" name="box2View[]" multiple="multiple" style="height:500px;width:300px;">
-                  <?php
-                     $num2 = mysql_query("Select group_id from groups WHERE name ='" . $event . "';");
-                     while ($row1 = mysql_fetch_row($num2)) {
-                         $group_id = $row1[0];
-                     }
-                     $perm   = mysql_query("Select * from groups WHERE name ='" . $event . "';");
-                     $result = mysql_query("SELECT userID FROM group_management WHERE groupID = '" . $group_id . "';");
-                     while ($row1 = mysql_fetch_row($result)) {
-                         $name     = $row1[0];
-                         $username = mysql_query("SELECT * FROM user WHERE user_id = '" . $name . "' ORDER BY username;");
-                         while ($row = mysql_fetch_array($username)) {
-                             echo "<option id='" . $row['username'] . "' name='box2View[]'  value='" . $row['username'] . "'> " . $row['username'] . "</option>";
-                         }
-                     }
-                     ?>
-                  </select><br/>
-                  <span id="box2Counter" class="countLabel"></span>
-                  <select id="box2Storage">
-                  </select>
-               </td>
-            </tr>
-         </table>
+      <div class="tab-pane" id="aR">
+         <form action="add" method="POST">
+            <fieldset >
+               <legend>Create New <a href="#" rel="tooltip" title="If the path is '/sam/' the user will have access to
+                  every path that icludes 'sam' and its variations">Path</a></legend>
+               <input type='hidden' name='step' value='2' />
+               <label for='username' >Path*:</label>
+               <input type='text' name='path' id='path' required  maxlength="50" />
+               <br/>
+               <input type="radio" name="userType" value="user" checked>User
+               <input type="radio" name="userType" value="manager">Manager
+               </br>
+               <br/> 
+               <button type="PathSubmit" name ="PathSubmit" class="btn">Submit</button>
+            </fieldset>
+         </form>
       </div>
-      <button type='Submit' name ='GroupSubmit' id ='GroupSubmit' value = 'GroupSubmit' class='btn'>Submit</button>
-   </form>
+   </div>
 </div>
 <?php
    }
+   
+   
    if (isset($_POST['step']) && $_POST['step'] == 3) {
        $event = $_POST['name'];
        $git   = $_POST['git'];
