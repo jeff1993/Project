@@ -168,6 +168,7 @@
    <li class="active"><a href="#gR" data-toggle="tab">Assign Repositories</a></li>
    <li><a href="#aR" data-toggle="tab">Adjust Repository Rights</a></li>
    <li><a href="#aD" data-toggle="tab">Adjust Description</a></li>
+   <li><a href="#aP" data-toggle="tab">Adjust Path</a></li>
 </ul>
 <div class="tab-content">
 <div class="tab-pane active" id="gR">
@@ -246,13 +247,13 @@
          <legend> Change Repository Permissions </legend>
          <?php
             echo "<table class='table table-bordered table-condensed table-striped'>
-                                                                                                                                                  <tr>
-                                                                                                                                                  <th>Group Name</th>
-                                                                                                                                                  <th>Read</th>
-                                                                                                                                                  <th>Write</th>
-                                                                                                                                                  <th>Manage</th>
-                                                                                                                                                  <th> Update</th>
-                                                                                                                                                  </tr>";
+                                                                                                                                                                  <tr>
+                                                                                                                                                                  <th>Group Name</th>
+                                                                                                                                                                  <th>Read</th>
+                                                                                                                                                                  <th>Write</th>
+                                                                                                                                                                  <th>Manage</th>
+                                                                                                                                                                  <th> Update</th>
+                                                                                                                                                                  </tr>";
             $check = mysql_query("Select * from repo_management WHERE repoID ='" . $repo_id . "';");
             while ($row = mysql_fetch_array($check)) {
                 $group_id = $row['groupID'];
@@ -261,9 +262,9 @@
                     $group_name = $row3[0];
                 }
                 echo "<form action='' method='POST'>
-                                                                                                                                                  
-                                                                                                                                                  <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
-                                                                                                                                                  <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
+                                                                                                                                                                  
+                                                                                                                                                                  <input type='hidden' name='submitted' id='submitted' value=" . $event . "/>
+                                                                                                                                                                  <input type= 'hidden' name ='groupName' id =groupName' value=" . $group_name . "/>";
                 echo "<tr>";
                 echo "<td>" . $group_name . "</td>";
                 if ($row['perm_read'] == 1) {
@@ -301,9 +302,45 @@
          <button type='Submit' name ='DescriptionSubmit' id = 'DescriptionSubmit' class='btn'>Submit</button>
       </form>
    </div>
+   <div class="tab-pane" id="aP">
+      <legend> Current Path </legend>
+      <?php
+         $pathQuery = "SELECT path FROM repo WHERE repo_id = '" . $repo_id . "';";
+         $query = mysql_query($pathQuery) or die(mysql_error());
+         while ($row = mysql_fetch_row($query)) {
+             $path = $row[0];
+         }
+         echo "<h3>" . $path . "</h3>";
+         ?>
+      <form action='' method ='POST'>
+         <legend>Update Path</legend>
+         <?php
+            echo "<textarea class ='input-xxlarge' rows='2' name='path' id='path' required ></textarea>";
+            echo " <input type='hidden' name='repoID' id='repoID' value='" . $repo_id . "'/>";
+            echo " <input type='hidden' name='git' id='git' value='" . $git . "'/>";
+            echo " <input type='hidden' name='repoName' id='repoName' value='" . $event . "'/>";
+            ?>
+         </br>
+         <button type='Submit' name ='RepoPath' id = 'RepoPath' class='btn'>Submit</button>
+      </form>
+   </div>
 </div>
 <?php
    } else {
+       if (isset($_POST['RepoPath'])) {
+           $repoID     = $_REQUEST['repoID'];
+           $path       = $_REQUEST['path'];
+           $git        = $_REQUEST['git'];
+           $repoName   = $_REQUEST['repoName'];
+           $repoUpdate = "UPDATE repo SET  path ='" . $path . "' WHERE repo_id='" . $repoID . "';";
+           mysql_query($repoUpdate) or die(mysql_error());
+           echo " <form action='show' method='POST' id ='deleteUser'> 
+                                                 <input type='hidden' name='step' value='3' /> 
+                                                 <input type='hidden' name='git' value='" . $git . "' /> 
+                                                  <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+           $_SESSION['RepoAlterSuccess'] = true;
+           echo "<script>confirmation();</script>";
+       }
        if (isset($_POST['PathSubmit'])) {
            $groupID    = $_REQUEST['groupID'];
            $path       = $_REQUEST['path'];
@@ -320,19 +357,11 @@
                    $addGroup = 1;
                }
            }
-           
-           
-            $insert_sql = "INSERT INTO repo_path (groupID, repo_path, create_repo, add_group) " . "VALUES ('{$groupID}', '{$path}' ,'{$path}', '{$path}');";
-                   mysql_query($insert_sql) or die(mysql_error());
-           
-           
-           
-           
-           
-           
+           $insert_sql = "INSERT INTO repo_path (groupID, repo_path, create_repo, add_group) " . "VALUES ('{$groupID}', '{$path}' ,'{$path}', '{$path}');";
+           mysql_query($insert_sql) or die(mysql_error());
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                                  <input type='hidden' name='step' value='1' /> 
-                                  <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
+                                        <input type='hidden' name='step' value='1' /> 
+                                        <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
            $_SESSION['GroupAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -342,12 +371,12 @@
            $git         = $_REQUEST['git'];
            $repoName    = $_REQUEST['repoName'];
            $repoUpdate  = "UPDATE repo SET  description ='" . $description . "'
-                                                  								  WHERE repo_id='" . $repoID . "';";
+                                                        								  WHERE repo_id='" . $repoID . "';";
            mysql_query($repoUpdate) or die(mysql_error());
            echo " <form action='show' method='POST' id ='deleteUser'> 
-                                           <input type='hidden' name='step' value='3' /> 
-                                           <input type='hidden' name='git' value='" . $git . "' /> 
-                                            <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+                                                 <input type='hidden' name='step' value='3' /> 
+                                                 <input type='hidden' name='git' value='" . $git . "' /> 
+                                                  <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -380,7 +409,7 @@
                    if (mysql_fetch_row($check)) {
                        //if there are 2 of the same users it will just update the time compenent (which is useless but solves the bug)
                        $timeUpdate = "UPDATE group_management SET  time ='" . time() . "'
-                                                  								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
+                                                        								  WHERE groupID='" . $group_id . "' AND userID ='" . $user_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        //finally adds to group_manage the association between users and groups
@@ -390,8 +419,8 @@
                }
            }
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                                  <input type='hidden' name='step' value='1' /> 
-                                  <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
+                                        <input type='hidden' name='step' value='1' /> 
+                                        <input type='hidden' name= 'name' value ='" . $groupname . "'/> </form>";
            $_SESSION['GroupAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -425,7 +454,7 @@
                    $check = mysql_query("SELECT  * FROM repo_management WHERE groupID ='" . $group_id . "' and repoID='" . $repo_id . "';");
                    if (mysql_fetch_row($check)) {
                        $timeUpdate = "UPDATE repo_management SET  time ='" . time() . "'
-                                              WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                                                    WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                        mysql_query($timeUpdate) or die(mysql_error());
                    } else {
                        $insert_sql = "INSERT INTO repo_management (groupID, repoID) " . "VALUES ('{$group_id}', '{$repo_id}');";
@@ -434,10 +463,10 @@
                }
            }
            echo "
-                                          	 <form action='show' method='POST' id ='deleteUser'> 
-                                           <input type='hidden' name='step' value='3' /> 
-                                           <input type='hidden' name='git' value='" . $git . "' /> 
-                                            <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
+                                                	 <form action='show' method='POST' id ='deleteUser'> 
+                                                 <input type='hidden' name='step' value='3' /> 
+                                                 <input type='hidden' name='git' value='" . $git . "' /> 
+                                                  <input type='hidden' name= 'name' value ='" . $repoName . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -456,9 +485,9 @@
            $insert_query = "UPDATE repo SET git ='" . $git . "', svn ='" . $svn . "' WHERE name ='" . $repo . "';";
            mysql_query($insert_query) or die(mysql_error());
            echo "
-                                          	 <form action='show' method='POST' id ='deleteUser'> 
-                                                   <input type='hidden' name='step' value='3' /> 
-                                                   <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
+                                                	 <form action='show' method='POST' id ='deleteUser'> 
+                                                         <input type='hidden' name='step' value='3' /> 
+                                                         <input type='hidden' name= 'name' value ='" . $repo . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
@@ -502,9 +531,9 @@
                $exists = mysql_query("Select * from repo_management where groupID='" . $group_id . "' and repoID='" . $repo_id . "';");
                if ($row = mysql_fetch_array($exists)) {
                    $sql = "UPDATE repo_management SET  perm_read ='" . $read . "',
-                                 perm_write ='" . $write . "',
-                                 perm_manage ='" . $manage . "'
-                                  WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
+                                       perm_write ='" . $write . "',
+                                       perm_manage ='" . $manage . "'
+                                        WHERE groupID='" . $group_id . "' AND repoID ='" . $repo_id . "';";
                    $check = mysql_query($sql) or die(mysql_error());
                } else {
                    echo $repo_id;
@@ -513,8 +542,8 @@
                }
            }
            echo "<form action='show' method='POST' id ='deleteUser'> 
-                                  <input type='hidden' name='step' value='3' /> 
-                               <input type='hidden' name= 'name' value ='" . $reponame . "'/> </form>";
+                                        <input type='hidden' name='step' value='3' /> 
+                                     <input type='hidden' name= 'name' value ='" . $reponame . "'/> </form>";
            $_SESSION['RepoAlterSuccess'] = true;
            echo "<script>confirmation();</script>";
        }
