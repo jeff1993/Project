@@ -74,12 +74,7 @@ document.getElementById("f1").style.display="none";
 
 </script>
 
-<script>
-  $("a").tooltip({
-                  'selector': '',
-                  'placement': 'right'
-                });
-                </script>
+
 
 <?php $view['slots']->stop();
 ?>

@@ -11,9 +11,10 @@
       <meta charset="UTF-8">
       <title>Source Code Repository Management</title>
       <!-- Bootstrap -->
-      <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-      <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-   </head>
+      <link href="<?php
+         echo $view['assets']->getUrl('bootstrap/css/bootstrap.css');
+         ?>" rel="stylesheet" >
+     </head>
    <body>
       <!-- Navbar
          ================================================== -->
@@ -157,6 +158,12 @@
       <?php
          $view['slots']->output('title', 'Hello Application');
          ?>
+      <script>
+         $("a").tooltip({
+                         'selector': '',
+                         'placement': 'right'
+                       });           
+      </script>
       <script>
          function Search() {
          var value = $('input[id$="txtSearch"]').val();
